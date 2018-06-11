@@ -21,7 +21,7 @@
         app:layout_constraintVertical_bias="0.39">
 
         <ImageView
-            android:id="@+id/imageView"
+            android:id="@+id/act2_image"
             android:layout_width="100dp"
             android:layout_height="80dp"
             android:layout_marginBottom="8dp"
@@ -57,7 +57,7 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/imageView"
+            app:layout_constraintEnd_toStartOf="@+id/act2_image"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imageView2"
             app:srcCompat="@color/colorAccent" />
@@ -70,7 +70,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/imageView"
+            app:layout_constraintBottom_toTopOf="@+id/act2_image"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView2"
             app:layout_constraintTop_toTopOf="parent"

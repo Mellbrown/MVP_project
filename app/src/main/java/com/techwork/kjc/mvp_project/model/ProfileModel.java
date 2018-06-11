@@ -49,18 +49,7 @@ public class ProfileModel {
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         String email = FirebaseAuth.getInstance().getCurrentUser().getEmail();
         UserInfoBean userInfoBean = new UserInfoBean();
-        userInfoBean.
-        FirebaseDatabase.getInstance().getReference(userinfoPATH+"/"+uid).runTransaction(new Transaction.Handler() {
-            @Override
-            public Transaction.Result doTransaction(MutableData mutableData) {
-                return null;
-            }
 
-            @Override
-            public void onComplete(DatabaseError databaseError, boolean b, DataSnapshot dataSnapshot) {
-
-            }
-        });
     }
     interface UpdateProfileListener{void updateComplete(); void updateFail(); }
 }
