@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.techwork.kjc.mvp_project.activity.SplashActivity">
+    tools:context="com.techwork.kjc.mvp_project.activity.ACT1_Splash">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/constraintLayout"

@@ -40,14 +40,14 @@ public class ExampleActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_example);
+        //setContentView(R.layout.activity_example);
 
         //UI 로드
-        linkVersus = findViewById(R.id.linkVersus);
-        linkRecord = findViewById(R.id.linkRecord);
-        linkPractice = findViewById(R.id.linkPractice);
-        linkMeasure = findViewById(R.id.linkMeasure);
-        txtTest = findViewById(R.id.txtTest);
+//        linkVersus = findViewById(R.id.linkVersus);
+//        linkRecord = findViewById(R.id.linkRecord);
+//        linkPractice = findViewById(R.id.linkPractice);
+//        linkMeasure = findViewById(R.id.linkMeasure);
+//        txtTest = findViewById(R.id.txtTest);
 
         linkVersus.setOnClickListener(this);
         linkRecord.setOnClickListener(this);
@@ -72,10 +72,10 @@ public class ExampleActivity extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()){
             //액티비티 끝내면서 내용 전달하기
-            case R.id.linkVersus : setResult(RES_LINK_VERSUS); finish(); break;
-            case R.id.linkRecord : setResult(RES_LINK_RECORD); finish(); break;
-            case R.id.linkPractice : setResult(RES_LINK_PRACTICE); finish(); break;
-            case R.id.linkMeasure : setResult(RES_LINK_MEASURE); finish(); break;
+//            case R.id.linkVersus : setResult(RES_LINK_VERSUS); finish(); break;
+//            case R.id.linkRecord : setResult(RES_LINK_RECORD); finish(); break;
+//            case R.id.linkPractice : setResult(RES_LINK_PRACTICE); finish(); break;
+//            case R.id.linkMeasure : setResult(RES_LINK_MEASURE); finish(); break;
         }
     }
 
