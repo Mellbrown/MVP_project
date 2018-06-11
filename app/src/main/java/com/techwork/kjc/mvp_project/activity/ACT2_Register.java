@@ -26,6 +26,7 @@ public class ACT2_Register extends AppCompatActivity {
     public static final String REQUEST_LISTNER = "request_listener";
     private static final int GALLERY_CODE = 10;
     public static final int REQ_CODE = 11111;
+
     private String imagePath;
     private EditText act2_id;
     private EditText act2_pw;
@@ -39,6 +40,7 @@ public class ACT2_Register extends AppCompatActivity {
     private EditText act2_weight;
     private ImageView act2_image;
     private Button act2_Rbtn;
+
     RequestListener requestListener;
 
     @Override
