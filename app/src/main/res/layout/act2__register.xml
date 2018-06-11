@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ACT2_Register"
+    android:orientation="vertical"
+    android:weightSum="1"
+    android:background="@color/cardview_light_background"
+    >
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:orientation="vertical"
+      android:layout_height="0dp"
+      android:layout_weight="0.1">
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
+        android:weightSum="1">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:weightSum="1"
+                android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:layout_weight="0.5">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:gravity="center_horizontal"
+                            >
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:textColor="#000000"
+                                android:text="아이디"
+                                android:gravity="center"
+                                />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:gravity="center_horizontal"
+                            >
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:textColor="#000000"
+                                android:gravity="center"
+                                android:text="비밀번호" />
+                        </LinearLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:gravity="center_horizontal"
+                            >
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:textColor="#000000"
+                                android:gravity="center"
+                                android:text="이름" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:gravity="center_horizontal"
+                            >
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:textColor="#000000"
+                                android:gravity="center"
+                                android:text="성별" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:gravity="center_horizontal"
+                            >
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:textColor="#000000"
+                                android:gravity="center"
+                                android:text="학교" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:gravity="center_horizontal"
+                            >
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:textColor="#000000"
+                                android:gravity="center"
+                                android:text="학년" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:gravity="center_horizontal"
+                            >
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:textColor="#000000"
+                                android:gravity="center"
+                                android:text="반" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:gravity="center_horizontal"
+                            >
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:textColor="#000000"
+                                android:gravity="center"
+                                android:text="번호" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:gravity="center_horizontal"
+                            >
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:textColor="#000000"
+                                android:gravity="center"
+                                android:text="키" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:gravity="center_horizontal"
+                            >
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="45dp"
+                                android:textColor="#000000"
+                                android:gravity="center"
+                                android:text="몸무게" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:layout_weight="0.5">
+
+                        <EditText
+                            android:id="@+id/act2_id"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:ems="10"
+                            android:inputType="textPersonName"
+                            android:text="ID"
+                            android:textColor="@android:color/black" />
+
+                        <EditText
+                            android:id="@+id/act2_pw"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:ems="10"
+                            android:inputType="textPersonName"
+                            android:text="PW"
+                            android:textColor="@android:color/black" />
+
+                        <EditText
+                            android:id="@+id/act2_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:ems="10"
+                            android:inputType="textPersonName"
+                            android:textColor="@android:color/black" />
+
+                        <EditText
+                            android:id="@+id/act2_sex"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:ems="10"
+                            android:inputType="textPersonName"
+                            android:text="Name"
+                            android:textColor="@android:color/black" />
+
+                        <EditText
+                            android:id="@+id/act2_school"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:ems="10"
+                            android:inputType="textPersonName"
+                            android:text="Name"
+                            android:textColor="@android:color/black" />
+
+                        <EditText
+                            android:id="@+id/act2_grade"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:ems="10"
+                            android:inputType="textPersonName"
+                            android:text="Name"
+                            android:textColor="@android:color/black" />
+
+                        <EditText
+                            android:id="@+id/act2_cls"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:ems="10"
+                            android:inputType="textPersonName"
+                            android:text="Name"
+                            android:textColor="@android:color/black" />
+
+                        <EditText
+                            android:id="@+id/act2_num"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:ems="10"
+                            android:inputType="textPersonName"
+                            android:text="Name"
+                            android:textColor="@android:color/black" />
+
+                        <EditText
+                            android:id="@+id/act2_tall"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:ems="10"
+                            android:inputType="textPersonName"
+                            android:text="Name"
+                            android:textColor="@android:color/black" />
+
+                        <EditText
+                            android:id="@+id/act2_weight"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:ems="10"
+                            android:inputType="textPersonName"
+                            android:text="Name"
+                            android:textColor="@android:color/black" />
+                    </LinearLayout>
+            </LinearLayout>
+
+             <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.5"
+                android:orientation="vertical">
+
+                 <ImageView
+                     android:id="@+id/act2_image"
+                     android:layout_width="match_parent"
+                     android:layout_height="227dp"
+                     app:srcCompat="@color/colorAccent" />
+             </LinearLayout>
+
+              </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1">
+        <Button
+            android:id="@+id/act2_Rbtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="완  료" />
+    </LinearLayout>
+
+</LinearLayout>
