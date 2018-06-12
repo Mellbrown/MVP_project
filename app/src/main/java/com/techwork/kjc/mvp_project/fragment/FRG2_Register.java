@@ -22,7 +22,7 @@ import java.io.File;
  */
 
 public class FRG2_Register extends Fragment{
-
+    private View viewLayout;
     private EditText act2_id;
     private EditText act2_pw;
     private EditText act2_name;
@@ -41,6 +41,7 @@ public class FRG2_Register extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+
         View viewLayout = inflater.inflate(R.layout.act2__register, container,false);
 
         act2_id = viewLayout.findViewById(R.id.act2_id);

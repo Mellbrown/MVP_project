@@ -109,6 +109,7 @@ public class ACT2_Register extends AppCompatActivity {
         void getimagePath(String imagePath);
 
     }
+    // 이미지 경로
     public String getPath(Uri uri){
         String [] proj = {MediaStore.Images.Media.DATA};
         CursorLoader cursorLoader = new CursorLoader(this,uri,proj,null,null,null);
@@ -118,7 +119,7 @@ public class ACT2_Register extends AppCompatActivity {
         return cursor.getString(index);
     }
 
-
+    // 갤러리앱 접근 및 주소
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if(requestCode == GALLERY_CODE){
 

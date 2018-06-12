@@ -8,7 +8,6 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity android:name=".controller.TestController">
             <intent-filter>
@@ -17,14 +16,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-
-        <activity android:name=".activity.ACT1_Splash"></activity>
-        <activity android:name=".activity.ACT2_Register"></activity>
-        <activity android:name=".activity.ACT3_Login"></activity>
-        <activity android:name=".activity.ACT5_Measure"></activity>
-
-        <activity android:name=".util.PhotoProcess"></activity>
+        <activity android:name=".activity.ACT1_Splash" />
+        <activity android:name=".activity.ACT2_Register" />
+        <activity android:name=".activity.ACT3_Login" />
+        <activity android:name=".activity.ACT5_Measure" />
+        <activity android:name=".util.PhotoProcess" />
+        <activity android:name=".activity.ACT7_Focus"></activity>
     </application>
 
 </manifest>
