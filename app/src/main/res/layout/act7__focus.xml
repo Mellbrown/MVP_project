@@ -45,8 +45,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:text="집중"
-                android:textSize="40sp"
-                android:textAlignment="center"/>
+                android:textAlignment="center"
+                android:textColor="black"
+                android:textSize="40sp" />
 
         </LinearLayout>
 
@@ -67,6 +68,7 @@
                 android:layout_height="match_parent"
                 android:text="팔"
                 android:textAlignment="center"
+                android:textColor="black"
                 android:textSize="30dp" />
 
         </LinearLayout>
@@ -81,6 +83,7 @@
                 android:layout_height="match_parent"
                 android:text="다리"
                 android:textAlignment="center"
+                android:textColor="black"
                 android:textSize="30dp" />
 
         </LinearLayout>
@@ -95,6 +98,7 @@
                 android:layout_height="match_parent"
                 android:text="등(배)"
                 android:textAlignment="center"
+                android:textColor="black"
                 android:textSize="30dp" />
         </LinearLayout>
         <LinearLayout
@@ -108,6 +112,7 @@
                 android:layout_height="match_parent"
                 android:text="전신"
                 android:textAlignment="center"
+                android:textColor="black"
                 android:textSize="30dp" />
         </LinearLayout>
     </LinearLayout>

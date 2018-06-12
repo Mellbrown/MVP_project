@@ -54,7 +54,7 @@ public class FRG7_Focus extends Fragment {
         // 팔, 다리 등 클릭시 페이지변경 및 데이터변경
         void requestPageChange();
     }
-    public void requestPageChange(){
+    public void responsePageChange(){
 
     }
 
