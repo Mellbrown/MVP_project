@@ -23,6 +23,8 @@
         <activity android:name=".activity.ACT2_Register"></activity>
         <activity android:name=".activity.ACT3_Login"></activity>
         <activity android:name=".activity.ACT5_Measure"></activity>
+
+        <activity android:name=".util.PhotoProcess"></activity>
     </application>
 
 </manifest>

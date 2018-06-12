@@ -15,18 +15,23 @@ import com.techwork.kjc.mvp_project.adapter.BaseRecyclerAdapter;
 import com.techwork.kjc.mvp_project.bean.MeasureItemBean;
 import com.techwork.kjc.mvp_project.viewholder.MeasureItemViewHolder;
 
+import java.util.ArrayList;
+
 /**
  * Created by mlyg2 on 2018-06-11.
  */
 
-public class FRG5_Measure extends Fragment{
+public class FRG5_Measure extends Fragment implements View.OnClickListener {
 
     private FloatingActionButton btnAdd;
     private FloatingActionButton btnRemove;
+    private FloatingActionButton btnReload;
 
     private RecyclerView recyclerView;
     private LinearLayoutManager recLayoutMgr;
     private BaseRecyclerAdapter<MeasureItemBean, MeasureItemViewHolder> recAdapter;
+
+    public Requester requester;
 
     @Nullable
     @Override
@@ -35,7 +40,12 @@ public class FRG5_Measure extends Fragment{
 
         btnAdd = viewLayout.findViewById(R.id.btnAdd);
         btnRemove = viewLayout.findViewById(R.id.btnRemove);
+        btnReload = viewLayout.findViewById(R.id.btnReload);
         recyclerView = viewLayout.findViewById(R.id.recyclerView);
+
+        btnAdd.setOnClickListener(this);
+        btnRemove.setOnClickListener(this);
+        btnReload.setOnClickListener(this);
 
         recLayoutMgr = new LinearLayoutManager(getActivity());
         recAdapter = new BaseRecyclerAdapter<MeasureItemBean, MeasureItemViewHolder>(
@@ -56,5 +66,29 @@ public class FRG5_Measure extends Fragment{
         recyclerView.setAdapter(recAdapter);
 
         return viewLayout;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.btnAdd:{
+
+            }break;
+            case R.id.btnRemove:{
+
+            }break;
+            case R.id.btnReload:{
+                requester.requestMeasureItemBeans();
+            }break;
+        }
+    }
+
+    public interface Requester{
+        void requestMeasureItemBeans();
+    }
+
+    public void responseMeasureItemBeans(ArrayList<MeasureItemBean> measureItemBeans){
+        recAdapter.dataList = measureItemBeans;
+        recAdapter.notifyDataSetChanged();
     }
 }

@@ -1,6 +1,7 @@
 package com.techwork.kjc.mvp_project.controller;
 
 import android.content.Intent;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -11,10 +12,14 @@ import android.widget.FrameLayout;
 
 import com.techwork.kjc.mvp_project.R;
 import com.techwork.kjc.mvp_project.activity.ACT5_Measure;
+import com.techwork.kjc.mvp_project.bean.MeasureItemBean;
 import com.techwork.kjc.mvp_project.fragment.FRG1_Splash;
 import com.techwork.kjc.mvp_project.fragment.FRG2_Register;
 import com.techwork.kjc.mvp_project.fragment.FRG3_Login;
 import com.techwork.kjc.mvp_project.fragment.FRG5_Measure;
+import com.techwork.kjc.mvp_project.util.PhotoProcess;
+
+import java.util.ArrayList;
 
 public class TestController extends AppCompatActivity {
 
@@ -71,12 +76,14 @@ public class TestController extends AppCompatActivity {
             }
 
             @Override
-            public void getimagePath(String imagePath) {
-
+            public void requestImagePath() {
+                startActivityForResult(new Intent(TestController.this, PhotoProcess.class),0);
             }
+
+
         };
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(containerID,frg2_register);
+        fragmentTransaction.add(containerID,frg2_register,"frg2_register");
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
@@ -101,8 +108,19 @@ public class TestController extends AppCompatActivity {
 
     void rendingFRG5_Measure(){
         FRG5_Measure frg5_measure = new FRG5_Measure();
+        frg5_measure.requester = new FRG5_Measure.Requester() {
+            @Override
+            public void requestMeasureItemBeans() {
+                ArrayList<MeasureItemBean> measureItemBeans = new ArrayList<>();
+                for (int i = 0 ; 30 > i ; i++)
+                    measureItemBeans.add(new MeasureItemBean(true));
+
+                ((FRG5_Measure) fragmentManager.findFragmentByTag("frg5_measure"))
+                        .responseMeasureItemBeans(measureItemBeans);
+            }
+        };
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(containerID, frg5_measure);
+        fragmentTransaction.add(containerID, frg5_measure,"frg5_measure");
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
@@ -116,5 +134,15 @@ public class TestController extends AppCompatActivity {
 
         Log.i("count : ",fragmentManager.getBackStackEntryCount()+"");
         super.onBackPressed();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == 0 && resultCode == 0){
+            String imagePath = data.getStringExtra(PhotoProcess.RES_IMAGE_PATH);
+            FRG2_Register frg2_register = ((FRG2_Register) fragmentManager.findFragmentByTag("frg2_register"));
+            frg2_register.responseImagePath(imagePath);
+
+        }
     }
 }

@@ -1,5 +1,6 @@
 package com.techwork.kjc.mvp_project.fragment;
 
+import android.net.Uri;
 import android.support.v4.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,13 +15,13 @@ import android.widget.ImageView;
 
 import com.techwork.kjc.mvp_project.R;
 
+import java.io.File;
+
 /**
  * Created by mlyg2 on 2018-06-12.
  */
 
 public class FRG2_Register extends Fragment{
-
-    private String imagePath;
 
     private EditText act2_id;
     private EditText act2_pw;
@@ -58,9 +59,7 @@ public class FRG2_Register extends Fragment{
         act2_image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Intent.ACTION_PICK);
-                intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-                //startActivityForResult(intent, GALLERY_CODE);
+                requester.requestImagePath();
             }
         });
         act2_Rbtn.setOnClickListener(new View.OnClickListener() {
@@ -77,8 +76,6 @@ public class FRG2_Register extends Fragment{
                         , act2_num.getText().toString()
                         , act2_tall.getText().toString()
                         , act2_weight.getText().toString());
-
-                requester.getimagePath(imagePath);
             }
         });
 
@@ -96,6 +93,11 @@ public class FRG2_Register extends Fragment{
                 , String act2_num
                 , String act2_tall
                 , String act2_weight);
-        void getimagePath(String imagePath);
+        void requestImagePath();
+    }
+
+    public void responseImagePath(String imagePath){
+        File f = new File(imagePath);
+        act2_image.setImageURI(Uri.fromFile(f));
     }
 }
