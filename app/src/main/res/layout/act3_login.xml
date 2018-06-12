@@ -83,12 +83,13 @@
         android:gravity="center"
         android:orientation="horizontal"
         >
+
         <Button
-            android:layout_height="match_parent"
-            android:layout_width="0dp"
-            android:layout_weight="0.6"
-            android:text="L o g i n"
             android:id="@+id/act3_login"
-            />
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
+            android:background="@android:color/darker_gray"
+            android:text="L o g i n" />
     </LinearLayout>
 </LinearLayout>
