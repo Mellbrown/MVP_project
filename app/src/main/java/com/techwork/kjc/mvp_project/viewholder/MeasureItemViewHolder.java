@@ -34,10 +34,10 @@ public class MeasureItemViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void dataBind(MeasureItemBean data){
-        txtDate.setText(data.date);
-        txtArmWeight.setText(data.armWeight+"");
-        txtLegWeight.setText(data.legWeight+"");
-        txtBackWeight.setText(data.backWeight+"");
-        txtAllBodyWegith.setText(data.allBodyWeight+"");
+        txtDate.setText(data.getStringMdDate());
+        txtArmWeight.setText(String.format("%.2fKG", data.armWeight));
+        txtLegWeight.setText(String.format("%.2fKG", data.legWeight));
+        txtBackWeight.setText(String.format("%.2fKG", data.backWeight));
+        txtAllBodyWegith.setText(String.format("%.2fKG", data.allBodyWeight));
     }
 }

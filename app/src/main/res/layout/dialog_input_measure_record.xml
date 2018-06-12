@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="250dp"
+    android:layout_height="300dp">
+
+    <android.support.v7.widget.CardView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="4dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="4dp"
+        app:cardBackgroundColor="@android:color/background_light"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" >
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginStart="8dp"
+                android:text="저장"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="KG"
+                app:layout_constraintBaseline_toBaselineOf="@id/iptArm"
+                android:textColor="@android:color/background_dark"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:layout_editor_absoluteY="76dp" />
+
+            <TextView
+                android:id="@+id/textView9"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="KG"
+                app:layout_constraintBaseline_toBaselineOf="@id/iptLeg"
+                android:textColor="@android:color/background_dark"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:layout_editor_absoluteY="114dp" />
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                app:layout_constraintBaseline_toBaselineOf="@id/iptBack"
+                android:text="KG"
+                android:textColor="@android:color/background_dark"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:layout_editor_absoluteY="34dp" />
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:text="KG"
+                app:layout_constraintBaseline_toBaselineOf="@id/iptAllBody"
+                android:textColor="@android:color/background_dark"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:layout_editor_absoluteY="160dp" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:text="다리 :"
+                android:textColor="@android:color/background_dark"
+                app:layout_constraintBottom_toBottomOf="@+id/iptLeg"
+                app:layout_constraintEnd_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toTopOf="@+id/iptLeg" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:text="전신 :"
+                android:textColor="@android:color/background_dark"
+                app:layout_constraintBottom_toBottomOf="@+id/iptAllBody"
+                app:layout_constraintEnd_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toTopOf="@+id/iptAllBody" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:text="팔 :"
+                android:textColor="@android:color/background_dark"
+                app:layout_constraintBottom_toBottomOf="@+id/iptArm"
+                app:layout_constraintEnd_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toTopOf="@+id/iptArm" />
+
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_marginTop="8dp"
+                android:text="등(배) :"
+                android:textColor="@android:color/background_dark"
+                app:layout_constraintBottom_toBottomOf="@+id/iptBack"
+                app:layout_constraintEnd_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toTopOf="@+id/iptBack" />
+
+            <EditText
+                android:id="@+id/iptArm"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
+                android:ems="10"
+                android:hint="12"
+                android:inputType="number"
+                android:textColor="@android:color/background_dark"
+                app:layout_constraintBottom_toTopOf="@+id/iptLeg"
+                app:layout_constraintEnd_toStartOf="@+id/textView8"
+                app:layout_constraintHorizontal_bias="0.675"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed" />
+
+            <EditText
+                android:id="@+id/iptLeg"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
+                android:ems="10"
+                android:hint="12"
+                android:inputType="number"
+                android:textColor="@android:color/background_dark"
+                app:layout_constraintBottom_toTopOf="@+id/iptBack"
+                app:layout_constraintEnd_toStartOf="@+id/textView8"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/iptArm" />
+
+            <EditText
+                android:id="@+id/iptBack"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
+                android:ems="10"
+                android:hint="12"
+                android:inputType="number"
+                android:textColor="@android:color/background_dark"
+                app:layout_constraintBottom_toTopOf="@+id/iptAllBody"
+                app:layout_constraintEnd_toStartOf="@+id/textView8"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/iptLeg" />
+
+            <EditText
+                android:id="@+id/iptAllBody"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="4dp"
+                android:layout_marginTop="4dp"
+                android:ems="10"
+                android:hint="12"
+                android:inputType="number"
+                android:textColor="@android:color/background_dark"
+                app:layout_constraintBottom_toTopOf="@+id/btnSave"
+                app:layout_constraintEnd_toStartOf="@+id/textView8"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/guideline"
+                app:layout_constraintTop_toBottomOf="@+id/iptBack" />
+
+            <android.support.constraint.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_constraintGuide_begin="60dp" />
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
+</android.support.constraint.ConstraintLayout>

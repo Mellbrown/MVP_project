@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 import com.techwork.kjc.mvp_project.R;
 import com.techwork.kjc.mvp_project.activity.ACT5_Measure;
 import com.techwork.kjc.mvp_project.bean.MeasureItemBean;
+import com.techwork.kjc.mvp_project.dialog.InputMeasureRecordDialog;
 import com.techwork.kjc.mvp_project.fragment.FRG1_Splash;
 import com.techwork.kjc.mvp_project.fragment.FRG2_Register;
 import com.techwork.kjc.mvp_project.fragment.FRG3_Login;
@@ -117,6 +118,23 @@ public class TestController extends AppCompatActivity {
 
                 ((FRG5_Measure) fragmentManager.findFragmentByTag("frg5_measure"))
                         .responseMeasureItemBeans(measureItemBeans);
+            }
+
+            @Override
+            public void requestAddMeasureItem() {
+                new InputMeasureRecordDialog(TestController.this, new InputMeasureRecordDialog.OnSaveListener() {
+                    @Override
+                    public void onSave(MeasureItemBean measureItemBean) {
+                        ((FRG5_Measure) fragmentManager.findFragmentByTag("frg5_measure"))
+                                .responseAddMeasureItem(measureItemBean);
+                    }
+                }).show();
+            }
+
+            @Override
+            public void requestRemoveThisMeasureItem(MeasureItemBean measureItemBean) {
+                ((FRG5_Measure) fragmentManager.findFragmentByTag("frg5_measure"))
+                        .responseRemoveSuccessMeasureItem(measureItemBean);
             }
         };
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
