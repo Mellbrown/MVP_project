@@ -1,7 +1,6 @@
 package com.techwork.kjc.mvp_project.controller;
 
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -10,14 +9,13 @@ import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.techwork.kjc.mvp_project.R;
-import com.techwork.kjc.mvp_project.activity.ACT5_Measure;
 import com.techwork.kjc.mvp_project.bean.MeasureItemBean;
 import com.techwork.kjc.mvp_project.dialog.InputMeasureRecordDialog;
 import com.techwork.kjc.mvp_project.fragment.FRG1_Splash;
 import com.techwork.kjc.mvp_project.fragment.FRG2_Register;
 import com.techwork.kjc.mvp_project.fragment.FRG3_Login;
 import com.techwork.kjc.mvp_project.fragment.FRG5_Measure;
+import com.techwork.kjc.mvp_project.fragment.FRG7_Focus;
 import com.techwork.kjc.mvp_project.util.PhotoProcess;
 
 import java.util.ArrayList;
@@ -45,8 +43,15 @@ public class TestController extends AppCompatActivity {
 
         fragmentManager = getSupportFragmentManager();
 
-        rendingFRG5_Measure();
-        rendingFRG1_Splash();
+        renderingFRG7_Focus();
+    }
+
+    void renderingFRG7_Focus(){
+        FRG7_Focus act7_focus = new FRG7_Focus();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(containerID, act7_focus,"act7_focus");
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     void rendingFRG1_Splash(){
