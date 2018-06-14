@@ -54,8 +54,21 @@ public class FRG7_Focus extends Fragment {
         // 팔, 다리 등 클릭시 페이지변경 및 데이터변경
         void requestPageChange();
     }
-    public void responsePageChange(){
-
+    public void responsePageChange(int page){
+        switch (page){
+            case 0:{
+                //팔에관한 뷰
+            }
+            case 1:{
+                //다리
+            }
+            case 2:{
+                //등(배)
+            }
+            case 3:{
+                //전신
+            }
+        }
     }
 
 }
