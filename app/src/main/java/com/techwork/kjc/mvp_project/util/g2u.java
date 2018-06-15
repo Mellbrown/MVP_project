@@ -1,8 +1,5 @@
 package com.techwork.kjc.mvp_project.util;
 
-import android.content.Context;
-import android.util.TypedValue;
-
 /**
  * Created by mlyg2 on 2018-06-12.
  */
@@ -36,11 +33,4 @@ public class g2u {
         }
     }
 
-    public static int convertPixelsToDp(float px, Context context) {
-
-        int value = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, px, context.getResources().getDisplayMetrics());
-
-        return value;
-
-    }
 }

@@ -36,14 +36,10 @@ public class FRG3_Login extends Fragment implements View.OnClickListener {
         return viewLayout;
     }
 
-    private ArrayList<String> getInfo(){
-        ArrayList<String> info = new ArrayList<>();
-        EditText id,pw;
-        id = ((EditText)viewLayout.findViewById(R.id.act3_id));
-        pw = ((EditText)viewLayout.findViewById(R.id.act3_pw));
-        info.add(id.getText().toString());
-        info.add(pw.getText().toString());
-
+    private ArrayList<String> goLogin(){
+        ArrayList<String> info = null;
+        info.add(((EditText)viewLayout.findViewById(R.id.act3_id)).getText().toString());
+        info.add(((EditText)viewLayout.findViewById(R.id.act3_pw)).getText().toString());
         return info;
     }
 
@@ -51,12 +47,14 @@ public class FRG3_Login extends Fragment implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.act3_login:
-                requester.onRequestLogin(getInfo());
+                ArrayList<String> info = goLogin();
+                requester.onRequestLogin(info.get(0),info.get(1));
                 break;
         }
     }
 
+
     public interface Requester{
-        void onRequestLogin(ArrayList<String> info);
+        void onRequestLogin(String email, String password);
     }
 }
