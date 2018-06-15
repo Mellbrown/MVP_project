@@ -1,7 +1,6 @@
 package com.techwork.kjc.mvp_project.controller;
 
 import android.content.Intent;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -10,17 +9,19 @@ import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.techwork.kjc.mvp_project.R;
-import com.techwork.kjc.mvp_project.activity.ACT5_Measure;
 import com.techwork.kjc.mvp_project.bean.MeasureItemBean;
 import com.techwork.kjc.mvp_project.dialog.InputMeasureRecordDialog;
 import com.techwork.kjc.mvp_project.fragment.FRG1_Splash;
 import com.techwork.kjc.mvp_project.fragment.FRG2_Register;
 import com.techwork.kjc.mvp_project.fragment.FRG3_Login;
 import com.techwork.kjc.mvp_project.fragment.FRG5_Measure;
+import com.techwork.kjc.mvp_project.fragment.FRG7_Focus;
 import com.techwork.kjc.mvp_project.util.PhotoProcess;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+
+import resource.FirebaseResource;
 
 public class TestController extends AppCompatActivity {
 
@@ -44,9 +45,16 @@ public class TestController extends AppCompatActivity {
         setContentView(frameLayout);
 
         fragmentManager = getSupportFragmentManager();
+        rendingFRG3_Login();
+//        renderingFRG7_Focus();
+    }
 
-        rendingFRG5_Measure();
-        rendingFRG1_Splash();
+    void renderingFRG7_Focus(){
+        FRG7_Focus act7_focus = new FRG7_Focus();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(containerID, act7_focus,"act7_focus");
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     void rendingFRG1_Splash(){
@@ -95,7 +103,8 @@ public class TestController extends AppCompatActivity {
         FRG3_Login frg3_login = new FRG3_Login();
         frg3_login.requester = new FRG3_Login.Requester() {
             @Override
-            public void onRequestLogin(String email, String password) {
+            public void onRequestLogin(ArrayList<String> info) {
+                new FirebaseResource().goLogin(info,TestController.this);
 
             }
         };
@@ -107,7 +116,7 @@ public class TestController extends AppCompatActivity {
         Log.i("count : ",fragmentManager.getBackStackEntryCount()+"");
     }
 
-    void rendingFRG5_Measure(){
+    public void rendingFRG5_Measure(){
         FRG5_Measure frg5_measure = new FRG5_Measure();
         frg5_measure.requester = new FRG5_Measure.Requester() {
             @Override
