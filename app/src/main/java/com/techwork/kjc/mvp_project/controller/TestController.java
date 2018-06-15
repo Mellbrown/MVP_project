@@ -18,7 +18,10 @@ import com.techwork.kjc.mvp_project.fragment.FRG5_Measure;
 import com.techwork.kjc.mvp_project.fragment.FRG7_Focus;
 import com.techwork.kjc.mvp_project.util.PhotoProcess;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+
+import resource.FirebaseResource;
 
 public class TestController extends AppCompatActivity {
 
@@ -42,8 +45,8 @@ public class TestController extends AppCompatActivity {
         setContentView(frameLayout);
 
         fragmentManager = getSupportFragmentManager();
-
-        renderingFRG7_Focus();
+        rendingFRG3_Login();
+//        renderingFRG7_Focus();
     }
 
     void renderingFRG7_Focus(){
@@ -100,7 +103,8 @@ public class TestController extends AppCompatActivity {
         FRG3_Login frg3_login = new FRG3_Login();
         frg3_login.requester = new FRG3_Login.Requester() {
             @Override
-            public void onRequestLogin(String email, String password) {
+            public void onRequestLogin(ArrayList<String> info) {
+                new FirebaseResource().goLogin(info,TestController.this);
 
             }
         };
@@ -112,7 +116,7 @@ public class TestController extends AppCompatActivity {
         Log.i("count : ",fragmentManager.getBackStackEntryCount()+"");
     }
 
-    void rendingFRG5_Measure(){
+    public void rendingFRG5_Measure(){
         FRG5_Measure frg5_measure = new FRG5_Measure();
         frg5_measure.requester = new FRG5_Measure.Requester() {
             @Override
