@@ -25,7 +25,7 @@ public class ACT3_Login extends AppCompatActivity{
     //request listner
     ACT3_Login.RequestListener requestListener;
     //ownFunction
-    private ArrayList<String> goLogin(){
+    private ArrayList<String> getInfo(){
         ArrayList<String> info = null;
         info.add(((EditText)findViewById(R.id.act3_id)).getText().toString());
         info.add(((EditText)findViewById(R.id.act3_pw)).getText().toString());
@@ -35,8 +35,7 @@ public class ACT3_Login extends AppCompatActivity{
     void onClick(View v){
         switch (v.getId()){
             case R.id.act3_login:
-                ArrayList<String> info = goLogin();
-                requestListener.onRequestLogin(info.get(0),info.get(1));
+                requestListener.onRequestLogin(getInfo());
                 break;
         }
     }
@@ -56,6 +55,6 @@ public class ACT3_Login extends AppCompatActivity{
     }
 
     public interface RequestListener extends Serializable {
-        void onRequestLogin(String email, String password);
+        void onRequestLogin(ArrayList<String> info);
     }
 }

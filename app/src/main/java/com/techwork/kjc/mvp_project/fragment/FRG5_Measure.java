@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.techwork.kjc.mvp_project.R;
 import com.techwork.kjc.mvp_project.adapter.BaseRecyclerAdapter;
@@ -147,6 +148,7 @@ public class FRG5_Measure extends Fragment implements View.OnClickListener {
         recAdapter.dataList.add(measureItemBean);
         Collections.sort(recAdapter.dataList);
         recAdapter.notifyDataSetChanged();
+        Toast.makeText(getContext(),"추가 완료", Toast.LENGTH_SHORT);
     }
 
     public void responseRemoveSuccessMeasureItem(MeasureItemBean measureItemBean){
@@ -156,7 +158,6 @@ public class FRG5_Measure extends Fragment implements View.OnClickListener {
         int index = recAdapter.dataList.indexOf(measureItemBean);
         recAdapter.dataList.remove(index);
         recAdapter.notifyItemRemoved(index);
+        Toast.makeText(getContext(),"삭제 완료", Toast.LENGTH_SHORT);
     }
-
-
 }

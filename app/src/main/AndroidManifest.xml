@@ -21,7 +21,6 @@
         <activity android:name=".activity.ACT3_Login" />
         <activity android:name=".activity.ACT5_Measure" />
         <activity android:name=".util.PhotoProcess" />
-        <activity android:name=".activity.ACT7_Focus"></activity>
     </application>
 
 </manifest>
