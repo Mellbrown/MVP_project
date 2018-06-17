@@ -111,7 +111,7 @@ public class TestController extends AppCompatActivity {
         FRG3_Login frg3_login = new FRG3_Login();
         frg3_login.requester = new FRG3_Login.Requester() {
             @Override
-            public void onRequestLogin(String email, String password) {
+            public void onRequestLogin(ArrayList<String> info) {
 
             }
         };
