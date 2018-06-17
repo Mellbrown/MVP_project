@@ -26,6 +26,10 @@ public class SubFRG6_ShowVersus extends FrameLayout {
     private FrameLayout con_rival_up;
     private FrameLayout con_rival_down;
 
+    private ImageView btnRejection;
+    private ImageView img_you_result;
+    private ImageView img_rival_result;
+
     private int youTime = 0;
     private int youStren = 0;
     private int rivalTime = 0;
@@ -64,6 +68,11 @@ public class SubFRG6_ShowVersus extends FrameLayout {
         btnCancle = viewLayout.findViewById(R.id.btnCancle);
         btnConfirm = viewLayout.findViewById(R.id.btnConfirm);
 
+        btnRejection = viewLayout.findViewById(R.id.btnRejection);
+        img_you_result = viewLayout.findViewById(R.id.img_you_result);
+        img_rival_result = viewLayout.findViewById(R.id.img_rival_result);
+
+
         btnConfirm.setOnClickListener((View v)->requester.requestConfirm());
         btnCancle.setOnClickListener((View v)->requester.requestCancle());
 
@@ -93,9 +102,31 @@ public class SubFRG6_ShowVersus extends FrameLayout {
         }
     }
 
+    public void responseResult(boolean isYouWinner){
+        if(isYouWinner){
+            img_you_result.setImageResource(R.drawable.winner);
+            img_rival_result.setImageResource(R.drawable.loser);
+        }
+        else {
+            img_you_result.setImageResource(R.drawable.loser);
+            img_rival_result.setImageResource(R.drawable.winner);
+        }
+
+        btnCancle.setVisibility(GONE);
+        btnConfirm.setVisibility(GONE);
+        btnRejection.setOnClickListener((View v)->{
+            requester.requestEndup();
+        });
+
+        btnRejection.setVisibility(VISIBLE);
+        img_you_result.setVisibility(VISIBLE);
+        img_rival_result.setVisibility(VISIBLE);
+    }
+
     public interface Requester{
         TwoManInfo requestTwoManInfo();
         void requestCancle();
         void requestConfirm();
+        void requestEndup();
     }
 }

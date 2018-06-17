@@ -44,9 +44,9 @@ public class TestController extends AppCompatActivity {
 
         fragmentManager = getSupportFragmentManager();
 
-        rendingFRG3_Login();
+//        rendingFRG3_Login();
 //        renderingFRG7_Focus();
-//        renderingFRG6_Versus();
+        renderingFRG6_Versus();
     }
 
     void renderingFRG6_Versus(){
@@ -123,7 +123,7 @@ public class TestController extends AppCompatActivity {
         Log.i("count : ",fragmentManager.getBackStackEntryCount()+"");
     }
 
-    void rendingFRG5_Measure(){
+    public void rendingFRG5_Measure(){
         FRG5_Measure frg5_measure = new FRG5_Measure();
         frg5_measure.requester = new FRG5_Measure.Requester() {
             @Override
