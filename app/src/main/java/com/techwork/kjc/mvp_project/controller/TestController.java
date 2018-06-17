@@ -15,13 +15,11 @@ import com.techwork.kjc.mvp_project.fragment.FRG1_Splash;
 import com.techwork.kjc.mvp_project.fragment.FRG2_Register;
 import com.techwork.kjc.mvp_project.fragment.FRG3_Login;
 import com.techwork.kjc.mvp_project.fragment.FRG5_Measure;
+import com.techwork.kjc.mvp_project.fragment.FRG6_Versus;
 import com.techwork.kjc.mvp_project.fragment.FRG7_Focus;
 import com.techwork.kjc.mvp_project.util.PhotoProcess;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-
-import resource.FirebaseResource;
 
 public class TestController extends AppCompatActivity {
 
@@ -45,8 +43,18 @@ public class TestController extends AppCompatActivity {
         setContentView(frameLayout);
 
         fragmentManager = getSupportFragmentManager();
+
         rendingFRG3_Login();
 //        renderingFRG7_Focus();
+//        renderingFRG6_Versus();
+    }
+
+    void renderingFRG6_Versus(){
+        FRG6_Versus frg6_versus = new FRG6_Versus();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(containerID, frg6_versus,"frg6_versus");
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     void renderingFRG7_Focus(){
@@ -103,8 +111,7 @@ public class TestController extends AppCompatActivity {
         FRG3_Login frg3_login = new FRG3_Login();
         frg3_login.requester = new FRG3_Login.Requester() {
             @Override
-            public void onRequestLogin(ArrayList<String> info) {
-                new FirebaseResource().goLogin(info,TestController.this);
+            public void onRequestLogin(String email, String password) {
 
             }
         };
@@ -116,7 +123,7 @@ public class TestController extends AppCompatActivity {
         Log.i("count : ",fragmentManager.getBackStackEntryCount()+"");
     }
 
-    public void rendingFRG5_Measure(){
+    void rendingFRG5_Measure(){
         FRG5_Measure frg5_measure = new FRG5_Measure();
         frg5_measure.requester = new FRG5_Measure.Requester() {
             @Override
