@@ -44,7 +44,9 @@ public class TestController extends AppCompatActivity {
 
         fragmentManager = getSupportFragmentManager();
 
-        renderingFRG6_Versus();
+        rendingFRG3_Login();
+//        renderingFRG7_Focus();
+//        renderingFRG6_Versus();
     }
 
     void renderingFRG6_Versus(){
