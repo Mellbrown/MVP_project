@@ -15,6 +15,7 @@ import com.techwork.kjc.mvp_project.fragment.FRG1_Splash;
 import com.techwork.kjc.mvp_project.fragment.FRG2_Register;
 import com.techwork.kjc.mvp_project.fragment.FRG3_Login;
 import com.techwork.kjc.mvp_project.fragment.FRG5_Measure;
+import com.techwork.kjc.mvp_project.fragment.FRG6_Versus;
 import com.techwork.kjc.mvp_project.fragment.FRG7_Focus;
 import com.techwork.kjc.mvp_project.util.PhotoProcess;
 
@@ -43,7 +44,15 @@ public class TestController extends AppCompatActivity {
 
         fragmentManager = getSupportFragmentManager();
 
-        renderingFRG7_Focus();
+        renderingFRG6_Versus();
+    }
+
+    void renderingFRG6_Versus(){
+        FRG6_Versus frg6_versus = new FRG6_Versus();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(containerID, frg6_versus,"frg6_versus");
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     void renderingFRG7_Focus(){

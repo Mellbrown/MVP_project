@@ -16,10 +16,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ACT1_Splash" />
-        <activity android:name=".activity.ACT2_Register" />
-        <activity android:name=".activity.ACT3_Login" />
-        <activity android:name=".activity.ACT5_Measure" />
         <activity android:name=".util.PhotoProcess" />
     </application>
 
