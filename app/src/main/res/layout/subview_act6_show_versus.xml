@@ -7,7 +7,7 @@
     android:layout_height="match_parent">
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout3"
+        android:id="@+id/con_rival"
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:layout_marginTop="8dp"
@@ -43,7 +43,7 @@
     </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
-        android:id="@+id/constraintLayout2"
+        android:id="@+id/con_you"
         android:layout_width="0dp"
         android:layout_height="80dp"
         android:layout_marginTop="8dp"
@@ -95,7 +95,7 @@
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+        app:layout_constraintTop_toBottomOf="@+id/con_you" />
 
     <FrameLayout
         android:id="@+id/con_you_down"
@@ -126,7 +126,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toStartOf="@+id/con_rival_down"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+        app:layout_constraintTop_toBottomOf="@+id/con_rival">
 
     </FrameLayout>
 
@@ -137,7 +137,7 @@
         android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/con_rival_up"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout3">
+        app:layout_constraintTop_toBottomOf="@+id/con_rival">
 
     </FrameLayout>
 
@@ -172,5 +172,42 @@
         app:layout_constraintStart_toEndOf="@+id/btnCancle"
         app:layout_constraintTop_toBottomOf="@+id/con_rival_down"
         app:srcCompat="@drawable/ic_check_black_24dp" />
+
+    <ImageView
+        android:id="@+id/btnRejection"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:color/transparent" />
+
+    <ImageView
+        android:id="@+id/img_you_result"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:rotation="-15"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/con_you"
+        app:layout_constraintEnd_toEndOf="@id/con_you"
+        app:layout_constraintHorizontal_bias="0.66"
+        app:layout_constraintStart_toStartOf="@id/con_you"
+        app:layout_constraintTop_toTopOf="@id/con_you"
+        app:srcCompat="@drawable/winner" />
+
+    <ImageView
+        android:id="@+id/img_rival_result"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:rotation="15"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/con_rival"
+        app:layout_constraintEnd_toEndOf="@id/con_rival"
+        app:layout_constraintHorizontal_bias="0.35"
+        app:layout_constraintStart_toStartOf="@id/con_rival"
+        app:layout_constraintTop_toTopOf="@id/con_rival"
+        app:srcCompat="@drawable/loser" />
 
 </android.support.constraint.ConstraintLayout>

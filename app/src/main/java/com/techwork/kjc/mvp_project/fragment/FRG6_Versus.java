@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.techwork.kjc.mvp_project.R;
 import com.techwork.kjc.mvp_project.subview.SubFRG6_SelectRival;
 import com.techwork.kjc.mvp_project.subview.SubFRG6_ShowVersus;
+import com.techwork.kjc.mvp_project.util.g2u;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,12 +74,7 @@ public class FRG6_Versus extends Fragment {
         subFRG6_showVersus = new SubFRG6_ShowVersus(getContext(), new SubFRG6_ShowVersus.Requester() {
             @Override
             public SubFRG6_ShowVersus.TwoManInfo requestTwoManInfo() {
-                return new SubFRG6_ShowVersus.TwoManInfo(
-                        test1,
-                        "지찬군",
-                        test2,
-                        rirvalItem.name
-                );
+                return new SubFRG6_ShowVersus.TwoManInfo( test1, "지찬군", test2, rirvalItem.name);
             }
 
             @Override
@@ -88,7 +84,13 @@ public class FRG6_Versus extends Fragment {
 
             @Override
             public void requestConfirm() {
-                Toast.makeText(getContext(), "계산중", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "계산중...", Toast.LENGTH_SHORT).show();
+                subFRG6_showVersus.responseResult((int)g2u.rand(0,2) == 0);
+            }
+
+            @Override
+            public void requestEndup() {
+                ShowSubFRG6_selectRival();
             }
         });
 
