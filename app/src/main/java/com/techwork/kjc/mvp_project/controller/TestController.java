@@ -14,6 +14,7 @@ import com.techwork.kjc.mvp_project.dialog.InputMeasureRecordDialog;
 import com.techwork.kjc.mvp_project.fragment.FRG1_Splash;
 import com.techwork.kjc.mvp_project.fragment.FRG2_Register;
 import com.techwork.kjc.mvp_project.fragment.FRG3_Login;
+import com.techwork.kjc.mvp_project.fragment.FRG4_MenuMain;
 import com.techwork.kjc.mvp_project.fragment.FRG5_Measure;
 import com.techwork.kjc.mvp_project.fragment.FRG7_Focus;
 import com.techwork.kjc.mvp_project.util.PhotoProcess;
@@ -45,8 +46,9 @@ public class TestController extends AppCompatActivity {
         setContentView(frameLayout);
 
         fragmentManager = getSupportFragmentManager();
-        rendingFRG3_Login();
+//        rendingFRG3_Login();
 //        renderingFRG7_Focus();
+        rendingFRG4_MainMenu();
     }
 
     void renderingFRG7_Focus(){
@@ -110,6 +112,17 @@ public class TestController extends AppCompatActivity {
         };
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(containerID, frg3_login);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
+        Log.i("count : ",fragmentManager.getBackStackEntryCount()+"");
+    }
+
+    void rendingFRG4_MainMenu(){
+        FRG4_MenuMain frg4_mainmenu = new FRG4_MenuMain();
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(containerID, frg4_mainmenu);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
