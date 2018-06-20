@@ -1,25 +1,31 @@
 package com.techwork.kjc.mvp_project.fragment;
 
 import android.graphics.Color;
+import android.os.PersistableBundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.google.firebase.database.Exclude;
+import com.google.firebase.database.IgnoreExtraProperties;
 import com.techwork.kjc.mvp_project.R;
 import com.techwork.kjc.mvp_project.adapter.BaseRecyclerAdapter;
-import com.techwork.kjc.mvp_project.bean.MeasureItemBean;
+import com.techwork.kjc.mvp_project.util.g2u;
 import com.techwork.kjc.mvp_project.viewholder.MeasureItemViewHolder;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 
 /**
  * Created by mlyg2 on 2018-06-11.
@@ -44,6 +50,8 @@ public class FRG5_Measure extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, Bundle savedInstanceState) {
         View viewLayout = inflater.inflate(R.layout.act5_measure, container,false);
+
+        if(requester == null) Log.e("FRG5_Measure", "리퀘스터 할당 안해줄꺼애오?");
 
         btnAdd = viewLayout.findViewById(R.id.btnAdd);
         btnRemove = viewLayout.findViewById(R.id.btnRemove);
@@ -91,6 +99,12 @@ public class FRG5_Measure extends Fragment implements View.OnClickListener {
                         }
                     }
                 });
+
+                holder.btnShowPrescribe.setOnClickListener((View v)->{
+                    int index = holder.getLayoutPosition();
+                    MeasureItemBean measureItemBean = recAdapter.dataList.get(index);
+                    requester.requestShowPrescription(measureItemBean);
+                });
             }
 
             @Override
@@ -135,15 +149,17 @@ public class FRG5_Measure extends Fragment implements View.OnClickListener {
     public interface Requester{
         void requestMeasureItemBeans();
         void requestAddMeasureItem();
+        void requestShowPrescription(MeasureItemBean measureItemBean);
         void requestRemoveThisMeasureItem(MeasureItemBean measureItemBean);
     }
 
+    //서버에서 모든 아이템 목록을 가져다 달라는 요청의 결과로 목록을 받습니다.
     public void responseMeasureItemBeans(ArrayList<MeasureItemBean> measureItemBeans){
         Collections.sort(measureItemBeans);
         recAdapter.dataList = measureItemBeans;
         recAdapter.notifyDataSetChanged();
     }
-
+    //서버에 아이템 하나 넣어달라는 요청을 결과로 아이템 하나를 받습니다.
     public void responseAddMeasureItem(MeasureItemBean measureItemBean){
         recAdapter.dataList.add(measureItemBean);
         Collections.sort(recAdapter.dataList);
@@ -151,6 +167,7 @@ public class FRG5_Measure extends Fragment implements View.OnClickListener {
         Toast.makeText(getContext(),"추가 완료", Toast.LENGTH_SHORT);
     }
 
+    //서버에 해당 아이템을 하나 삭제 요청을합니다.
     public void responseRemoveSuccessMeasureItem(MeasureItemBean measureItemBean){
         selected = -1;
         btnCancle.setVisibility(View.GONE);
@@ -159,5 +176,52 @@ public class FRG5_Measure extends Fragment implements View.OnClickListener {
         recAdapter.dataList.remove(index);
         recAdapter.notifyItemRemoved(index);
         Toast.makeText(getContext(),"삭제 완료", Toast.LENGTH_SHORT);
+    }
+
+    @IgnoreExtraProperties
+    public static class MeasureItemBean implements Comparable<MeasureItemBean>{
+        private static final SimpleDateFormat mDateFormat = new SimpleDateFormat("MM월 dd일");
+
+        public Long timestamp;
+        public double armWeight;
+        public double legWeight;
+        public double backWeight;
+        public double allBodyWeight;
+
+        public MeasureItemBean(){}
+
+        //테스를 위한 랜덤 아이템이넣는 것이다 데스
+        public MeasureItemBean(boolean TestRand){
+            if(!TestRand) return;
+
+            timestamp = new Date().getTime();
+            armWeight = g2u.rand(4,12);
+            legWeight = g2u.rand(12,24);
+            backWeight = g2u.rand(12,30);
+            allBodyWeight = armWeight + legWeight + backWeight;
+        }
+
+        @Exclude
+        public String getStringMdDate(){
+            return mDateFormat.format(new Date(timestamp));
+        }
+
+        @Override
+        public int compareTo(@NonNull MeasureItemBean o) {
+            return timestamp.compareTo(o.timestamp);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if(obj instanceof MeasureItemBean){
+                MeasureItemBean data = ((MeasureItemBean) obj);
+                return g2u.NullEqual(timestamp, data.timestamp) &&
+                        g2u.NullEqual(armWeight, data.armWeight) &&
+                        g2u.NullEqual(legWeight, data.legWeight) &&
+                        g2u.NullEqual(backWeight, data.backWeight) &&
+                        g2u.NullEqual(allBodyWeight, data.allBodyWeight);
+            }
+            return false;
+        }
     }
 }
