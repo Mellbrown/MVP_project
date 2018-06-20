@@ -17,6 +17,7 @@ import com.techwork.kjc.mvp_project.fragment.FRG3_Login;
 import com.techwork.kjc.mvp_project.fragment.FRG5_Measure;
 import com.techwork.kjc.mvp_project.fragment.FRG6_Versus;
 import com.techwork.kjc.mvp_project.fragment.FRG7_Focus;
+import com.techwork.kjc.mvp_project.fragment.FRG8_Track;
 import com.techwork.kjc.mvp_project.util.PhotoProcess;
 
 import java.util.ArrayList;
@@ -46,8 +47,33 @@ public class TestController extends AppCompatActivity {
 
 //        rendingFRG3_Login();
 //        renderingFRG7_Focus();
-        rendingFRG5_Measure();
+//        rendingFRG5_Measure();
 //        renderingFRG6_Versus();
+        renderingFRG8_Track();
+    }
+
+    void renderingFRG8_Track(){
+        FRG8_Track frg8_track = new FRG8_Track();
+        frg8_track.requester = new FRG8_Track.Requester() {
+            @Override
+            public void requestFocus_register(int level, int reps) {
+
+            }
+
+            @Override
+            public void requestFocus_clear() {
+
+            }
+
+            @Override
+            public void requestRecyclerView(int date, int level, int reps) {
+
+            }
+        };
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(containerID, frg8_track,"frg8_track");
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
 
     void renderingFRG6_Versus(){
