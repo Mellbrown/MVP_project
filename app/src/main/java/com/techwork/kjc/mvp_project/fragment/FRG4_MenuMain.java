@@ -3,23 +3,40 @@ package com.techwork.kjc.mvp_project.fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+
+import com.techwork.kjc.mvp_project.R;
+import com.techwork.kjc.mvp_project.layoutModel.RingView;
 
 import java.util.ArrayList;
 
 public class FRG4_MenuMain extends Fragment implements View.OnClickListener {
 
+    private View viewLayout;
+
+
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
+
+        viewLayout = inflater.inflate(R.layout.act4_mainmenu, container,false);
+        RingView rv = (RingView)viewLayout.findViewById(R.id.act4_menu);
+
+        String[] str = {"M", "V", "P","R"};
+        int[] colors = {R.color.arc1, R.color.arc2, R.color.arc3, R.color.arc21};
+
+        rv.setTotalSection(4);
+        rv.setSelectPosition(1);
+        rv.initDash(str,colors);
+        rv.startAnim(800);
+
+
+        return viewLayout;
     }
 
     @Override
     public void onClick(View view) {
 
-    }
-
-    public interface Requester{
-        void onRequestLogin(ArrayList<String> info);
     }
 }
