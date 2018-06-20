@@ -8,9 +8,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.techwork.kjc.mvp_project.dialog.InputMeasureRecordDialog;
 import com.techwork.kjc.mvp_project.dialog.ShowPreScriptionDialog;
+import com.techwork.kjc.mvp_project.fireSource.Fire_Auth;
 import com.techwork.kjc.mvp_project.fragment.FRG1_Splash;
 import com.techwork.kjc.mvp_project.fragment.FRG2_Register;
 import com.techwork.kjc.mvp_project.fragment.FRG3_Login;
@@ -21,6 +23,7 @@ import com.techwork.kjc.mvp_project.fragment.FRG7_Focus;
 import com.techwork.kjc.mvp_project.util.PhotoProcess;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TestController extends AppCompatActivity {
 
@@ -46,7 +49,7 @@ public class TestController extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
 //        rendingFRG3_Login();
 //        renderingFRG7_Focus();
-        rendingFRG4_MainMenu();
+        rendingFRG2_Register();
     }
 
     void renderingFRG6_Versus(){
@@ -84,11 +87,24 @@ public class TestController extends AppCompatActivity {
         Log.i("count : ",fragmentManager.getBackStackEntryCount()+"");
     }
 
-    void rendingFRG2_Register(){
+    public void rendingFRG2_Register(){
         FRG2_Register frg2_register = new FRG2_Register();
         frg2_register.requester = new FRG2_Register.Requester() {
             @Override
-            public void requestSignup(String act2_id, String act2_pw, String act2_name, String act2_sex, String act2_school, String act2_grade, String act2_cls, String act2_num, String act2_tall, String act2_weight) {
+            public void requestSignup(String act2_id, String act2_pw, String act2_name, String act2_sex, String act2_school, String act2_grade, String act2_cls, String act2_num, String act2_tall, String act2_weight,ImageView iv) {
+                HashMap<String,String> info = new HashMap<>();
+                info.put("id",act2_id);
+                info.put("pw",act2_pw);
+                info.put("name",act2_name);
+                info.put("sex",act2_sex);
+                info.put("school",act2_school);
+                info.put("grade",act2_grade);
+                info.put("cls",act2_cls);
+                info.put("num",act2_num);
+                info.put("tall",act2_tall);
+                info.put("weight",act2_weight);
+                Fire_Auth mFA = new Fire_Auth();
+                mFA.createUserAuth(TestController.this,iv,info);
 
             }
 
@@ -112,7 +128,9 @@ public class TestController extends AppCompatActivity {
         frg3_login.requester = new FRG3_Login.Requester() {
             @Override
             public void onRequestLogin(ArrayList<String> info) {
-
+                Fire_Auth mFA = new Fire_Auth();
+                mFA.setInfo(info);
+                mFA.goLogin(TestController.this);
             }
         };
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -123,7 +141,7 @@ public class TestController extends AppCompatActivity {
         Log.i("count : ",fragmentManager.getBackStackEntryCount()+"");
     }
 
-    void rendingFRG4_MainMenu(){
+    public void rendingFRG4_MainMenu(){
         FRG4_MenuMain frg4_mainmenu = new FRG4_MenuMain();
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
