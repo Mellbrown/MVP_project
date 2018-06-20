@@ -35,6 +35,7 @@ public class FRG2_Register extends Fragment{
     private EditText act2_weight;
     private ImageView act2_image;
     private Button act2_Rbtn;
+    private String path;
 
     public Requester requester;
 
@@ -43,6 +44,7 @@ public class FRG2_Register extends Fragment{
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
         View viewLayout = inflater.inflate(R.layout.act2__register, container,false);
+
 
         act2_id = viewLayout.findViewById(R.id.act2_id);
         act2_pw = viewLayout.findViewById(R.id.act2_pw);
@@ -76,7 +78,9 @@ public class FRG2_Register extends Fragment{
                         , act2_cls.getText().toString()
                         , act2_num.getText().toString()
                         , act2_tall.getText().toString()
-                        , act2_weight.getText().toString());
+                        , act2_weight.getText().toString()
+                        , act2_image
+                        );
             }
         });
 
@@ -93,7 +97,9 @@ public class FRG2_Register extends Fragment{
                 , String act2_cls
                 , String act2_num
                 , String act2_tall
-                , String act2_weight);
+                , String act2_weight
+                , ImageView act2_iv
+        );
         void requestImagePath();
     }
 

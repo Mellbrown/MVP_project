@@ -17,6 +17,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.techwork.kjc.mvp_project.R;
+import com.techwork.kjc.mvp_project.util.g2u;
 
 import java.lang.reflect.InvocationTargetException;
 import java.time.Year;
@@ -27,7 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.StringTokenizer;
 
-public class CusCalView<T, VH extends CusCalView.CusCalViewHolder> extends FrameLayout implements View.OnClickListener {
+abstract public class CusCalView<T, VH extends CusCalView.CusCalViewHolder> extends FrameLayout implements View.OnClickListener {
     private  View viewLayout;
 
     // 보이는 월 UI
@@ -44,16 +45,13 @@ public class CusCalView<T, VH extends CusCalView.CusCalViewHolder> extends Frame
     // 선택된 달력
     private Calendar selectedDate;
 
-    private Class<VH> cusCalViewHolderClass;
     private ArrayList<CusCalViewHolder> cusCalViewHolders = new ArrayList<>();
 
     public HashMap<SimpleDate,T> dataMap = new HashMap<>();
 
-    public CusCalView(@NonNull Context context, Class<VH> viewHolderClass) {
+    public CusCalView(@NonNull Context context) {
         super(context);
 
-
-        cusCalViewHolderClass = viewHolderClass;
         // set Content View
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         viewLayout = inflater.inflate(R.layout.custview_cus_cal_view,this,false);
@@ -133,16 +131,7 @@ public class CusCalView<T, VH extends CusCalView.CusCalViewHolder> extends Frame
             TableRow tableRow = new TableRow(getContext());
             tableRow.setWeightSum(7);
             for(int j = 0; 7 > j; j++){
-                CusCalViewHolder cusCalViewHolder = null;
-                try {
-                    cusCalViewHolder = cusCalViewHolderClass
-                            .getDeclaredConstructor(Context.class)
-                            .newInstance(getContext());
-                }
-                catch (IllegalAccessException e) {e.printStackTrace();}
-                catch (InstantiationException e) { e.printStackTrace(); }
-                catch (NoSuchMethodException e) { e.printStackTrace(); }
-                catch (InvocationTargetException e) { e.printStackTrace(); }
+                CusCalViewHolder cusCalViewHolder = getNewInstanceViewHolder();
 
                 if(j==0) cusCalViewHolder.setColor(Color.RED);
                 if(j==6) cusCalViewHolder.setColor(Color.BLUE);
@@ -166,12 +155,16 @@ public class CusCalView<T, VH extends CusCalView.CusCalViewHolder> extends Frame
         int dayOfWeek = selectedDate.get(Calendar.DAY_OF_WEEK) - 1;
         int maxDaiesOfMonth = selectedDate.getActualMaximum(Calendar.DAY_OF_MONTH);
 
+        Log.i("드로우", dataMap.toString());
+
         for(int i = 0; cusCalViewHolders.size() > i; i++){
             CusCalViewHolder cusCalViewHolder = cusCalViewHolders.get(i);
-            if (dayOfWeek <= i && i <= dayOfWeek + maxDaiesOfMonth) {
+            if (dayOfWeek <= i && i <= dayOfWeek + maxDaiesOfMonth - 1) {
+                SimpleDate simpleDate = new SimpleDate(selectedDate.get(Calendar.YEAR), selectedDate.get(Calendar.MONTH) + 1, i - dayOfWeek + 1);
+                T t = dataMap.get(simpleDate);
                 cusCalViewHolder.setVisibility(VISIBLE);
-                cusCalViewHolder.setDayOfMonth(i - dayOfWeek + 1);
-
+                cusCalViewHolder.setDayOfMonth(simpleDate.date);
+                cusCalViewHolder.setDataBind(simpleDate,dataMap.get(simpleDate));
             } else { //Dead Date
                 cusCalViewHolder.setVisibility(INVISIBLE);
             }
@@ -182,7 +175,7 @@ public class CusCalView<T, VH extends CusCalView.CusCalViewHolder> extends Frame
         int year = selectedDate.get(Calendar.YEAR);
         int month = selectedDate.get(Calendar.MONTH) + 1;
         if(simpleDate.year == year && simpleDate.month == month){
-            int dayOfWeek = selectedDate.get(Calendar.DAY_OF_WEEK) - 1;
+            int dayOfWeek = selectedDate.get(Calendar.DAY_OF_WEEK) - 2;
             return (VH) cusCalViewHolders.get(dayOfWeek + simpleDate.date);
         }
         else {
@@ -192,14 +185,14 @@ public class CusCalView<T, VH extends CusCalView.CusCalViewHolder> extends Frame
     
     public void notifyChangeItem(SimpleDate date){
         T t = dataMap.get(date);
-        ((CusCalViewHolder<T>) getViewholderFromDate(date)).setDataBind(date,t);
+        getViewholderFromDate(date).setDataBind(date,t);
     }
 
     public void notifyChangedDataSet(){
         UpdateMonthCalanderUIfromSelectedDate();
     }
 
-    public static class SimpleDate{
+    public static class SimpleDate implements Comparable<SimpleDate> {
         int year, month, date;
         public SimpleDate(int year, int month, int date){
             Calendar calendar = Calendar.getInstance();
@@ -221,17 +214,36 @@ public class CusCalView<T, VH extends CusCalView.CusCalViewHolder> extends Frame
             }
             return false;
         }
+
+        @Override
+        public String toString() {
+            return String.format("%d년 %d월 %d일", year, month, date);
+        }
+
+        @Override
+        public int compareTo(@NonNull SimpleDate o) {
+            if(year == o.year){
+                if(month == o.month){
+                    return date - date;
+                } return month - o.month;
+            } return year - o.year;
+        }
+
+        @Override
+        public int hashCode() {
+            return year * 10000 + month * 100 + date;
+        }
     }
     public static abstract class CusCalViewHolder<T> extends FrameLayout{
 
         private View viewLayout;
-        private View contentView;
 
         private TextView txtDate;
         private TextView txtTitle;
         private FrameLayout frame;
 
         private SimpleDate curBinded;
+
 
         public CusCalViewHolder(@NonNull Context context) {
             super(context);
@@ -244,7 +256,7 @@ public class CusCalView<T, VH extends CusCalView.CusCalViewHolder> extends Frame
             txtTitle = viewLayout.findViewById(R.id.txtTitle);
             frame = viewLayout.findViewById(R.id.frame);
 
-            contentView = onCreateView(inflater,frame);
+            View contentView = onCreateView(inflater,frame);
             frame.addView(contentView, new LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         }
 
@@ -268,4 +280,6 @@ public class CusCalView<T, VH extends CusCalView.CusCalViewHolder> extends Frame
         public abstract View onCreateView(LayoutInflater inflater, ViewGroup contener);
         public abstract void onDataBind(T data);
     }
+
+    public abstract CusCalViewHolder<T> getNewInstanceViewHolder();
 }

@@ -8,18 +8,24 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 
 import com.techwork.kjc.mvp_project.dialog.InputMeasureRecordDialog;
 import com.techwork.kjc.mvp_project.dialog.ShowPreScriptionDialog;
+import com.techwork.kjc.mvp_project.fireSource.Fire_Auth;
 import com.techwork.kjc.mvp_project.fragment.FRG1_Splash;
 import com.techwork.kjc.mvp_project.fragment.FRG2_Register;
 import com.techwork.kjc.mvp_project.fragment.FRG3_Login;
+import com.techwork.kjc.mvp_project.fragment.FRG4_MenuMain;
 import com.techwork.kjc.mvp_project.fragment.FRG5_Measure;
 import com.techwork.kjc.mvp_project.fragment.FRG6_Versus;
 import com.techwork.kjc.mvp_project.fragment.FRG7_Focus;
+import com.techwork.kjc.mvp_project.fragment.FRG8_Track;
 import com.techwork.kjc.mvp_project.util.PhotoProcess;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class TestController extends AppCompatActivity {
 
@@ -43,15 +49,58 @@ public class TestController extends AppCompatActivity {
         setContentView(frameLayout);
 
         fragmentManager = getSupportFragmentManager();
+        rendingFRG4_MainMenu();
+    }
 
-//        rendingFRG3_Login();
-//        renderingFRG7_Focus();
-        rendingFRG5_Measure();
-//        renderingFRG6_Versus();
+    void renderingFRG8_Track(){
+        FRG8_Track frg8_track = new FRG8_Track();
+        frg8_track.requester = new FRG8_Track.Requester() {
+            @Override
+            public void requestFocus_register(int level, int reps) {
+
+            }
+
+            @Override
+            public void requestFocus_clear() {
+
+            }
+
+            @Override
+            public void requestRecyclerView(int date, int level, int reps) {
+
+            }
+        };
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(containerID, frg8_track,"frg8_track");
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+        rendingFRG4_MainMenu();
     }
 
     void renderingFRG6_Versus(){
         FRG6_Versus frg6_versus = new FRG6_Versus();
+        frg6_versus.requester = new FRG6_Versus.Requester() {
+            @Override
+            public FRG6_Versus.SimProfile reuqestYouProfile() {
+                return null; //당신의 프로파일
+            }
+
+            @Override
+            public List<FRG6_Versus.SimProfile> requestRivalesProfiles() {
+                return null; //라이벌의 프로파일 리스트
+            }
+
+            @Override
+            public void reuqestClose() {
+                // 다끝났으니 화면을 닫아줄것을 요청
+            }
+
+            @Override
+            public boolean whoWinner(FRG6_Versus.SimProfile you, FRG6_Versus.SimProfile rival) {
+                //누가 있겼는지 판단해줄것을 요청
+                return false;
+            }
+        };
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(containerID, frg6_versus,"frg6_versus");
         fragmentTransaction.addToBackStack(null);
@@ -85,11 +134,24 @@ public class TestController extends AppCompatActivity {
         Log.i("count : ",fragmentManager.getBackStackEntryCount()+"");
     }
 
-    void rendingFRG2_Register(){
+    public void rendingFRG2_Register(){
         FRG2_Register frg2_register = new FRG2_Register();
         frg2_register.requester = new FRG2_Register.Requester() {
             @Override
-            public void requestSignup(String act2_id, String act2_pw, String act2_name, String act2_sex, String act2_school, String act2_grade, String act2_cls, String act2_num, String act2_tall, String act2_weight) {
+            public void requestSignup(String act2_id, String act2_pw, String act2_name, String act2_sex, String act2_school, String act2_grade, String act2_cls, String act2_num, String act2_tall, String act2_weight,ImageView iv) {
+                HashMap<String,String> info = new HashMap<>();
+                info.put("id",act2_id);
+                info.put("pw",act2_pw);
+                info.put("name",act2_name);
+                info.put("sex",act2_sex);
+                info.put("school",act2_school);
+                info.put("grade",act2_grade);
+                info.put("cls",act2_cls);
+                info.put("num",act2_num);
+                info.put("tall",act2_tall);
+                info.put("weight",act2_weight);
+                Fire_Auth mFA = new Fire_Auth();
+                mFA.createUserAuth(TestController.this,iv,info);
 
             }
 
@@ -113,11 +175,24 @@ public class TestController extends AppCompatActivity {
         frg3_login.requester = new FRG3_Login.Requester() {
             @Override
             public void onRequestLogin(ArrayList<String> info) {
-
+                Fire_Auth mFA = new Fire_Auth();
+                mFA.setInfo(info);
+                mFA.goLogin(TestController.this);
             }
         };
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(containerID, frg3_login);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+
+        Log.i("count : ",fragmentManager.getBackStackEntryCount()+"");
+    }
+
+    public void rendingFRG4_MainMenu(){
+        FRG4_MenuMain frg4_mainmenu = new FRG4_MenuMain();
+
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(containerID, frg4_mainmenu);
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
