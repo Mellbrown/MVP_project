@@ -15,12 +15,14 @@ import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
 
 import com.techwork.kjc.mvp_project.R;
+import com.techwork.kjc.mvp_project.dialog.PracticeMenuDialog;
 
 
 /**
@@ -59,6 +61,16 @@ public class RingView extends View {
     private boolean isAnim;
     private OnDashItemClickListener itemClickListener;
 
+    public PracticeMenuDialog.Requester requester;
+
+    OnClickListner onClickListner;
+    public interface OnClickListner{
+        void onClick(int i);
+    }
+
+    public void setOnClickListener(OnClickListner onClickListner){
+        this.onClickListner = onClickListner;
+    }
 
     public RingView(Context context) {
         super(context);
@@ -138,6 +150,9 @@ public class RingView extends View {
                 mDownY = event.getY();
                 break;
             case MotionEvent.ACTION_UP:
+                //selectPosition
+                if(onClickListner != null) onClickListner.onClick(selectPosition);
+                break;
             case MotionEvent.ACTION_MOVE:
               /*  int  disX = (int) (event.getX() - mDownX);
                 int  disY = (int) (event.getY() - mDownY);
@@ -311,5 +326,6 @@ public class RingView extends View {
 
         void onItemClick(RingView dashView, int position);
     }
+
 }
 

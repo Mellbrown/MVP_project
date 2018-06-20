@@ -49,7 +49,7 @@ public class TestController extends AppCompatActivity {
 //        renderingFRG7_Focus();
 //        rendingFRG5_Measure();
 //        renderingFRG6_Versus();
-        renderingFRG8_Track();
+        rendingFRG4_MainMenu();
     }
 
     void renderingFRG8_Track(){
@@ -151,7 +151,7 @@ public class TestController extends AppCompatActivity {
         Log.i("count : ",fragmentManager.getBackStackEntryCount()+"");
     }
 
-    void rendingFRG4_MainMenu(){
+    public void rendingFRG4_MainMenu(){
         FRG4_MenuMain frg4_mainmenu = new FRG4_MenuMain();
 
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
