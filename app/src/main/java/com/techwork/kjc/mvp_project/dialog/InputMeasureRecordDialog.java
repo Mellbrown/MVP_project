@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.techwork.kjc.mvp_project.R;
-import com.techwork.kjc.mvp_project.bean.MeasureItemBean;
+import com.techwork.kjc.mvp_project.fragment.FRG5_Measure;
 
 import java.util.Date;
 
@@ -33,19 +33,21 @@ public class InputMeasureRecordDialog extends Dialog{
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MeasureItemBean measureItemBean = new MeasureItemBean();
-                measureItemBean.timestamp = new Date().getTime();
-                measureItemBean.armWeight = Double.valueOf(iptArm.getText().toString());
-                measureItemBean.legWeight = Double.valueOf(iptLeg.getText().toString());
-                measureItemBean.backWeight = Double.valueOf(iptBack.getText().toString());
-                measureItemBean.allBodyWeight = Double.valueOf(iptAllBody.getText().toString());
-                onSaveListener.onSave(measureItemBean);
+                FRG5_Measure.MeasureItemBean measureItemBean = new FRG5_Measure.MeasureItemBean();
+                try {
+                    measureItemBean.timestamp = new Date().getTime();
+                    measureItemBean.armWeight = Double.valueOf(iptArm.getText().toString());
+                    measureItemBean.legWeight = Double.valueOf(iptLeg.getText().toString());
+                    measureItemBean.backWeight = Double.valueOf(iptBack.getText().toString());
+                    measureItemBean.allBodyWeight = Double.valueOf(iptAllBody.getText().toString());
+                    onSaveListener.onSave(measureItemBean);
+                }catch (Exception e){ }
                 dismiss();
             }
         });
     }
 
     public interface OnSaveListener{
-        void onSave(MeasureItemBean measureItemBean);
+        void onSave(FRG5_Measure.MeasureItemBean measureItemBean);
     }
 }

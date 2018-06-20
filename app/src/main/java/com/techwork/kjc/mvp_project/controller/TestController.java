@@ -9,8 +9,8 @@ import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
-import com.techwork.kjc.mvp_project.bean.MeasureItemBean;
 import com.techwork.kjc.mvp_project.dialog.InputMeasureRecordDialog;
+import com.techwork.kjc.mvp_project.dialog.ShowPreScriptionDialog;
 import com.techwork.kjc.mvp_project.fragment.FRG1_Splash;
 import com.techwork.kjc.mvp_project.fragment.FRG2_Register;
 import com.techwork.kjc.mvp_project.fragment.FRG3_Login;
@@ -46,7 +46,8 @@ public class TestController extends AppCompatActivity {
 
 //        rendingFRG3_Login();
 //        renderingFRG7_Focus();
-        renderingFRG6_Versus();
+        rendingFRG5_Measure();
+//        renderingFRG6_Versus();
     }
 
     void renderingFRG6_Versus(){
@@ -128,9 +129,9 @@ public class TestController extends AppCompatActivity {
         frg5_measure.requester = new FRG5_Measure.Requester() {
             @Override
             public void requestMeasureItemBeans() {
-                ArrayList<MeasureItemBean> measureItemBeans = new ArrayList<>();
+                ArrayList<FRG5_Measure.MeasureItemBean> measureItemBeans = new ArrayList<>();
                 for (int i = 0 ; 30 > i ; i++)
-                    measureItemBeans.add(new MeasureItemBean(true));
+                    measureItemBeans.add(new FRG5_Measure.MeasureItemBean(true));
 
                 ((FRG5_Measure) fragmentManager.findFragmentByTag("frg5_measure"))
                         .responseMeasureItemBeans(measureItemBeans);
@@ -140,7 +141,7 @@ public class TestController extends AppCompatActivity {
             public void requestAddMeasureItem() {
                 new InputMeasureRecordDialog(TestController.this, new InputMeasureRecordDialog.OnSaveListener() {
                     @Override
-                    public void onSave(MeasureItemBean measureItemBean) {
+                    public void onSave(FRG5_Measure.MeasureItemBean measureItemBean) {
                         ((FRG5_Measure) fragmentManager.findFragmentByTag("frg5_measure"))
                                 .responseAddMeasureItem(measureItemBean);
                     }
@@ -148,7 +149,18 @@ public class TestController extends AppCompatActivity {
             }
 
             @Override
-            public void requestRemoveThisMeasureItem(MeasureItemBean measureItemBean) {
+            public void requestShowPrescription(FRG5_Measure.MeasureItemBean measureItemBean) {
+                new ShowPreScriptionDialog(TestController.this, new ShowPreScriptionDialog.Prescription(
+                    measureItemBean.allBodyWeight + "라? 초 돼지임 ㅇㅇ. 한강물 체크하고 오셈",
+                        new ShowPreScriptionDialog.EachPrescription(ShowPreScriptionDialog.EachPrescription.BOTTOM_CLASS, "하타치야!!" ),
+                        new ShowPreScriptionDialog.EachPrescription(ShowPreScriptionDialog.EachPrescription.MIDDLE_CLASS, "중타치야!!!"),
+                        new ShowPreScriptionDialog.EachPrescription(ShowPreScriptionDialog.EachPrescription.TOP_CLASS, "상타치야!!!"),
+                        new ShowPreScriptionDialog.EachPrescription(ShowPreScriptionDialog.EachPrescription.BOTTOM_CLASS, "결국엔 넌 하타치였어. \n  하타치야!!")
+                )).show();
+            }
+
+            @Override
+            public void requestRemoveThisMeasureItem(FRG5_Measure.MeasureItemBean measureItemBean) {
                 ((FRG5_Measure) fragmentManager.findFragmentByTag("frg5_measure"))
                         .responseRemoveSuccessMeasureItem(measureItemBean);
             }
