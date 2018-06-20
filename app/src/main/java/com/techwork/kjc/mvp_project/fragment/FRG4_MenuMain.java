@@ -12,10 +12,10 @@ import com.techwork.kjc.mvp_project.layoutModel.RingView;
 
 import java.util.ArrayList;
 
-public class FRG4_MenuMain extends Fragment implements View.OnClickListener {
+public class FRG4_MenuMain extends Fragment implements  RingView.OnClickListner{
 
     private View viewLayout;
-
+    public Requester requester;
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -31,12 +31,35 @@ public class FRG4_MenuMain extends Fragment implements View.OnClickListener {
         rv.initDash(str,colors);
         rv.startAnim(800);
 
+        rv.setOnClickListener(this);
 
         return viewLayout;
     }
 
     @Override
-    public void onClick(View view) {
+    public void onClick(int i) {
+        switch (i){
+            case 0:{
+                requester.MeasureActivityStart();
+            }
+            case 1:{
+                requester.VersusActivityStart();
+            }
+            case 2:{
+                requester.PracticeDialogStart();
+            }
+            case 3:{
+                requester.RecordActivityStart();
+            }
+        }
+    }
+
+    public interface Requester{
+
+        void MeasureActivityStart();
+        void VersusActivityStart();
+        void PracticeDialogStart();
+        void RecordActivityStart();
 
     }
 }
