@@ -20,6 +20,7 @@ import com.techwork.kjc.mvp_project.fragment.FRG4_MenuMain;
 import com.techwork.kjc.mvp_project.fragment.FRG5_Measure;
 import com.techwork.kjc.mvp_project.fragment.FRG6_Versus;
 import com.techwork.kjc.mvp_project.fragment.FRG7_Focus;
+import com.techwork.kjc.mvp_project.fragment.FRG8_Graph;
 import com.techwork.kjc.mvp_project.fragment.FRG8_Track;
 import com.techwork.kjc.mvp_project.util.PhotoProcess;
 
@@ -49,7 +50,16 @@ public class TestController extends AppCompatActivity {
         setContentView(frameLayout);
 
         fragmentManager = getSupportFragmentManager();
+<<<<<<< HEAD
+//        rendingFRG3_Login();
+//        renderingFRG7_Focus();
+//        rendingFRG5_Measure();
+//        renderingFRG6_Versus();
+//        rendingFRG4_MainMenu();
+        rederingFRG8_Graph();
+=======
         rendingFRG4_MainMenu();
+>>>>>>> dff2c81deaa1ebcad90aaecfd99a9c20b4848707
     }
 
     void renderingFRG8_Track(){
@@ -76,6 +86,15 @@ public class TestController extends AppCompatActivity {
         fragmentTransaction.commit();
         rendingFRG4_MainMenu();
     }
+
+    void rederingFRG8_Graph(){
+        FRG8_Graph frg8_graph = new FRG8_Graph();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(containerID, frg8_graph,"frg8_versus");
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
 
     void renderingFRG6_Versus(){
         FRG6_Versus frg6_versus = new FRG6_Versus();
@@ -222,6 +241,7 @@ public class TestController extends AppCompatActivity {
                     }
                 }).show();
             }
+
 
             @Override
             public void requestShowPrescription(FRG5_Measure.MeasureItemBean measureItemBean) {
