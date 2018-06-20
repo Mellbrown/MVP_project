@@ -1,14 +1,23 @@
 package com.techwork.kjc.mvp_project.controller;
 
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.support.annotation.NonNull;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.FrameLayout;
+import android.widget.Switch;
 
+import com.techwork.kjc.mvp_project.R;
 import com.techwork.kjc.mvp_project.dialog.InputMeasureRecordDialog;
 import com.techwork.kjc.mvp_project.dialog.ShowPreScriptionDialog;
 import com.techwork.kjc.mvp_project.fragment.FRG1_Splash;
@@ -17,6 +26,7 @@ import com.techwork.kjc.mvp_project.fragment.FRG3_Login;
 import com.techwork.kjc.mvp_project.fragment.FRG5_Measure;
 import com.techwork.kjc.mvp_project.fragment.FRG6_Versus;
 import com.techwork.kjc.mvp_project.fragment.FRG7_Focus;
+import com.techwork.kjc.mvp_project.subview.CusCalView;
 import com.techwork.kjc.mvp_project.util.PhotoProcess;
 
 import java.util.ArrayList;
@@ -28,6 +38,38 @@ public class TestController extends AppCompatActivity {
 
     int containerID;
 
+    public static class Some{
+        public boolean on = false;
+
+        Some(boolean on){
+            this.on = on;
+        }
+    }
+
+    public static class SomeViewHolder extends CusCalView.CusCalViewHolder<Some>{
+
+        private View viewLayout;
+        private Button button;
+
+        public SomeViewHolder(@NonNull Context context) {
+            super(context);
+        }
+
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup contener) {
+            viewLayout = inflater.inflate(R.layout.item_cuscal_example,contener,false);
+            button = viewLayout.findViewById(R.id.button);
+            return viewLayout;
+        }
+
+        @Override
+        public void onDataBind(Some data) {
+            if(data != null && data.on)
+                button.setBackgroundColor(Color.BLUE);
+            else
+                button.setBackgroundColor(Color.RED);
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,12 +85,32 @@ public class TestController extends AppCompatActivity {
         setContentView(frameLayout);
 
         fragmentManager = getSupportFragmentManager();
+        CusCalView<Some, SomeViewHolder> cusCalView = new CusCalView<Some, SomeViewHolder>(this) {
+            @Override
+            public SomeViewHolder getNewInstanceViewHolder() {
+                final SomeViewHolder someViewHolder = new SomeViewHolder(getContext());
+                someViewHolder.button.setOnClickListener((View v)->{
+                    Some some = dataMap.get(someViewHolder.getCurBinded());
+                    if(some != null && some.on){
+                        dataMap.remove(someViewHolder.getCurBinded());
+                    }else{
+                        dataMap.put(someViewHolder.getCurBinded(),new Some(true));
+                    }
+                    notifyChangeItem(someViewHolder.getCurBinded());
+                });
+                return someViewHolder;
+            }
+        };
+        frameLayout.addView(cusCalView, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
+
 
 //        rendingFRG3_Login();
 //        renderingFRG7_Focus();
-        rendingFRG5_Measure();
+//        rendingFRG5_Measure();
 //        renderingFRG6_Versus();
     }
+
+
 
     void renderingFRG6_Versus(){
         FRG6_Versus frg6_versus = new FRG6_Versus();
