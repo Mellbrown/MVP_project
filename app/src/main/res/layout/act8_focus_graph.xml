@@ -107,8 +107,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.9"
-            android:weightSum="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:weightSum="1">
 
             <FrameLayout
                 android:id="@+id/act8_date"
@@ -118,13 +118,20 @@
 
             </FrameLayout>
 
-            <FrameLayout
-                android:id="@+id/act8_graphView"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.9">
 
-            </FrameLayout>
+
+                <org.eazegraph.lib.charts.BarChart
+                    xmlns:app="http://schemas.android.com/apk/res-auto"
+                    android:id="@+id/barchart"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="0.9"
+                    android:padding="10dp"
+                    app:egFixedBarWidth="true"
+                    app:egBarWidth="20dp"
+                    app:egLegendHeight="40dp"/>
+
+
 
 
         </LinearLayout>
