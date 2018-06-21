@@ -78,19 +78,18 @@ public class FRG7_Focus extends Fragment implements View.OnClickListener {
         itemes.get(P_LEG).add(new SelectItem(R.drawable.app_icon,null));
         itemes.get(P_LEG).add(new SelectItem(R.drawable.app_icon,null));
         itemes.get(P_LEG).add(new SelectItem(R.drawable.app_icon,null));
-        itemes.get(P_LEG).add(new SelectItem(R.drawable.app_icon,null));
 
         itemes.get(P_BACK).add(new SelectItem(R.drawable.app_icon,null));
         itemes.get(P_BACK).add(new SelectItem(R.drawable.app_icon,null));
         itemes.get(P_BACK).add(new SelectItem(R.drawable.app_icon,null));
+        itemes.get(P_BACK).add(new SelectItem(R.drawable.app_icon,null));
 
 
         itemes.get(P_All_BODY).add(new SelectItem(R.drawable.app_icon,null));
         itemes.get(P_All_BODY).add(new SelectItem(R.drawable.app_icon,null));
         itemes.get(P_All_BODY).add(new SelectItem(R.drawable.app_icon,null));
         itemes.get(P_All_BODY).add(new SelectItem(R.drawable.app_icon,null));
-        itemes.get(P_All_BODY).add(new SelectItem(R.drawable.app_icon,null));
-        itemes.get(P_All_BODY).add(new SelectItem(R.drawable.app_icon,null));
+
 
         SetPage(itemes.get(P_ARM));
 

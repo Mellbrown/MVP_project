@@ -39,6 +39,25 @@ public class Fire_Auth {
     public void setInfo(ArrayList<String> info){
         this.info = info;
     }
+    public void testLogin(Activity act){
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+
+        auth.signInWithEmailAndPassword("kkddgg1001@gmail.com","11111111").addOnCompleteListener(act, new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()==true) {
+                    Log.w("testing","Login");
+                }else {
+
+                }
+            }
+        });
+        try {
+            Thread.sleep(15000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
     //Login
     public void goLogin(Activity act){
         FirebaseAuth auth = FirebaseAuth.getInstance();

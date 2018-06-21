@@ -115,7 +115,7 @@ public class CusSelDateView extends FrameLayout implements View.OnClickListener 
     }
 
     public static class SimpleDate implements Comparable<SimpleDate> {
-        int year, month, date;
+        public int year, month, date;
 
         public SimpleDate(){
             Calendar calendar = Calendar.getInstance();
