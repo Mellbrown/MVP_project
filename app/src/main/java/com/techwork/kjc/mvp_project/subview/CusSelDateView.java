@@ -26,10 +26,10 @@ public class CusSelDateView extends FrameLayout implements View.OnClickListener 
 
     private SimpleDate curDate;
 
-    public CusSelDateView(@NonNull Context context, SimpleDate date) {
-        super(context);
+    private OnChangedDateListener onChangedDateListener;
 
-        this.curDate = date;
+    public CusSelDateView(@NonNull Context context, SimpleDate date, OnChangedDateListener onChangedDateListener) {
+        super(context);
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         viewLayout = inflater.inflate(R.layout.custview_sel_date_view,this,false);
@@ -44,6 +44,10 @@ public class CusSelDateView extends FrameLayout implements View.OnClickListener 
         txtDate.setOnClickListener(this);
         btnPrevMonth.setOnClickListener(this);
         btnNextMonth.setOnClickListener(this);
+
+        this.curDate = date;
+        iptDate.setText(String.format("%04d.%02d.%02d",curDate.year, curDate.month, curDate.date));
+
         viewLayout.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -56,12 +60,16 @@ public class CusSelDateView extends FrameLayout implements View.OnClickListener 
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.btnPrevMonth:{
+                if(on) break;
                 curDate = new SimpleDate(curDate.year, curDate.month, curDate.date -1);
                 txtDate.setText(String.format("%04d.%02d.%02d",curDate.year, curDate.month, curDate.date));
+                onChangedDateListener.onChangedDate(curDate);
             }break;
             case R.id.btnNextMonth:{
-                curDate = new SimpleDate(curDate.year, curDate.month, curDate.date -1);
+                if(on) break;
+                curDate = new SimpleDate(curDate.year, curDate.month, curDate.date +1);
                 txtDate.setText(String.format("%04d.%02d.%02d",curDate.year, curDate.month, curDate.date));
+                onChangedDateListener.onChangedDate(curDate);
             }break;
             case R.id.txtDate:{
                 ShowPopupDateEditor();
@@ -74,8 +82,8 @@ public class CusSelDateView extends FrameLayout implements View.OnClickListener 
         on = true;
         iptDate.setText(String.format("%04d.%02d.%02d",curDate.year, curDate.month, curDate.date));
         conIptDate.setVisibility(VISIBLE);
-        btnNextMonth.setVisibility(GONE);
-        btnPrevMonth.setVisibility(GONE);
+        btnNextMonth.setVisibility(INVISIBLE);
+        btnPrevMonth.setVisibility(INVISIBLE);
     }
 
     private void DissmissPopupDateEditor(){
@@ -86,6 +94,7 @@ public class CusSelDateView extends FrameLayout implements View.OnClickListener 
         if(readFromIpt() != null){
             curDate = readFromIpt();
             txtDate.setText(String.format("%04d.%02d.%02d",curDate.year, curDate.month, curDate.date));
+            onChangedDateListener.onChangedDate(curDate);
         }
     }
 
@@ -152,5 +161,9 @@ public class CusSelDateView extends FrameLayout implements View.OnClickListener 
         public int hashCode() {
             return year * 10000 + month * 100 + date;
         }
+    }
+
+    public interface OnChangedDateListener{
+        void onChangedDate(SimpleDate date);
     }
 }
