@@ -10,7 +10,9 @@ import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.techwork.kjc.mvp_project.dialog.PracticeMenuDialog;
 import com.techwork.kjc.mvp_project.fireSource.Fire_Auth;
 import com.techwork.kjc.mvp_project.fragment.FRG1_Splash;
 import com.techwork.kjc.mvp_project.fragment.FRG2_Register;
@@ -83,21 +85,36 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
     // 메뉴 화면이 다른 화면을 이동을 요구
     @Override
     public void MeasureActivityStart() {
-
+        // 측정 컨트롤러로 가라!
+        startActivity(new Intent(StartController.this, Third_MeauserController.class));
     }
 
     @Override
     public void VersusActivityStart() {
-
-    }
-
-    @Override
-    public void PracticeDialogStart() {
-
+        // 대결 컨트롤러로 가라!
+        startActivity(new Intent(StartController.this, Third_VersusController.class));
     }
 
     @Override
     public void RecordActivityStart() {
+        // 앙 아직 만들어졌다 띄
+        Toast.makeText(StartController.this, "앙 아직 안들어졌다 띄 앙앙!", Toast.LENGTH_SHORT).show();
+    }
 
+    @Override //메뉴중하나는 다이얼로그 띄워서 세부 메뉴를 씁니다.
+    public void PracticeDialogStart() {
+        new PracticeMenuDialog(StartController.this, new PracticeMenuDialog.Requester() {
+            @Override
+            public void FocusActivityStart() {
+                //포커즈 컨트롤러로 가라
+                startActivity(new Intent(StartController.this, Third_FocusController.class));
+            }
+
+            @Override
+            public void CycleActivityStart() {
+                // 순환 컨트롤러로 가라
+                startActivity(new Intent(StartController.this, Third_Recursive.class));
+            }
+        });
     }
 }
