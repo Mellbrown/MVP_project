@@ -94,6 +94,11 @@ public class SubFRG6_SelectRival extends FrameLayout {
     public static class RirvalItem{
         public Bitmap photo;
         public String name;
+
+        public RirvalItem(Bitmap photo, String name){
+            this.photo = photo;
+            this.name = name;
+        }
     }
 
     public static class RirvalViewHolder extends RecyclerView.ViewHolder {

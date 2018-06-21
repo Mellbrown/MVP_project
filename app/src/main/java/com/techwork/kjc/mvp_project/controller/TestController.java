@@ -22,11 +22,13 @@ import com.techwork.kjc.mvp_project.fragment.FRG4_MenuMain;
 import com.techwork.kjc.mvp_project.fragment.FRG5_Measure;
 import com.techwork.kjc.mvp_project.fragment.FRG6_Versus;
 import com.techwork.kjc.mvp_project.fragment.FRG7_Focus;
+import com.techwork.kjc.mvp_project.fragment.FRG8_Graph;
 import com.techwork.kjc.mvp_project.fragment.FRG8_Track;
 import com.techwork.kjc.mvp_project.util.PhotoProcess;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class TestController extends AppCompatActivity {
 
@@ -51,9 +53,7 @@ public class TestController extends AppCompatActivity {
         setContentView(frameLayout);
 
         fragmentManager = getSupportFragmentManager();
-        new Fire_Auth().testLogin(TestController.this);
-        new Fire_GOS().requestFM(1);
-        rendingFRG5_Measure();
+        rederingFRG8_Graph();
     }
 
     void renderingFRG8_Track(){
@@ -81,8 +81,39 @@ public class TestController extends AppCompatActivity {
         rendingFRG4_MainMenu();
     }
 
+    void rederingFRG8_Graph(){
+        FRG8_Graph frg8_graph = new FRG8_Graph();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.add(containerID, frg8_graph,"frg8_versus");
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+
     void renderingFRG6_Versus(){
         FRG6_Versus frg6_versus = new FRG6_Versus();
+        frg6_versus.requester = new FRG6_Versus.Requester() {
+            @Override
+            public FRG6_Versus.SimProfile reuqestYouProfile() {
+                return null; //당신의 프로파일
+            }
+
+            @Override
+            public List<FRG6_Versus.SimProfile> requestRivalesProfiles() {
+                return null; //라이벌의 프로파일 리스트
+            }
+
+            @Override
+            public void reuqestClose() {
+                // 다끝났으니 화면을 닫아줄것을 요청
+            }
+
+            @Override
+            public boolean whoWinner(FRG6_Versus.SimProfile you, FRG6_Versus.SimProfile rival) {
+                //누가 있겼는지 판단해줄것을 요청
+                return false;
+            }
+        };
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(containerID, frg6_versus,"frg6_versus");
         fragmentTransaction.addToBackStack(null);
@@ -204,6 +235,7 @@ public class TestController extends AppCompatActivity {
                     }
                 }).show();
             }
+
 
             @Override
             public void requestShowPrescription(FRG5_Measure.MeasureItemBean measureItemBean) {
