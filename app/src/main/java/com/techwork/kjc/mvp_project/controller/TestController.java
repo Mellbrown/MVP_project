@@ -53,7 +53,9 @@ public class TestController extends AppCompatActivity {
         setContentView(frameLayout);
 
         fragmentManager = getSupportFragmentManager();
-        rederingFRG8_Graph();
+
+        new Fire_Auth().checkLogin(TestController.this);
+
     }
 
     void renderingFRG8_Track(){
@@ -128,7 +130,7 @@ public class TestController extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    void rendingFRG1_Splash(){
+    public void rendingFRG1_Splash(){
         FRG1_Splash frg1_splash = new FRG1_Splash();
         frg1_splash.requester = new FRG1_Splash.Requester() {
             @Override
@@ -189,8 +191,8 @@ public class TestController extends AppCompatActivity {
             @Override
             public void onRequestLogin(ArrayList<String> info) {
                 Fire_Auth mFA = new Fire_Auth();
-                mFA.setInfo(info);
-                mFA.goLogin(TestController.this);
+                Log.w("second","test");
+                mFA.goLogin(TestController.this,info);
             }
         };
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -203,7 +205,34 @@ public class TestController extends AppCompatActivity {
 
     public void rendingFRG4_MainMenu(){
         FRG4_MenuMain frg4_mainmenu = new FRG4_MenuMain();
+        new Fire_GOS().requestFM(0);
+        frg4_mainmenu.requester = new FRG4_MenuMain.Requester() {
 
+            @Override
+            public void MeasureActivityStart() {
+
+            }
+
+            @Override
+            public void VersusActivityStart() {
+
+            }
+
+            @Override
+            public void PracticeDialogStart() {
+
+            }
+
+            @Override
+            public void RecordActivityStart() {
+
+            }
+
+            @Override
+            public void Logout() {
+                new Fire_Auth().aLogout(TestController.this);
+            }
+        };
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(containerID, frg4_mainmenu);
         fragmentTransaction.addToBackStack(null);
@@ -218,8 +247,6 @@ public class TestController extends AppCompatActivity {
             @Override
             public void requestMeasureItemBeans() {
                 ArrayList<FRG5_Measure.MeasureItemBean> measureItemBeans = new ArrayList<>();
-                new Fire_GOS().requestFM(1);
-
 
                 ((FRG5_Measure) fragmentManager.findFragmentByTag("frg5_measure"))
                         .responseMeasureItemBeans(measureItemBeans);
@@ -276,6 +303,7 @@ public class TestController extends AppCompatActivity {
         if(requestCode == 0 && resultCode == 0){
             String imagePath = data.getStringExtra(PhotoProcess.RES_IMAGE_PATH);
             FRG2_Register frg2_register = ((FRG2_Register) fragmentManager.findFragmentByTag("frg2_register"));
+            Log.i("암히어", imagePath.toString());
             frg2_register.responseImagePath(imagePath);
 
         }
