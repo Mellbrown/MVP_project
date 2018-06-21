@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.techwork.kjc.mvp_project.R;
+import com.techwork.kjc.mvp_project.subview.CusSelDateView;
 
 public class FRG8_History extends Fragment {
 
@@ -37,6 +38,14 @@ public class FRG8_History extends Fragment {
         act8_item_level = viewLayout.findViewById(R.id.act8_item_level);
         act8_item_reps = viewLayout.findViewById(R.id.act8_item_reps);
 
+
+        CusSelDateView selectDate = new CusSelDateView(getContext(), new CusSelDateView.SimpleDate(), new CusSelDateView.OnChangedDateListener() {
+            @Override
+            public void onChangedDate(CusSelDateView.SimpleDate date) {
+
+            }
+        });
+        act8_date.addView(selectDate);
 
         return viewLayout;
     }
