@@ -31,6 +31,8 @@ public class CusSelDateView extends FrameLayout implements View.OnClickListener 
     public CusSelDateView(@NonNull Context context, SimpleDate date, OnChangedDateListener onChangedDateListener) {
         super(context);
 
+        this.onChangedDateListener = onChangedDateListener;
+
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         viewLayout = inflater.inflate(R.layout.custview_sel_date_view,this,false);
         addView(viewLayout);
@@ -113,7 +115,7 @@ public class CusSelDateView extends FrameLayout implements View.OnClickListener 
     }
 
     public static class SimpleDate implements Comparable<SimpleDate> {
-        int year, month, date;
+        public int year, month, date;
 
         public SimpleDate(){
             Calendar calendar = Calendar.getInstance();

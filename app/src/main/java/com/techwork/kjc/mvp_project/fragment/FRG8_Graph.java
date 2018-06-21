@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.techwork.kjc.mvp_project.R;
+import com.techwork.kjc.mvp_project.subview.CusSelDateView;
 
 import org.eazegraph.lib.charts.BarChart;
 import org.eazegraph.lib.models.BarModel;
@@ -17,7 +18,6 @@ import org.eazegraph.lib.models.BarModel;
 public class FRG8_Graph extends Fragment {
     private View viewLayout;
     private FrameLayout act8_date;
-    private FrameLayout act8_graph;
     public Requester requester;
     BarChart mBarChart;
 
@@ -26,13 +26,26 @@ public class FRG8_Graph extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         viewLayout = inflater.inflate(R.layout.act8_focus_graph, container,false);
 
+        act8_date = viewLayout.findViewById(R.id.act8_date);
+
         mBarChart = viewLayout.findViewById(R.id.barchart);
+
+        CusSelDateView selectDate = new CusSelDateView(getContext(), new CusSelDateView.SimpleDate(), new CusSelDateView.OnChangedDateListener() {
+            @Override
+            public void onChangedDate(CusSelDateView.SimpleDate date) {
+
+            ;
+            }
+        });
+        act8_date.addView(selectDate, -1, -1);
 
         GraphSet(2, 2, 0xFF123456);
         GraphSet(3, 5, 0xFF123456);
         GraphSet(1, 6, 0xFF123456);
         GraphSet(7,3, 0xFF123456); // 그래프 추가 함수 만들어놓음 하나 추가 될때마다 색깔바뀌는건 알고리즘 고민좀 해주세요
-        // addGraph(그날에 맞는 운동횟수(그래프 수), 강도, 횟수 );
+        // addGraph(그날에 맞는 운동횟수(그래프 수), 강도, 횟수 )
+
+
 
 
         mBarChart.startAnimation();
