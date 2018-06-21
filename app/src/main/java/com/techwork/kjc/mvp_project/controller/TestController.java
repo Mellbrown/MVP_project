@@ -10,7 +10,6 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.google.firebase.database.FirebaseDatabase;
 import com.techwork.kjc.mvp_project.dialog.InputMeasureRecordDialog;
 import com.techwork.kjc.mvp_project.dialog.ShowPreScriptionDialog;
 import com.techwork.kjc.mvp_project.fireSource.Fire_Auth;
@@ -21,7 +20,7 @@ import com.techwork.kjc.mvp_project.fragment.FRG3_Login;
 import com.techwork.kjc.mvp_project.fragment.FRG4_MenuMain;
 import com.techwork.kjc.mvp_project.fragment.FRG5_Measure;
 import com.techwork.kjc.mvp_project.fragment.FRG6_Versus;
-import com.techwork.kjc.mvp_project.fragment.FRG7_Focus;
+import com.techwork.kjc.mvp_project.fragment.FRG7_aBody;
 import com.techwork.kjc.mvp_project.fragment.FRG8_Graph;
 import com.techwork.kjc.mvp_project.fragment.FRG8_Track;
 import com.techwork.kjc.mvp_project.util.PhotoProcess;
@@ -53,7 +52,8 @@ public class TestController extends AppCompatActivity {
         setContentView(frameLayout);
 
         fragmentManager = getSupportFragmentManager();
-        rederingFRG8_Graph();
+//        rederingFRG8_Graph();
+        renderingFRG7_aBody();
     }
 
     void renderingFRG8_Track(){
@@ -120,10 +120,10 @@ public class TestController extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    void renderingFRG7_Focus(){
-        FRG7_Focus act7_focus = new FRG7_Focus();
+    void renderingFRG7_aBody(){
+        FRG7_aBody act7_aBody = new FRG7_aBody();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(containerID, act7_focus,"act7_focus");
+        fragmentTransaction.add(containerID, act7_aBody,"act7_aBody");
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
