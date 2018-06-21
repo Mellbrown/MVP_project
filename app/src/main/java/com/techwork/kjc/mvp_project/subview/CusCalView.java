@@ -185,7 +185,8 @@ abstract public class CusCalView<T, VH extends CusCalView.CusCalViewHolder> exte
     
     public void notifyChangeItem(SimpleDate date){
         T t = dataMap.get(date);
-        getViewholderFromDate(date).setDataBind(date,t);
+        VH viewholderFromDate = getViewholderFromDate(date);
+        viewholderFromDate.setDataBind(date,t);
     }
 
     public void notifyChangedDataSet(){
@@ -193,7 +194,16 @@ abstract public class CusCalView<T, VH extends CusCalView.CusCalViewHolder> exte
     }
 
     public static class SimpleDate implements Comparable<SimpleDate> {
-        int year, month, date;
+        public int year, month, date;
+
+        public SimpleDate(){
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(new Date());
+            this.year = calendar.get(Calendar.YEAR);
+            this.month = calendar.get(Calendar.MONTH) + 1;
+            this.date = calendar.get(Calendar.DAY_OF_MONTH);
+        }
+
         public SimpleDate(int year, int month, int date){
             Calendar calendar = Calendar.getInstance();
             calendar.set(year,month - 1,date);
