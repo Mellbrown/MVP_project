@@ -10,9 +10,11 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.google.firebase.database.FirebaseDatabase;
 import com.techwork.kjc.mvp_project.dialog.InputMeasureRecordDialog;
 import com.techwork.kjc.mvp_project.dialog.ShowPreScriptionDialog;
 import com.techwork.kjc.mvp_project.fireSource.Fire_Auth;
+import com.techwork.kjc.mvp_project.fireSource.Fire_GOS;
 import com.techwork.kjc.mvp_project.fragment.FRG1_Splash;
 import com.techwork.kjc.mvp_project.fragment.FRG2_Register;
 import com.techwork.kjc.mvp_project.fragment.FRG3_Login;
@@ -30,6 +32,7 @@ public class TestController extends AppCompatActivity {
 
     FragmentManager fragmentManager;
     FrameLayout frameLayout;
+    boolean ready = false;
 
     int containerID;
 
@@ -48,7 +51,9 @@ public class TestController extends AppCompatActivity {
         setContentView(frameLayout);
 
         fragmentManager = getSupportFragmentManager();
-        rendingFRG4_MainMenu();
+        new Fire_Auth().testLogin(TestController.this);
+        new Fire_GOS().requestFM(1);
+        rendingFRG5_Measure();
     }
 
     void renderingFRG8_Track(){
@@ -182,8 +187,8 @@ public class TestController extends AppCompatActivity {
             @Override
             public void requestMeasureItemBeans() {
                 ArrayList<FRG5_Measure.MeasureItemBean> measureItemBeans = new ArrayList<>();
-                for (int i = 0 ; 30 > i ; i++)
-                    measureItemBeans.add(new FRG5_Measure.MeasureItemBean(true));
+                new Fire_GOS().requestFM(1);
+
 
                 ((FRG5_Measure) fragmentManager.findFragmentByTag("frg5_measure"))
                         .responseMeasureItemBeans(measureItemBeans);

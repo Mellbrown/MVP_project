@@ -19,6 +19,7 @@ import com.google.firebase.database.Exclude;
 import com.google.firebase.database.IgnoreExtraProperties;
 import com.techwork.kjc.mvp_project.R;
 import com.techwork.kjc.mvp_project.adapter.BaseRecyclerAdapter;
+import com.techwork.kjc.mvp_project.fireSource.Fire_GOS;
 import com.techwork.kjc.mvp_project.util.g2u;
 import com.techwork.kjc.mvp_project.viewholder.MeasureItemViewHolder;
 
@@ -65,7 +66,6 @@ public class FRG5_Measure extends Fragment implements View.OnClickListener {
         btnCancle.setOnClickListener(this);
 
         btnCancle.setVisibility(View.GONE);
-
         recLayoutMgr = new LinearLayoutManager(getActivity());
         recAdapter = new BaseRecyclerAdapter<MeasureItemBean, MeasureItemViewHolder>(
                 R.layout.item_measure, MeasureItemViewHolder.class
