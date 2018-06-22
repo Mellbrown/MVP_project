@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.techwork.kjc.mvp_project.R;
 import com.techwork.kjc.mvp_project.layoutModel.RingView;
@@ -32,6 +33,14 @@ public class FRG4_MenuMain extends Fragment implements  RingView.OnClickListner{
         rv.startAnim(800);
 
         rv.setOnClickListener(this);
+
+        Button bt = (Button)viewLayout.findViewById(R.id.act4_logout);
+        bt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                requester.Logout();
+            }
+        });
 
         return viewLayout;
     }
@@ -60,6 +69,7 @@ public class FRG4_MenuMain extends Fragment implements  RingView.OnClickListner{
         void VersusActivityStart();
         void PracticeDialogStart();
         void RecordActivityStart();
+        void Logout();
 
     }
 }

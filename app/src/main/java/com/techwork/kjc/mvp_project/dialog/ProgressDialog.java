@@ -15,7 +15,8 @@ public class ProgressDialog extends Dialog {
         title = findViewById(R.id.title);
     }
 
-    public void setTitle(String title){
+    public ProgressDialog setTitle(String title){
         this.title.setText(title);
+        return this;
     }
 }

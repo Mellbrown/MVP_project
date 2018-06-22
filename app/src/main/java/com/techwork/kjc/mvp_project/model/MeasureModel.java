@@ -5,4 +5,5 @@ package com.techwork.kjc.mvp_project.model;
  */
 
 public class MeasureModel {
+    String abody,arm,back,leg;
 }

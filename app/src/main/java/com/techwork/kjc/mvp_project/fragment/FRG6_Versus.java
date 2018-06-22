@@ -85,8 +85,7 @@ public class FRG6_Versus extends Fragment {
 
             @Override
             public void requestConfirm() {
-                Toast.makeText(getContext(), "계산중...", Toast.LENGTH_SHORT).show();
-                subFRG6_showVersus.responseResult(requester.whoWinner(youProfile,new SimProfile(rirvalItem.photo, rirvalItem.name)));
+                requester.whoWinner(youProfile,new SimProfile(rirvalItem.photo, rirvalItem.name));
             }
 
             @Override
@@ -102,7 +101,7 @@ public class FRG6_Versus extends Fragment {
         SimProfile reuqestYouProfile();
         List<SimProfile> requestRivalesProfiles();
         void reuqestClose();
-        boolean whoWinner(SimProfile you, SimProfile rival);
+        void whoWinner(SimProfile you, SimProfile rival);
     }
 
     public static class SimProfile{
@@ -114,5 +113,9 @@ public class FRG6_Versus extends Fragment {
             this.photo = photo;
             this.name = name;
         }
+    }
+
+    public void responseWhoWinner(boolean isYouWin){
+        subFRG6_showVersus.responseResult(isYouWin);
     }
 }
