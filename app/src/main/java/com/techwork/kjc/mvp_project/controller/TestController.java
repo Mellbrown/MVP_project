@@ -10,6 +10,10 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.techwork.kjc.mvp_project.dialog.InputMeasureRecordDialog;
 import com.techwork.kjc.mvp_project.dialog.ShowPreScriptionDialog;
 import com.techwork.kjc.mvp_project.fireSource.Fire_Auth;
@@ -24,6 +28,7 @@ import com.techwork.kjc.mvp_project.fragment.FRG6_Versus;
 import com.techwork.kjc.mvp_project.fragment.FRG7_aBody;
 import com.techwork.kjc.mvp_project.fragment.FRG8_Graph;
 import com.techwork.kjc.mvp_project.fragment.FRG8_Track;
+import com.techwork.kjc.mvp_project.util.EventChain;
 import com.techwork.kjc.mvp_project.util.PhotoProcess;
 
 import java.util.ArrayList;
@@ -55,6 +60,58 @@ public class TestController extends AppCompatActivity {
         fragmentManager = getSupportFragmentManager();
         new Fire_Auth().checkLogin(TestController.this);
         rendingFRG5_Measure();
+    }
+
+    void asdf(){
+
+        EventChain.ready("참조 데이터 수신완료 리스너");
+        FirebaseDatabase.getInstance().getReference("참조 데이터").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                EventChain.complete("참조 데이터 수신완료 리스너");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        EventChain.ready("사진 수신완료 리스너");
+        FirebaseDatabase.getInstance().getReference("사진").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                EventChain.complete("사진 수신완료 리스너");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        EventChain.ready("사용자 수신완료 리스너");
+        FirebaseDatabase.getInstance().getReference("사용자 데이터").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                EventChain.complete("사용자 수신완료 리스너");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        EventChain.andthen(new EventChain.CallBack() {
+            @Override
+            public void run() {
+
+            }
+        }, "참조 데이터 수신완료 리스너", "사진 수신완료 리스너", "사용자 수신완료 리스너");
     }
 
     void renderingFRG8_Track(){
@@ -112,7 +169,6 @@ public class TestController extends AppCompatActivity {
             @Override
             public void whoWinner(FRG6_Versus.SimProfile you, FRG6_Versus.SimProfile rival) {
                 //누가 있겼는지 판단해줄것을 요청
-
             }
         };
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -205,6 +261,7 @@ public class TestController extends AppCompatActivity {
 
     public void rendingFRG4_MainMenu(){
         FRG4_MenuMain frg4_mainmenu = new FRG4_MenuMain();
+
         frg4_mainmenu.requester = new FRG4_MenuMain.Requester() {
 
             @Override

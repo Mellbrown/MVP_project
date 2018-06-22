@@ -34,6 +34,7 @@ public class Third_FocusController extends AppCompatActivity implements g2u.Patc
                 )
         );
         setContentView(frameLayout);
+        fragmentManager = getSupportFragmentManager();
 
         // 시작부터는 팔 페이지를 보여줍니다.ㅇ
         renderingArm();
@@ -49,9 +50,9 @@ public class Third_FocusController extends AppCompatActivity implements g2u.Patc
     private void renderingArm(){
         FRG7_Arm frg7_arm = new FRG7_Arm();
         frg7_arm.requester = this;
-        frg7_arm.setTabPatch(this); // 탭 버튼 이벤트 패치.
+        frg7_arm.tabPatch = this; // 탭 버튼 이벤트 패치.
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(containerID, frg7_arm,"frg7_arm");
+        fragmentTransaction.replace(containerID, frg7_arm,"frg7_arm");
         fragmentTransaction.commit();
     }
 
@@ -59,9 +60,9 @@ public class Third_FocusController extends AppCompatActivity implements g2u.Patc
     private void rederingLeg(){
         FRG7_Leg frg7_leg = new FRG7_Leg();
         frg7_leg.requester = this;
-        frg7_leg.setTabPatch(this); // 탭 버튼 이벤트 패치.
+        frg7_leg.tabPatch = this; // 탭 버튼 이벤트 패치.
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(containerID, frg7_leg,"frg7_leg");
+        fragmentTransaction.replace(containerID, frg7_leg,"frg7_leg");
         fragmentTransaction.commit();
     }
 
@@ -69,9 +70,9 @@ public class Third_FocusController extends AppCompatActivity implements g2u.Patc
     private void rederingBack(){
         FRG7_back frg7_back = new FRG7_back();
         frg7_back.requester = this;
-        frg7_back.setTabPatch(this); // 탭 버튼 이벤트 패치.
+        frg7_back.tabPatch = this; // 탭 버튼 이벤트 패치.
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(containerID, frg7_back,"frg7_back");
+        fragmentTransaction.replace(containerID, frg7_back,"frg7_back");
         fragmentTransaction.commit();
     }
 
@@ -79,9 +80,9 @@ public class Third_FocusController extends AppCompatActivity implements g2u.Patc
     private void rederinBody(){
         FRG7_aBody frg7_aBody = new FRG7_aBody();
         frg7_aBody.requester = this;
-        frg7_aBody.setTabPatch(this); // 탭 버튼 이벤트 패치.
+        frg7_aBody.tabPatch = this; // 탭 버튼 이벤트 패치.
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(containerID, frg7_aBody,"frg7_aBody");
+        fragmentTransaction.replace(containerID, frg7_aBody,"frg7_aBody");
         fragmentTransaction.commit();
     }
 
@@ -101,7 +102,7 @@ public class Third_FocusController extends AppCompatActivity implements g2u.Patc
             }break;
             case back:{
                 if(curPage == back) break;
-                rederingLeg();
+                rederingBack();
                 curPage = leg;
             }break;
             case body:{

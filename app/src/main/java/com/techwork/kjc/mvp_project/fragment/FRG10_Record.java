@@ -15,19 +15,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.techwork.kjc.mvp_project.R;
-import com.techwork.kjc.mvp_project.dialog.MvpPrintDialog;
-import com.techwork.kjc.mvp_project.subview.CusCalView;
-
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.Map;
-
-import static android.view.View.INVISIBLE;
-import static android.view.View.VISIBLE;
 
 public class FRG10_Record extends Fragment {
     private FrameLayout act10_cal;
-    private Button mvp;
+    private Button king;
     private View viewLayout;
     public Requester requester;
 
@@ -37,12 +28,12 @@ public class FRG10_Record extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         viewLayout = inflater.inflate(R.layout.act10_record, container,false);
         act10_cal = viewLayout.findViewById(R.id.act10_cal);
-        mvp = viewLayout.findViewById(R.id.mvp);
+        king = viewLayout.findViewById(R.id.king);
 
-        mvp.setOnClickListener(new View.OnClickListener() {
+        king.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // requester.MvpPrintDialog();
+                requester.MVPactivityStart();
             }
         });
 
@@ -50,6 +41,7 @@ public class FRG10_Record extends Fragment {
     }
 
     public interface Requester{
-        void MvpPrintDialog(Uri path);
+        void setCal();
+        void MVPactivityStart();
     }
 }

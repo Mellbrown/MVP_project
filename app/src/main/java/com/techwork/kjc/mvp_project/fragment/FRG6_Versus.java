@@ -45,6 +45,7 @@ public class FRG6_Versus extends Fragment {
 
         youProfile = requester.reuqestYouProfile();
 
+        ShowSubFRG6_selectRival();
         return viewLayout;
     }
 

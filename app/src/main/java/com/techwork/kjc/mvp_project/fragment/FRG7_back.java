@@ -21,6 +21,7 @@ public class FRG7_back extends android.support.v4.app.Fragment {
     private ImageView act7_third;
     private ImageView act7_fource;
     public FRG7_Requester requester;
+    public g2u.PatchRouterFRG7 tabPatch;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -67,10 +68,7 @@ public class FRG7_back extends android.support.v4.app.Fragment {
             }
         });
 
-        return viewLayout;
-    }
-
-    public void setTabPatch(g2u.PatchRouterFRG7 tabPatch){
         g2u.PatchEventAttacherFRG7(viewLayout, tabPatch);
+        return viewLayout;
     }
 }

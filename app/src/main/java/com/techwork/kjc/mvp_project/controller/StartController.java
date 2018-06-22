@@ -18,6 +18,7 @@ import com.techwork.kjc.mvp_project.fragment.FRG1_Splash;
 import com.techwork.kjc.mvp_project.fragment.FRG2_Register;
 import com.techwork.kjc.mvp_project.fragment.FRG3_Login;
 import com.techwork.kjc.mvp_project.fragment.FRG4_MenuMain;
+import com.techwork.kjc.mvp_project.util.EventChain;
 import com.techwork.kjc.mvp_project.util.PhotoProcess;
 
 import java.util.ArrayList;
@@ -51,6 +52,15 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
         //로그인 이벤트 발생하면, rendingFRG4_MainMenu해주고
 
         //로그아웃 이벤트 발생하면 rendringFRG1_Splash해주고
+
+        rendingFRG1_Splash();
+        EventChain.ready("로그인 되었어여");
+        EventChain.andthen(new EventChain.CallBack() {
+            @Override
+            public void run() {
+                rendingFRG4_MainMenu();
+            }
+        },"로그인 되었어여");
     }
 
     // 시작 스플레시 화면 떳음
@@ -59,7 +69,7 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
         frg1_splash.requester = this;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(containerID, frg1_splash);
-        fragmentTransaction.commit();
+        fragmentTransaction.commitAllowingStateLoss();
     }
 
     void rendingFRG4_MainMenu(){
@@ -67,7 +77,7 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
         frg4_mainmenu.requester = this;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(containerID, frg4_mainmenu);
-        fragmentTransaction.commit();
+        fragmentTransaction.commitAllowingStateLoss();
     }
 
     @Override // 스플레시 화면에서 다른 화면 이동을 요구
@@ -101,25 +111,30 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
         Toast.makeText(StartController.this, "앙 아직 안들어졌다 띄 앙앙!", Toast.LENGTH_SHORT).show();
     }
 
-    @Override
+
+    @Override // 냥 냥 나중에 수정된 내용!
     public void Logout() {
 
     }
 
     @Override //메뉴중하나는 다이얼로그 띄워서 세부 메뉴를 씁니다.
     public void PracticeDialogStart() {
-        new PracticeMenuDialog(StartController.this, new PracticeMenuDialog.Requester() {
+        final PracticeMenuDialog practiceMenuDialog[] = new PracticeMenuDialog[1];
+        practiceMenuDialog[0] = new PracticeMenuDialog(StartController.this, new PracticeMenuDialog.Requester() {
             @Override
             public void FocusActivityStart() {
                 //포커즈 컨트롤러로 가라
                 startActivity(new Intent(StartController.this, Third_FocusController.class));
+                practiceMenuDialog[0].dismiss();
             }
 
             @Override
             public void CycleActivityStart() {
                 // 순환 컨트롤러로 가라
-//                startActivity(new Intent(StartController.this, Third_Recursive.class));
+                startActivity(new Intent(StartController.this, Third_Recursive.class));
+                practiceMenuDialog[0].dismiss();
             }
         });
+        practiceMenuDialog[0].show();
     }
 }

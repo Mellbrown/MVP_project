@@ -13,15 +13,28 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
+        <!--테스트를 위한 컨트롤러-->
+        <activity android:name=".controller.TestController" />
 
-        <activity android:name=".controller.StartController"/>
-            <activity android:name=".controller.TestController">
+        <!--릴리즈용 스타트 컨트롤러-->
+        <activity android:name=".controller.StartController">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <!--나머지 릴리즈용 컨트롤러-->
+        <activity android:name=".controller.Second_RegisterController"/>
+        <activity android:name=".controller.Second_LoginController" />
+
+        <activity android:name=".controller.Third_Recursive" />
+        <activity android:name=".controller.Third_MeauserController" />
+        <activity android:name=".controller.Third_VersusController" />
+        <activity android:name=".controller.Third_FocusController" />
+
+
+        <!--유틸 액티비티-->
         <activity android:name=".util.PhotoProcess" />
     </application>
 
