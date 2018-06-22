@@ -2,6 +2,11 @@ package com.techwork.kjc.mvp_project.util;
 
 import android.content.Context;
 import android.util.TypedValue;
+import android.view.View;
+
+import com.techwork.kjc.mvp_project.R;
+
+import static com.techwork.kjc.mvp_project.util.g2u.PatchRouterFRG7.back;
 
 /**
  * Created by mlyg2 on 2018-06-12.
@@ -44,5 +49,18 @@ public class g2u {
 
     }
 
+    public interface PatchRouterFRG7{
+        int arm = 1;
+        int leg = 2;
+        int back = 3;
+        int body = 4;
+        void route(int where);
+    }
 
+    public static void PatchEventAttacherFRG7(View viewLayout, PatchRouterFRG7 patchRouterFRG7){
+        viewLayout.findViewById(R.id.tabArm).setOnClickListener(v -> { patchRouterFRG7.route(PatchRouterFRG7.arm);});
+        viewLayout.findViewById(R.id.tabLeg).setOnClickListener(v->{patchRouterFRG7.route(PatchRouterFRG7.leg);});
+        viewLayout.findViewById(R.id.tabBack).setOnClickListener(v->{patchRouterFRG7.route(PatchRouterFRG7.back);});
+        viewLayout.findViewById(R.id.tabAllBody).setOnClickListener(v->{patchRouterFRG7.route(PatchRouterFRG7.body);});
+    }
 }

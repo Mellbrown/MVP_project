@@ -50,16 +50,16 @@ public class FRG4_MenuMain extends Fragment implements  RingView.OnClickListner{
         switch (i){
             case 0:{
                 requester.MeasureActivityStart();
-            }
+            }break;
             case 1:{
                 requester.VersusActivityStart();
-            }
+            }break;
             case 2:{
                 requester.PracticeDialogStart();
-            }
+            }break;
             case 3:{
                 requester.RecordActivityStart();
-            }
+            }break;
         }
     }
 

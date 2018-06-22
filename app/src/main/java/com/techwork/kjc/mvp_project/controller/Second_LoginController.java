@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 
 import com.techwork.kjc.mvp_project.fireSource.Fire_Auth;
 import com.techwork.kjc.mvp_project.fragment.FRG3_Login;
+import com.techwork.kjc.mvp_project.util.EventChain;
 
 import java.util.ArrayList;
 
@@ -58,6 +59,7 @@ public class Second_LoginController extends AppCompatActivity implements FRG3_Lo
 
         // 로그인 성공하면 역시 이 컨트롤러는 수명을 다합니다.
         // 로그인 성공하면 다음
+        EventChain.complete("로그인 되었어여");
         finish();
         //코드를 박아 줍시다.
     }

@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.GlideDrawableImageViewTarget;
 import com.techwork.kjc.mvp_project.R;
+import com.techwork.kjc.mvp_project.util.FRG7_Requester;
+import com.techwork.kjc.mvp_project.util.g2u;
 
 public class FRG7_back extends android.support.v4.app.Fragment {
    private View viewLayout;
@@ -18,7 +20,8 @@ public class FRG7_back extends android.support.v4.app.Fragment {
     private ImageView act7_second;
     private ImageView act7_third;
     private ImageView act7_fource;
-    public Requester requester;
+    public FRG7_Requester requester;
+    public g2u.PatchRouterFRG7 tabPatch;
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -65,9 +68,7 @@ public class FRG7_back extends android.support.v4.app.Fragment {
             }
         });
 
+        g2u.PatchEventAttacherFRG7(viewLayout, tabPatch);
         return viewLayout;
-    }
-    public interface Requester{
-        void TrackActivityStart(String part);
     }
 }
