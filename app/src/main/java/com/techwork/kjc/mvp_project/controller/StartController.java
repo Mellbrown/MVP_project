@@ -101,6 +101,11 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
         Toast.makeText(StartController.this, "앙 아직 안들어졌다 띄 앙앙!", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public void Logout() {
+
+    }
+
     @Override //메뉴중하나는 다이얼로그 띄워서 세부 메뉴를 씁니다.
     public void PracticeDialogStart() {
         new PracticeMenuDialog(StartController.this, new PracticeMenuDialog.Requester() {
@@ -113,7 +118,7 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
             @Override
             public void CycleActivityStart() {
                 // 순환 컨트롤러로 가라
-                startActivity(new Intent(StartController.this, Third_Recursive.class));
+//                startActivity(new Intent(StartController.this, Third_Recursive.class));
             }
         });
     }

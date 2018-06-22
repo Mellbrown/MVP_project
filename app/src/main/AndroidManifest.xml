@@ -13,8 +13,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".controller.TestController" />
-        <activity android:name=".controller.StartController">
+
+        <activity android:name=".controller.StartController"/>
+            <activity android:name=".controller.TestController">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

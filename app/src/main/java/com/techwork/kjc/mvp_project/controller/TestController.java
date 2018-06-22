@@ -14,6 +14,7 @@ import com.techwork.kjc.mvp_project.dialog.InputMeasureRecordDialog;
 import com.techwork.kjc.mvp_project.dialog.ShowPreScriptionDialog;
 import com.techwork.kjc.mvp_project.fireSource.Fire_Auth;
 import com.techwork.kjc.mvp_project.fireSource.Fire_GOS;
+import com.techwork.kjc.mvp_project.fireSource.fireclass.mFClass;
 import com.techwork.kjc.mvp_project.fragment.FRG1_Splash;
 import com.techwork.kjc.mvp_project.fragment.FRG2_Register;
 import com.techwork.kjc.mvp_project.fragment.FRG3_Login;
@@ -52,9 +53,8 @@ public class TestController extends AppCompatActivity {
         setContentView(frameLayout);
 
         fragmentManager = getSupportFragmentManager();
-        
         new Fire_Auth().checkLogin(TestController.this);
-
+        rendingFRG5_Measure();
     }
 
     void renderingFRG8_Track(){
@@ -79,7 +79,7 @@ public class TestController extends AppCompatActivity {
         fragmentTransaction.add(containerID, frg8_track,"frg8_track");
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        rendingFRG4_MainMenu();
+        new Fire_Auth().testLogin(TestController.this);
     }
 
     void rederingFRG8_Graph(){
@@ -110,9 +110,9 @@ public class TestController extends AppCompatActivity {
             }
 
             @Override
-            public boolean whoWinner(FRG6_Versus.SimProfile you, FRG6_Versus.SimProfile rival) {
+            public void whoWinner(FRG6_Versus.SimProfile you, FRG6_Versus.SimProfile rival) {
                 //누가 있겼는지 판단해줄것을 요청
-                return false;
+
             }
         };
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -130,6 +130,7 @@ public class TestController extends AppCompatActivity {
     }
 
     public void rendingFRG1_Splash(){
+        Log.w("asdf","asdf");
         FRG1_Splash frg1_splash = new FRG1_Splash();
         frg1_splash.requester = new FRG1_Splash.Requester() {
             @Override
@@ -204,7 +205,6 @@ public class TestController extends AppCompatActivity {
 
     public void rendingFRG4_MainMenu(){
         FRG4_MenuMain frg4_mainmenu = new FRG4_MenuMain();
-        new Fire_GOS().requestFM(0);
         frg4_mainmenu.requester = new FRG4_MenuMain.Requester() {
 
             @Override
@@ -242,6 +242,7 @@ public class TestController extends AppCompatActivity {
 
     public void rendingFRG5_Measure(){
         FRG5_Measure frg5_measure = new FRG5_Measure();
+        new Fire_GOS().getFM(frg5_measure);
         frg5_measure.requester = new FRG5_Measure.Requester() {
             @Override
             public void requestMeasureItemBeans() {
@@ -256,6 +257,12 @@ public class TestController extends AppCompatActivity {
                 new InputMeasureRecordDialog(TestController.this, new InputMeasureRecordDialog.OnSaveListener() {
                     @Override
                     public void onSave(FRG5_Measure.MeasureItemBean measureItemBean) {
+                        HashMap<String,String> info = new HashMap<>();
+                        info.put("abody",String.valueOf(measureItemBean.allBodyWeight));
+                        info.put("arm",String.valueOf(measureItemBean.armWeight));
+                        info.put("back",String.valueOf(measureItemBean.backWeight));
+                        info.put("leg",String.valueOf(measureItemBean.legWeight));
+                        new Fire_GOS().setFM(info,String.valueOf(measureItemBean.timestamp));
                         ((FRG5_Measure) fragmentManager.findFragmentByTag("frg5_measure"))
                                 .responseAddMeasureItem(measureItemBean);
                     }

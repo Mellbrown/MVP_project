@@ -34,6 +34,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class Fire_GOS {
     FirebaseDatabase mDb;
@@ -47,13 +48,10 @@ public class Fire_GOS {
         mRf = mDb.getReference();
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
     }
-    public void setFM(HashMap<String,String> info, String date, FRG5_Measure act) {
+    public void setFM(HashMap<String,String> info, String date) {
         mFClass mF = new mFClass();
         mF.setData(info);
-        FirebaseDatabase.getInstance().getReference().child("user").child(uid).child(date).setValue(mF);
-    }
-    public void getFM(String date,FRG5_Measure act){
-        mFClass mF = new mFClass();
+
         FirebaseDatabase.getInstance().getReference().child("user").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -61,7 +59,39 @@ public class Fire_GOS {
                 mRf.child(uf.school).child(uf.grade).child(uf.cls).child(uid).addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        dataSnapshot.getValue();
+                        FirebaseDatabase.getInstance().getReference().child("m").child(uf.school).child(uf.grade).child(uf.cls).child(uid).child(date).setValue(mF);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+    public void getFM(FRG5_Measure act){
+        mFClass mF = new mFClass();
+        FirebaseDatabase.getInstance().getReference().child("user").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                uf = ((UserFire) dataSnapshot.getValue(UserFire.class));
+                Log.w("testing",uf.name);
+                FirebaseDatabase.getInstance().getReference().child("m").child(uf.school).child(uf.grade).child(uf.cls).child(uid).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        ArrayList<mFClass> res = new ArrayList<>();
+                        for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+                            mFClass mfc = messageSnapshot.getValue(mFClass.class);
+                            res.add(mfc);
+                        }
                     }
 
                     @Override
