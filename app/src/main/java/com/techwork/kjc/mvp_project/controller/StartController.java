@@ -2,6 +2,7 @@ package com.techwork.kjc.mvp_project.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -12,6 +13,7 @@ import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.techwork.kjc.mvp_project.dialog.PracticeMenuDialog;
 import com.techwork.kjc.mvp_project.fireSource.Fire_Auth;
 import com.techwork.kjc.mvp_project.fragment.FRG1_Splash;
@@ -48,23 +50,25 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
         //Start----------------------------------------로그인 여부에 따라
         //renderingFRG1_Slpash() 할지
         //rendingFRG4_MainMenu()할지
+        new Fire_Auth().checkLogin(this); // 이코드로 초기화 화면은 정해진다.
 
         //로그인 이벤트 발생하면, rendingFRG4_MainMenu해주고
-
         //로그아웃 이벤트 발생하면 rendringFRG1_Splash해주고
-
-        rendingFRG1_Splash();
-        EventChain.ready("로그인 되었어여");
-        EventChain.andthen(new EventChain.CallBack() {
-            @Override
-            public void run() {
-                rendingFRG4_MainMenu();
+        FirebaseAuth.getInstance().addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+            @Override // 히힝 잠시 로그인 이벤트 쓰려고 잠시 썻어영. 로그인 아웃되거나 인되면, 화면 바까줍니당
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                new Fire_Auth().checkLogin(StartController.this);
             }
-        },"로그인 되었어여");
+        });
     }
 
+    static final int splash = 1;
+    static final int main = 2;
+    private int curpage = -1;
     // 시작 스플레시 화면 떳음
-    void rendingFRG1_Splash(){
+    public void rendingFRG1_Splash(){
+        if(curpage == splash) return;
+        curpage = splash;
         FRG1_Splash frg1_splash = new FRG1_Splash();
         frg1_splash.requester = this;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -72,7 +76,9 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
         fragmentTransaction.commitAllowingStateLoss();
     }
 
-    void rendingFRG4_MainMenu(){
+    public void rendingFRG4_MainMenu(){
+        if(curpage == main) return;
+        curpage = main;
         FRG4_MenuMain frg4_mainmenu = new FRG4_MenuMain();
         frg4_mainmenu.requester = this;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
