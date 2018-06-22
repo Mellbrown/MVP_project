@@ -3,9 +3,11 @@ package com.techwork.kjc.mvp_project.fireSource;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -18,17 +20,21 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.techwork.kjc.mvp_project.controller.StartController;
 import com.techwork.kjc.mvp_project.controller.TestController;
+import com.techwork.kjc.mvp_project.fireSource.fireclass.UserFire;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
 
 public class Fire_Auth {
     private ArrayList<String> info;
     FirebaseDatabase mDB;
     DatabaseReference mRf;
     String uid;
+    static boolean rLogin;
 
     public Fire_Auth(){
         info = new ArrayList<>();
@@ -36,40 +42,47 @@ public class Fire_Auth {
         info.add("null");
     }
 
-    public void setInfo(ArrayList<String> info){
-        this.info = info;
+    public void checkLogin(Activity act){
+        if(FirebaseAuth.getInstance().getCurrentUser()!=null)
+            ((StartController)act).rendingFRG4_MainMenu();
+        else
+            ((StartController)act).rendingFRG1_Splash();
     }
+
+    public void aLogout(Activity act){
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+        auth.signOut();
+        ((TestController)act).rendingFRG1_Splash();
+    }
+
     public void testLogin(Activity act){
         FirebaseAuth auth = FirebaseAuth.getInstance();
-
-        auth.signInWithEmailAndPassword("kkddgg1001@gmail.com","11111111").addOnCompleteListener(act, new OnCompleteListener<AuthResult>() {
+        auth.signInWithEmailAndPassword("kkddgg1001@gmail.com","11111111").addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()==true) {
-                    Log.w("testing","Login");
+                    checkLogin(act);
                 }else {
-
+                    Log.w("teL","Fail");
                 }
             }
         });
-        try {
-            Thread.sleep(15000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
     }
     //Login
-    public void goLogin(Activity act){
+    public void goLogin(Activity act,ArrayList<String> info){
         FirebaseAuth auth = FirebaseAuth.getInstance();
-
+        if(info.get(0).length()==0) {
+            testLogin(act);
+            return;
+        }
         auth.signInWithEmailAndPassword(this.info.get(0),this.info.get(1)).addOnCompleteListener(act, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()==true) {
-                    TestController cur = (TestController) act;
-                    cur.rendingFRG4_MainMenu();
+                    Toast.makeText(act,"반갑습니다.",Toast.LENGTH_LONG);
+                    ((TestController)act).rendingFRG4_MainMenu();
                 }else {
-
+                    Toast.makeText(act,"ID 혹은 PW 오류",Toast.LENGTH_LONG);
                 }
             }
         });
@@ -97,7 +110,7 @@ public class Fire_Auth {
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                userInsertDB(mInfo);
+                userInsertDB(mInfo,act);
                 Log.w("testing","Storage Upload");
             }
         });
@@ -109,21 +122,25 @@ public class Fire_Auth {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()==true){
+                    uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
                     upLoadStorage(act,imageView,mInfo);
                     Log.w("testing","Auth create");
                 }
             }
         });
     }
-    // DB Insert
-    void userInsertDB(HashMap<String, String> mInfo){
+    // User DB Insert
+    void userInsertDB(HashMap<String, String> mInfo, Activity act){
+        UserFire goInsert = new UserFire();
+        goInsert.setData(mInfo);
+
         mDB = FirebaseDatabase.getInstance();
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         mRf = mDB.getReference().child("user").child(uid);
-        mRf.setValue(mInfo).addOnSuccessListener(new OnSuccessListener<Void>() {
+        mRf.setValue(goInsert).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void aVoid) {
-                Log.w("testing","DB realTime");
+                checkLogin(act);
             }
         });
     }

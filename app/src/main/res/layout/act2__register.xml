@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light"
     android:orientation="vertical"
     android:weightSum="1"
     tools:context=".activity.ACT2_Register">
@@ -46,8 +45,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:text="아이디"
-                        android:textColor="#000000" />
+                        android:text="아이디"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -59,8 +57,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:gravity="center"
-                        android:text="비밀번호"
-                        android:textColor="#000000" />
+                        android:text="비밀번호" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -72,8 +69,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:gravity="center"
-                        android:text="이름"
-                        android:textColor="#000000" />
+                        android:text="이름" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -85,8 +81,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:gravity="center"
-                        android:text="성별"
-                        android:textColor="#000000" />
+                        android:text="성별" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -98,8 +93,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:gravity="center"
-                        android:text="학교"
-                        android:textColor="#000000" />
+                        android:text="학교" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -111,8 +105,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:gravity="center"
-                        android:text="학년"
-                        android:textColor="#000000" />
+                        android:text="학년" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -125,7 +118,7 @@
                         android:layout_height="45dp"
                         android:gravity="center"
                         android:text="반"
-                        android:textColor="#000000" />
+                         />
                 </LinearLayout>
 
                 <LinearLayout
@@ -138,7 +131,7 @@
                         android:layout_height="45dp"
                         android:gravity="center"
                         android:text="번호"
-                        android:textColor="#000000" />
+                         />
                 </LinearLayout>
 
                 <LinearLayout
@@ -151,7 +144,7 @@
                         android:layout_height="45dp"
                         android:gravity="center"
                         android:text="키"
-                        android:textColor="#000000" />
+                         />
                 </LinearLayout>
 
                 <LinearLayout
@@ -164,7 +157,7 @@
                         android:layout_height="45dp"
                         android:gravity="center"
                         android:text="몸무게"
-                        android:textColor="#000000" />
+                         />
                 </LinearLayout>
             </LinearLayout>
 
@@ -181,7 +174,7 @@
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:text="ID"
-                    android:textColor="@android:color/black" />
+                     />
 
                 <EditText
                     android:id="@+id/act2_pw"
@@ -190,7 +183,7 @@
                     android:ems="10"
                     android:inputType="textPersonName"
                     android:text="PW"
-                    android:textColor="@android:color/black" />
+                     />
 
                 <EditText
                     android:id="@+id/act2_name"
@@ -198,7 +191,8 @@
                     android:layout_height="45dp"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:textColor="@android:color/black" />
+                    android:text="NAME"
+                     />
 
                 <EditText
                     android:id="@+id/act2_sex"
@@ -206,8 +200,7 @@
                     android:layout_height="45dp"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="Name"
-                    android:textColor="@android:color/black" />
+                     />
 
                 <EditText
                     android:id="@+id/act2_school"
@@ -215,8 +208,8 @@
                     android:layout_height="45dp"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="Name"
-                    android:textColor="@android:color/black" />
+                    android:text="SCHOOL"
+                     />
 
                 <EditText
                     android:id="@+id/act2_grade"
@@ -224,8 +217,8 @@
                     android:layout_height="45dp"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="Name"
-                    android:textColor="@android:color/black" />
+                    android:text="GRADE"
+                     />
 
                 <EditText
                     android:id="@+id/act2_cls"
@@ -233,8 +226,8 @@
                     android:layout_height="45dp"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="Name"
-                    android:textColor="@android:color/black" />
+                    android:text="CLASS"
+                     />
 
                 <EditText
                     android:id="@+id/act2_num"
@@ -242,8 +235,8 @@
                     android:layout_height="45dp"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="Name"
-                    android:textColor="@android:color/black" />
+                    android:text="NUM"
+                     />
 
                 <EditText
                     android:id="@+id/act2_tall"
@@ -251,8 +244,8 @@
                     android:layout_height="45dp"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="Name"
-                    android:textColor="@android:color/black" />
+                    android:text="LENGTH"
+                     />
 
                 <EditText
                     android:id="@+id/act2_weight"
@@ -260,8 +253,8 @@
                     android:layout_height="45dp"
                     android:ems="10"
                     android:inputType="textPersonName"
-                    android:text="Name"
-                    android:textColor="@android:color/black" />
+                    android:text="WEIGHT"
+                     />
             </LinearLayout>
         </LinearLayout>
 

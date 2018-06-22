@@ -10,20 +10,25 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.techwork.kjc.mvp_project.dialog.InputMeasureRecordDialog;
 import com.techwork.kjc.mvp_project.dialog.ShowPreScriptionDialog;
 import com.techwork.kjc.mvp_project.fireSource.Fire_Auth;
 import com.techwork.kjc.mvp_project.fireSource.Fire_GOS;
+import com.techwork.kjc.mvp_project.fireSource.fireclass.mFClass;
 import com.techwork.kjc.mvp_project.fragment.FRG1_Splash;
 import com.techwork.kjc.mvp_project.fragment.FRG2_Register;
 import com.techwork.kjc.mvp_project.fragment.FRG3_Login;
 import com.techwork.kjc.mvp_project.fragment.FRG4_MenuMain;
 import com.techwork.kjc.mvp_project.fragment.FRG5_Measure;
 import com.techwork.kjc.mvp_project.fragment.FRG6_Versus;
-import com.techwork.kjc.mvp_project.fragment.FRG7_Focus;
+import com.techwork.kjc.mvp_project.fragment.FRG7_aBody;
 import com.techwork.kjc.mvp_project.fragment.FRG8_Graph;
 import com.techwork.kjc.mvp_project.fragment.FRG8_Track;
+import com.techwork.kjc.mvp_project.util.EventChain;
 import com.techwork.kjc.mvp_project.util.PhotoProcess;
 
 import java.util.ArrayList;
@@ -53,7 +58,60 @@ public class TestController extends AppCompatActivity {
         setContentView(frameLayout);
 
         fragmentManager = getSupportFragmentManager();
-        rederingFRG8_Graph();
+        new Fire_Auth().checkLogin(TestController.this);
+        rendingFRG5_Measure();
+    }
+
+    void asdf(){
+
+        EventChain.ready("참조 데이터 수신완료 리스너");
+        FirebaseDatabase.getInstance().getReference("참조 데이터").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                EventChain.complete("참조 데이터 수신완료 리스너");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        EventChain.ready("사진 수신완료 리스너");
+        FirebaseDatabase.getInstance().getReference("사진").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                EventChain.complete("사진 수신완료 리스너");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        EventChain.ready("사용자 수신완료 리스너");
+        FirebaseDatabase.getInstance().getReference("사용자 데이터").addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+
+                EventChain.complete("사용자 수신완료 리스너");
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        EventChain.andthen(new EventChain.CallBack() {
+            @Override
+            public void run() {
+
+            }
+        }, "참조 데이터 수신완료 리스너", "사진 수신완료 리스너", "사용자 수신완료 리스너");
     }
 
     void renderingFRG8_Track(){
@@ -78,7 +136,7 @@ public class TestController extends AppCompatActivity {
         fragmentTransaction.add(containerID, frg8_track,"frg8_track");
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
-        rendingFRG4_MainMenu();
+        new Fire_Auth().testLogin(TestController.this);
     }
 
     void rederingFRG8_Graph(){
@@ -109,9 +167,8 @@ public class TestController extends AppCompatActivity {
             }
 
             @Override
-            public boolean whoWinner(FRG6_Versus.SimProfile you, FRG6_Versus.SimProfile rival) {
+            public void whoWinner(FRG6_Versus.SimProfile you, FRG6_Versus.SimProfile rival) {
                 //누가 있겼는지 판단해줄것을 요청
-                return false;
             }
         };
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -120,15 +177,16 @@ public class TestController extends AppCompatActivity {
         fragmentTransaction.commit();
     }
 
-    void renderingFRG7_Focus(){
-        FRG7_Focus act7_focus = new FRG7_Focus();
+    void renderingFRG7_aBody(){
+        FRG7_aBody act7_aBody = new FRG7_aBody();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(containerID, act7_focus,"act7_focus");
+        fragmentTransaction.add(containerID, act7_aBody,"act7_aBody");
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
-    void rendingFRG1_Splash(){
+    public void rendingFRG1_Splash(){
+        Log.w("asdf","asdf");
         FRG1_Splash frg1_splash = new FRG1_Splash();
         frg1_splash.requester = new FRG1_Splash.Requester() {
             @Override
@@ -189,8 +247,8 @@ public class TestController extends AppCompatActivity {
             @Override
             public void onRequestLogin(ArrayList<String> info) {
                 Fire_Auth mFA = new Fire_Auth();
-                mFA.setInfo(info);
-                mFA.goLogin(TestController.this);
+                Log.w("second","test");
+                mFA.goLogin(TestController.this,info);
             }
         };
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -204,6 +262,33 @@ public class TestController extends AppCompatActivity {
     public void rendingFRG4_MainMenu(){
         FRG4_MenuMain frg4_mainmenu = new FRG4_MenuMain();
 
+        frg4_mainmenu.requester = new FRG4_MenuMain.Requester() {
+
+            @Override
+            public void MeasureActivityStart() {
+
+            }
+
+            @Override
+            public void VersusActivityStart() {
+
+            }
+
+            @Override
+            public void PracticeDialogStart() {
+
+            }
+
+            @Override
+            public void RecordActivityStart() {
+
+            }
+
+            @Override
+            public void Logout() {
+                new Fire_Auth().aLogout(TestController.this);
+            }
+        };
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(containerID, frg4_mainmenu);
         fragmentTransaction.addToBackStack(null);
@@ -214,12 +299,11 @@ public class TestController extends AppCompatActivity {
 
     public void rendingFRG5_Measure(){
         FRG5_Measure frg5_measure = new FRG5_Measure();
+        new Fire_GOS().getFM(frg5_measure);
         frg5_measure.requester = new FRG5_Measure.Requester() {
             @Override
             public void requestMeasureItemBeans() {
                 ArrayList<FRG5_Measure.MeasureItemBean> measureItemBeans = new ArrayList<>();
-                new Fire_GOS().requestFM(1);
-
 
                 ((FRG5_Measure) fragmentManager.findFragmentByTag("frg5_measure"))
                         .responseMeasureItemBeans(measureItemBeans);
@@ -230,6 +314,12 @@ public class TestController extends AppCompatActivity {
                 new InputMeasureRecordDialog(TestController.this, new InputMeasureRecordDialog.OnSaveListener() {
                     @Override
                     public void onSave(FRG5_Measure.MeasureItemBean measureItemBean) {
+                        HashMap<String,String> info = new HashMap<>();
+                        info.put("abody",String.valueOf(measureItemBean.allBodyWeight));
+                        info.put("arm",String.valueOf(measureItemBean.armWeight));
+                        info.put("back",String.valueOf(measureItemBean.backWeight));
+                        info.put("leg",String.valueOf(measureItemBean.legWeight));
+                        new Fire_GOS().setFM(info,String.valueOf(measureItemBean.timestamp));
                         ((FRG5_Measure) fragmentManager.findFragmentByTag("frg5_measure"))
                                 .responseAddMeasureItem(measureItemBean);
                     }
@@ -276,6 +366,7 @@ public class TestController extends AppCompatActivity {
         if(requestCode == 0 && resultCode == 0){
             String imagePath = data.getStringExtra(PhotoProcess.RES_IMAGE_PATH);
             FRG2_Register frg2_register = ((FRG2_Register) fragmentManager.findFragmentByTag("frg2_register"));
+            Log.i("암히어", imagePath.toString());
             frg2_register.responseImagePath(imagePath);
 
         }

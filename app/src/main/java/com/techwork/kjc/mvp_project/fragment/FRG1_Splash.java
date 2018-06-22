@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.techwork.kjc.mvp_project.R;
 
@@ -24,6 +25,7 @@ public class FRG1_Splash extends Fragment implements View.OnClickListener {
     public enum REQUEST_LINK{ SIGNUP, SIGNIN }
     public Requester requester;
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
@@ -34,6 +36,9 @@ public class FRG1_Splash extends Fragment implements View.OnClickListener {
 
         linkSignup.setOnClickListener(this);
         linkSignin.setOnClickListener(this);
+
+
+
 
         return viewLayout;
     }

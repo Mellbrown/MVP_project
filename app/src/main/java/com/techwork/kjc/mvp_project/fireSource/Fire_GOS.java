@@ -23,7 +23,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.techwork.kjc.mvp_project.controller.TestController;
 import com.techwork.kjc.mvp_project.fireSource.fireclass.UserFire;
+import com.techwork.kjc.mvp_project.fireSource.fireclass.mFClass;
+import com.techwork.kjc.mvp_project.fragment.FRG5_Measure;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -31,26 +34,40 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 public class Fire_GOS {
     FirebaseDatabase mDb;
     DatabaseReference mRf;
     String uid;
+    UserFire uf;
+    boolean ready,rInfo;
 
     public Fire_GOS(){
         mDb = FirebaseDatabase.getInstance();
         mRf = mDb.getReference();
-//        uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-    }
-
-    private void getInfo(){
-        mDb = FirebaseDatabase.getInstance();
         uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-        mRf = mDb.getReference();
-        mRf.child("user").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+    }
+    public void setFM(HashMap<String,String> info, String date) {
+        mFClass mF = new mFClass();
+        mF.setData(info);
+
+        FirebaseDatabase.getInstance().getReference().child("user").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.w("testing","1");
+                uf = ((UserFire) dataSnapshot.getValue(UserFire.class));
+                mRf.child(uf.school).child(uf.grade).child(uf.cls).child(uid).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        FirebaseDatabase.getInstance().getReference().child("m").child(uf.school).child(uf.grade).child(uf.cls).child(uid).child(date).setValue(mF);
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+
             }
 
             @Override
@@ -60,18 +77,41 @@ public class Fire_GOS {
         });
 
     }
+    public void getFM(FRG5_Measure act){
+        mFClass mF = new mFClass();
+        FirebaseDatabase.getInstance().getReference().child("user").child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                uf = ((UserFire) dataSnapshot.getValue(UserFire.class));
+                Log.w("testing",uf.name);
+                FirebaseDatabase.getInstance().getReference().child("m").child(uf.school).child(uf.grade).child(uf.cls).child(uid).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        ArrayList<mFClass> res = new ArrayList<>();
+                        for (DataSnapshot messageSnapshot: dataSnapshot.getChildren()) {
+                            mFClass mfc = messageSnapshot.getValue(mFClass.class);
+                            res.add(mfc);
+                        }
+                    }
 
-    public HashMap<String, String> requestFM(int op){
-        boolean ready = false;
-        getInfo();
-        HashMap<String,String> res = new HashMap<>();
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
 
-//        while(!ready){
+                    }
+                });
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+//        if(op==0) {
 //
+//        }else{
+//            FirebaseDatabase.getInstance().getReference().child("m").
 //        }
-
-//        Log.w("testing","2");
-        return res;
     }
 
     void requestFV(int op){
@@ -82,7 +122,7 @@ public class Fire_GOS {
 
 
     }
-
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     //iv->image (User Image Only)
     void getUserImage(String user,ImageView iv){
         ArrayList<byte[]> imageArr;
