@@ -46,7 +46,7 @@
         <!--프로바이더-->
         <provider
             android:name="android.support.v4.content.FileProvider"
-            android:authorities="com.comma.cw01272.reservation"
+            android:authorities="com.techwork.kjc.mvp_project"
             android:exported="false"
             android:grantUriPermissions="true">
             <meta-data
