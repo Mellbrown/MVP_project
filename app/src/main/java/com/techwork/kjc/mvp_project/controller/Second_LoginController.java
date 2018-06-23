@@ -52,7 +52,11 @@ public class Second_LoginController extends AppCompatActivity implements FRG3_Lo
     @Override // 화면에서 로그인 요청이 있네요
     public void onRequestLogin(ArrayList<String> info) {
         // 덕구짱이 info에 대강 알아서 로그인 아이디와 패스워드를 넘겼을 겁니다.
+        String id = info.get(0);
+        String pw = info.get(1);
+        if(id.equals("") || pw.equals("")){
 
+        }
         //빠베로 대강 로그인 처리를 해줍시다.
 
         // 뭥 로그인 실패에 대한 처리는 여기서 대강 토스트로 처리해도 되겠져?

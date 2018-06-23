@@ -1,5 +1,6 @@
 package com.techwork.kjc.mvp_project.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -43,7 +44,9 @@ public class Third_FocusController extends AppCompatActivity implements g2u.Patc
 
     @Override //화면에서
     public void TrackActivityStart(String part) {
-
+        Intent intent = new Intent(this, Fourth_TrackController.class);
+        intent.putExtra(Fourth_TrackController.PART, part);
+        startActivity(intent);
     }
 
     // 팔 페이지 렌더링
