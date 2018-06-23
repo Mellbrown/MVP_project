@@ -9,15 +9,17 @@ import java.util.HashMap;
 // 정적으로 동작하니 모든 다른 지역의 이벤트로 엮을 수 있어요!
 
 public class EventChain {
-    static HashMap<String, Boolean> state = new HashMap<>();
-    static ArrayList<RunItem> runItems = new ArrayList<>();
+    public static EventChain global = new EventChain();
 
-    static public void ready(String label){ // 한 이벤트에 대해 들을 준비를 시켜요!
+    HashMap<String, Boolean> state = new HashMap<>();
+    ArrayList<RunItem> runItems = new ArrayList<>();
+
+    public void ready(String label){ // 한 이벤트에 대해 들을 준비를 시켜요!
         state.put(label,false);
         Log.i("EventChain", "Reday for " + label);
     }
 
-    static public void complete(String label){ //이제 해당 이벤트가 완료되었을때를 여기로 알려줘여
+    public void complete(String label){ //이제 해당 이벤트가 완료되었을때를 여기로 알려줘여
         if (state.containsKey(label)) {
             if (!state.get(label)) {
                 state.put(label,true);
@@ -31,7 +33,7 @@ public class EventChain {
         }
     }
 
-    static public void andthen(CallBack runWith, String... labels){ // 여러 이벤트 엮어서 해당 이벤트가 완료 다됬으면 이 이벤트로 알려 준다는 거졍!
+    public void andthen(CallBack runWith, String... labels){ // 여러 이벤트 엮어서 해당 이벤트가 완료 다됬으면 이 이벤트로 알려 준다는 거졍!
         RunItem runItem = new RunItem();
         runItem.labels = labels;
         runItem.runWith = runWith;
@@ -39,7 +41,7 @@ public class EventChain {
         internalCheck();
     }
 
-    static private void internalCheck(){
+    private void internalCheck(){
         for(RunItem runItem : runItems){
             boolean isAllComplete = true;
 
@@ -62,7 +64,7 @@ public class EventChain {
         }
     }
 
-    static class RunItem{
+    class RunItem{
         String[] labels;
         CallBack runWith;
     }
