@@ -62,57 +62,6 @@ public class TestController extends AppCompatActivity {
         rendingFRG5_Measure();
     }
 
-    void asdf(){
-
-        EventChain.ready("참조 데이터 수신완료 리스너");
-        FirebaseDatabase.getInstance().getReference("참조 데이터").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                EventChain.complete("참조 데이터 수신완료 리스너");
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        EventChain.ready("사진 수신완료 리스너");
-        FirebaseDatabase.getInstance().getReference("사진").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                EventChain.complete("사진 수신완료 리스너");
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        EventChain.ready("사용자 수신완료 리스너");
-        FirebaseDatabase.getInstance().getReference("사용자 데이터").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                EventChain.complete("사용자 수신완료 리스너");
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-        EventChain.andthen(new EventChain.CallBack() {
-            @Override
-            public void run() {
-
-            }
-        }, "참조 데이터 수신완료 리스너", "사진 수신완료 리스너", "사용자 수신완료 리스너");
-    }
 
     void renderingFRG8_Track(){
         FRG8_Track frg8_track = new FRG8_Track();

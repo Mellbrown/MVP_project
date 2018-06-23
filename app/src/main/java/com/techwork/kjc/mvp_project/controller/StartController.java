@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.techwork.kjc.mvp_project.dialog.PracticeMenuDialog;
 import com.techwork.kjc.mvp_project.fireSource.Fire_Auth;
 import com.techwork.kjc.mvp_project.fragment.FRG1_Splash;
@@ -46,20 +47,17 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
         );
         setContentView(frameLayout);
         fragmentManager = getSupportFragmentManager();
+    }
 
-        //Start----------------------------------------로그인 여부에 따라
-        //renderingFRG1_Slpash() 할지
-        //rendingFRG4_MainMenu()할지
-        new Fire_Auth().checkLogin(this); // 이코드로 초기화 화면은 정해진다.
-
-        //로그인 이벤트 발생하면, rendingFRG4_MainMenu해주고
-        //로그아웃 이벤트 발생하면 rendringFRG1_Splash해주고
-        FirebaseAuth.getInstance().addAuthStateListener(new FirebaseAuth.AuthStateListener() {
-            @Override // 히힝 잠시 로그인 이벤트 쓰려고 잠시 썻어영. 로그인 아웃되거나 인되면, 화면 바까줍니당
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                new Fire_Auth().checkLogin(StartController.this);
-            }
-        });
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(currentUser == null){ // 로그인 안되어 있으면
+            rendingFRG1_Splash();
+        } else { // 로그인 되어 있으면
+            rendingFRG4_MainMenu();
+        }
     }
 
     static final int splash = 1;
