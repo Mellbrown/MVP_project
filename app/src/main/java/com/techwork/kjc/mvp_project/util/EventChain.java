@@ -15,12 +15,12 @@ public class EventChain {
     HashMap<String, Boolean> state = new HashMap<>();
     ArrayList<RunItem> runItems = new ArrayList<>();
 
-    public void ready(String label){ // 한 이벤트에 대해 들을 준비를 시켜요!
+    public synchronized  void ready(String label){ // 한 이벤트에 대해 들을 준비를 시켜요!
         state.put(label,false);
         Log.i("EventChain", "Reday for " + label);
     }
 
-    public void complete(String label){ //이제 해당 이벤트가 완료되었을때를 여기로 알려줘여
+    public synchronized  void complete(String label){ //이제 해당 이벤트가 완료되었을때를 여기로 알려줘여
         if (state.containsKey(label)) {
             if (!state.get(label)) {
                 state.put(label,true);
@@ -34,7 +34,7 @@ public class EventChain {
         }
     }
 
-    public void andthen(CallBack runWith, String... labels){ // 여러 이벤트 엮어서 해당 이벤트가 완료 다됬으면 이 이벤트로 알려 준다는 거졍!
+    public synchronized  void andthen(CallBack runWith, String... labels){ // 여러 이벤트 엮어서 해당 이벤트가 완료 다됬으면 이 이벤트로 알려 준다는 거졍!
         RunItem runItem = new RunItem();
         runItem.labels = labels;
         runItem.runWith = runWith;
@@ -42,7 +42,7 @@ public class EventChain {
         internalCheck();
     }
 
-    public void andthen(CallBack runWith, List<String> labels){ // 여러 이벤트 엮어서 해당 이벤트가 완료 다됬으면 이 이벤트로 알려 준다는 거졍!
+    public synchronized  void andthen(CallBack runWith, List<String> labels){ // 여러 이벤트 엮어서 해당 이벤트가 완료 다됬으면 이 이벤트로 알려 준다는 거졍!
         RunItem runItem = new RunItem();
         runItem.labels = labels.toArray(new String[labels.size()]);
         runItem.runWith = runWith;
@@ -50,7 +50,7 @@ public class EventChain {
         internalCheck();
     }
 
-    private void internalCheck(){
+    private synchronized void internalCheck(){
         for(RunItem runItem : runItems){
             boolean isAllComplete = true;
 
