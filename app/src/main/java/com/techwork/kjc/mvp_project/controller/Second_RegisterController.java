@@ -1,5 +1,6 @@
 package com.techwork.kjc.mvp_project.controller;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,6 +23,7 @@ public class Second_RegisterController extends AppCompatActivity implements FRG2
     FragmentManager fragmentManager;
     FrameLayout frameLayout;
     int containerID;
+    public static StartController sct;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -40,6 +42,10 @@ public class Second_RegisterController extends AppCompatActivity implements FRG2
 
         //이 컨트롤러는 레지스터 담당만 합니다. 렌더링 될것인 이 것 뿐입니다.
         rendingFRG2_Register();
+    }
+
+    public void setParent(Activity act){
+        sct = (StartController)act;
     }
 
     // 레지스터 화면 렌더링
@@ -86,10 +92,19 @@ public class Second_RegisterController extends AppCompatActivity implements FRG2
     ) {
         //뭐 여기 사용자가 입력한 모든 데이터가 있어요, 지찬군이 이미지 뷰로까지 넘겨줬네여
         //이 타이밍에 파베에 업로드 하면 되겠군여
+        HashMap<String,String> info = new HashMap<>();
+        info.put("id",act2_id);
+        info.put("pw",act2_pw);
+        info.put("name",act2_name);
+        info.put("sex",act2_sex);
+        info.put("school",act2_school);
+        info.put("grade",act2_grade);
+        info.put("cls",act2_cls);
+        info.put("num",act2_num);
+        info.put("tall",act2_tall);
+        info.put("weight",act2_weight);
 
-
-        // 일단 여기까지 오면 이 컨트롤러는 수명이 다한것 같아여
-        // 나가는 코드 있어여, 파베 박으면 파페 업로드 완료 이벤트에 finish 코드 박으면 되것죠?
+        new Fire_Auth().createUserAuth(sct, act2_iv,info);
         finish();
     }
 
