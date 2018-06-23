@@ -53,10 +53,7 @@ public class FRG6_Versus extends Fragment {
             @Override
             public List<SubFRG6_SelectRival.RirvalItem> requestItems() {
                 ArrayList<SubFRG6_SelectRival.RirvalItem> rirvalItems = new ArrayList<>();
-                ArrayList<SimProfile> simProfiles = requester.requestRivalesProfiles();
-                for( SimProfile profile : simProfiles){
-                    rirvalItems.add(new SubFRG6_SelectRival.RirvalItem(profile.photo, profile.name));
-                }
+                rirvalItems.addAll(requester.requestRivalesProfiles());
                 return rirvalItems;
             }
 
@@ -83,7 +80,7 @@ public class FRG6_Versus extends Fragment {
 
             @Override
             public void requestConfirm() {
-                requester.whoWinner(youProfile,new SimProfile(rirvalItem.photo, rirvalItem.name));
+                requester.whoWinner(youProfile, ((SimProfile) rirvalItem));
             }
 
             @Override
@@ -102,11 +99,12 @@ public class FRG6_Versus extends Fragment {
         void whoWinner(SimProfile you, SimProfile rival);
     }
 
-    public static class SimProfile{
+    public static class SimProfile extends SubFRG6_SelectRival.RirvalItem {
         public Bitmap photo;
         public String name;
 
         public SimProfile(Bitmap photo, String name){
+            super(photo,name);
             this.photo = photo;
             this.name = name;
         }
