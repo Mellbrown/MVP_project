@@ -35,7 +35,7 @@ public class SubFRG8_Histrory extends FrameLayout {
         this.onRequesterDataOfDate = onRequesterDataOfDate;
 
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        viewLayout = inflater.inflate(R.layout.subview_act8_track, this, false);
+        viewLayout = inflater.inflate(R.layout.subview_act8_history, this, false);
         addView(viewLayout);
 
         sel_date = viewLayout.findViewById(R.id.sel_date);
@@ -60,7 +60,7 @@ public class SubFRG8_Histrory extends FrameLayout {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recyclerAdapter);
 
-        onRequesterDataOfDate.onRequesterDataOfDate(curDate);
+        setData(onRequesterDataOfDate.onRequesteInitData(curDate));
     }
 
 
@@ -99,6 +99,7 @@ public class SubFRG8_Histrory extends FrameLayout {
     }
 
     public interface OnRequesterDataOfDate{
+        ArrayList<Item> onRequesteInitData(CusSelDateView.SimpleDate requestDate);
         void onRequesterDataOfDate(CusSelDateView.SimpleDate requestDate);
     }
 }

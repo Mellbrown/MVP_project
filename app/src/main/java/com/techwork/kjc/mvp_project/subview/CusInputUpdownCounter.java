@@ -53,7 +53,7 @@ public class CusInputUpdownCounter extends FrameLayout{
             @Override
             public void onClick(View v) {
                 Integer value = Integer.valueOf(iptVal.getText().toString());
-                if(value > 1) value-=1;
+                if(value > 0) value-=1;
                 iptVal.setText(value+"");
                 onChangedValue.onChangedValue(value);
             }

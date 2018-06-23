@@ -66,9 +66,9 @@ public class SubFRG8_Track extends FrameLayout implements View.OnClickListener {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(recyclerAdapter);
 
-        onRequesterUploadItem.onRequestInitdata();
-
         btnUpload.setOnClickListener(this);
+
+        setData(onRequesterUploadItem.onRequestInitdata());
     }
 
     @Override
@@ -112,7 +112,7 @@ public class SubFRG8_Track extends FrameLayout implements View.OnClickListener {
     }
 
     public interface OnRequesterUploadItem{
-        void onRequestInitdata();
+        ArrayList<Item> onRequestInitdata();
         void onReqeusteUploadItem(int level, int reps);
     }
 }

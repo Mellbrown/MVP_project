@@ -60,6 +60,8 @@ public class FRG8_0Traning extends Fragment implements View.OnClickListener {
 
         txtTitle.setText(requester.setTitle());
 
+        ShowSubFRG8_Track();
+
         return viewLayout;
     }
 
@@ -68,8 +70,8 @@ public class FRG8_0Traning extends Fragment implements View.OnClickListener {
         curPage = track;
         subFRG8_track = new SubFRG8_Track(getContext(), new SubFRG8_Track.OnRequesterUploadItem() {
             @Override
-            public void onRequestInitdata() {
-                requester.onTrackRequestInitData();
+            public ArrayList<SubFRG8_Track.Item> onRequestInitdata() {
+                return requester.onTrackRequestInitData();
             }
 
             @Override
@@ -91,6 +93,11 @@ public class FRG8_0Traning extends Fragment implements View.OnClickListener {
         curPage = history;
         subFRG8_histrory = new SubFRG8_Histrory(getContext(), new SubFRG8_Histrory.OnRequesterDataOfDate() {
             @Override
+            public ArrayList<SubFRG8_Histrory.Item> onRequesteInitData(CusSelDateView.SimpleDate requestDate) {
+                return requester.onHistoryRequesterInitDataOfDate(requestDate);
+            }
+
+            @Override
             public void onRequesterDataOfDate(CusSelDateView.SimpleDate requestDate) {
                 requester.onHistoryRequesterDataOfDate(requestDate);
             }
@@ -108,6 +115,11 @@ public class FRG8_0Traning extends Fragment implements View.OnClickListener {
         if(curPage == graph) return;
         curPage = graph;
         subFRG8_graph = new SubFRG8_Graph(getContext(), new SubFRG8_Graph.OnRequesterDataOfDate() {
+            @Override
+            public ArrayList<SubFRG8_Graph.Item> requestInitData(CusSelDateView.SimpleDate requestDate) {
+                return requester.onGraphRequesterInitDataOfDate(requestDate);
+            }
+
             @Override
             public void onRequesterDataOfDate(CusSelDateView.SimpleDate requestDate) {
                 requester.onGraphRequesterDataOfDate(requestDate);
@@ -139,7 +151,9 @@ public class FRG8_0Traning extends Fragment implements View.OnClickListener {
 
     public interface Requester{
         String setTitle();
-        void onTrackRequestInitData();
+        ArrayList<SubFRG8_Track.Item> onTrackRequestInitData();
+        ArrayList<SubFRG8_Histrory.Item> onHistoryRequesterInitDataOfDate(CusSelDateView.SimpleDate requestDate);
+        ArrayList<SubFRG8_Graph.Item> onGraphRequesterInitDataOfDate(CusSelDateView.SimpleDate requestDate);
         void onTrackReqeusteUploadItem(int level, int reps);
         void onHistoryRequesterDataOfDate(CusSelDateView.SimpleDate requestDate);
         void onGraphRequesterDataOfDate(CusSelDateView.SimpleDate requestDate);

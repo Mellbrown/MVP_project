@@ -52,7 +52,7 @@ public class SubFRG8_Graph extends FrameLayout{
         });
         sel_date.addView(cusSelDateView, -1, -2);
 
-        onRequesterDataOfDate.onRequesterDataOfDate(curDate);
+        setData(onRequesterDataOfDate.requestInitData(curDate));
     }
 
     public static class Item {
@@ -81,6 +81,7 @@ public class SubFRG8_Graph extends FrameLayout{
     }
 
     public interface OnRequesterDataOfDate{
+        ArrayList<Item> requestInitData(CusSelDateView.SimpleDate requestDate);
         void onRequesterDataOfDate(CusSelDateView.SimpleDate requestDate);
     }
 }
