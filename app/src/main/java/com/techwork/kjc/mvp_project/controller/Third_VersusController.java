@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
@@ -67,7 +68,12 @@ public class Third_VersusController extends AppCompatActivity implements FRG6_Ve
     public armuguna reuqestYouProfile() {
         //onCreate에서 분명히 값이 다 준비되어 있을거라고 가정하고 넘기닌까 여기서 null이면 안되여
 //        return new FRG6_Versus.SimProfile("",myInfo.name);
-        return new armuguna(myIF.values().iterator().next(),myIF.keySet().iterator().next().name,myIF.keySet().iterator().next());
+        UserFire next = myIF.keySet().iterator().next();
+        armuguna dd = new armuguna(myIF.values().iterator().next(), myIF.keySet().iterator().next().name, next);
+
+        Log.w("앙 긔무띄", "똥꼬 : " +dd.user.name);
+
+        return dd;
     }
 
     @Override
@@ -79,6 +85,7 @@ public class Third_VersusController extends AppCompatActivity implements FRG6_Ve
         Iterator iter2 = userArray.values().iterator();
         while(iter.hasNext()&&iter2.hasNext()){
             tmp = (UserFire) iter.next();
+            Log.w("뀨유?", "skqkd : " + tmp == null ? "null" : "notnull");
             rres.add(new armuguna((Bitmap) iter2.next(),tmp.name,tmp));
         }
         return rres;
@@ -93,6 +100,8 @@ public class Third_VersusController extends AppCompatActivity implements FRG6_Ve
         armuguna rival1 = (armuguna) rival;
         // 글고 이제 보닌까 승패 판정할때 빠베 접근 안하고 스탠다드로 판정내릴수 있을 것 같긴한데
         // 일단 비동기로 대답 해줄 수 있어여 아래는 비동기 대답 코드
+        Log.w("some","some");
+        Log.w(you1.user.name,((armuguna) rival).user.id);
         ng.setFV(you1.user.uid,rival1.user.uid);
         ((FRG6_Versus) fragmentManager.findFragmentByTag("frg6_versus"))
                 .responseWhoWinner(true); // 당신이 이겻다 코드
@@ -105,7 +114,7 @@ public class Third_VersusController extends AppCompatActivity implements FRG6_Ve
 
     public static class armuguna extends FRG6_Versus.SimProfile{
         public UserFire user ;
-        public armuguna(Bitmap photo, String name, UserFire userFuck) {
+        public armuguna(Bitmap photo, String name, UserFire user) {
             super(photo, name);
             this.user = user;
         }

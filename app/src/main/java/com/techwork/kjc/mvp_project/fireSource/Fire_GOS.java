@@ -109,7 +109,7 @@ public class Fire_GOS {
         Date dt = new Date();
         SimpleDateFormat sdf = new SimpleDateFormat("MM");
 
-        FirebaseDatabase.getInstance().getReference().child("V").child(myInfo.school).child(myInfo.cls).child(winner).child(sdf.format(dt).toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("V").child(myInfo.school).child(myInfo.cls).child(winner).child(sdf.format(dt).toString()).child("win").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.getValue()==null){
@@ -124,7 +124,7 @@ public class Fire_GOS {
 
             }
         });
-        FirebaseDatabase.getInstance().getReference().child("V").child(myInfo.school).child(myInfo.cls).child(loser).child(sdf.format(dt).toString()).addListenerForSingleValueEvent(new ValueEventListener() {
+        FirebaseDatabase.getInstance().getReference().child("V").child(myInfo.school).child(myInfo.cls).child(loser).child(sdf.format(dt).toString()).child("lose").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.getValue()==null){
