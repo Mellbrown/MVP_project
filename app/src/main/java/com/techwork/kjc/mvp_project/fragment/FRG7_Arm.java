@@ -46,26 +46,26 @@ public class FRG7_Arm extends android.support.v4.app.Fragment {
         act7_first.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requester.TrackActivityStart("arm1");
+                requester.TrackActivityStart("팔1");
             }
         });
 
         act7_second.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requester.TrackActivityStart("arm2");
+                requester.TrackActivityStart("팔2");
             }
         });
         act7_third.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requester.TrackActivityStart("arm3");
+                requester.TrackActivityStart("팔3");
             }
         });
         act7_fource.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requester.TrackActivityStart("arm4");
+                requester.TrackActivityStart("팔4");
             }
         });
 
