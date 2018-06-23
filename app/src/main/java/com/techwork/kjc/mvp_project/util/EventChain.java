@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 // 비동기적으로 동작하는 이벤트를 동기적으로 엮어 줄 수 있는 유틸이에오
 // 정적으로 동작하니 모든 다른 지역의 이벤트로 엮을 수 있어요!
@@ -36,6 +37,14 @@ public class EventChain {
     public void andthen(CallBack runWith, String... labels){ // 여러 이벤트 엮어서 해당 이벤트가 완료 다됬으면 이 이벤트로 알려 준다는 거졍!
         RunItem runItem = new RunItem();
         runItem.labels = labels;
+        runItem.runWith = runWith;
+        runItems.add(runItem);
+        internalCheck();
+    }
+
+    public void andthen(CallBack runWith, List<String> labels){ // 여러 이벤트 엮어서 해당 이벤트가 완료 다됬으면 이 이벤트로 알려 준다는 거졍!
+        RunItem runItem = new RunItem();
+        runItem.labels = labels.toArray(new String[labels.size()]);
         runItem.runWith = runWith;
         runItems.add(runItem);
         internalCheck();

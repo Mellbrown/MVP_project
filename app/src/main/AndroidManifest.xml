@@ -3,9 +3,14 @@
     package="com.techwork.kjc.mvp_project">
     <!--Permission-->
     <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-feature android:name="anroid.hardware.camera2" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -33,9 +38,21 @@
         <activity android:name=".controller.Third_VersusController" />
         <activity android:name=".controller.Third_FocusController" />
 
+        <activity android:name=".controller.Fourth_TrackController"/>
 
         <!--유틸 액티비티-->
         <activity android:name=".util.PhotoProcess" />
+
+        <!--프로바이더-->
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.comma.cw01272.reservation"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>

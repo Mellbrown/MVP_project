@@ -44,7 +44,7 @@ public class FRG8_0Traning extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        viewLayout = inflater.inflate(R.layout.act6_versus, container,false);
+        viewLayout = inflater.inflate(R.layout.act8_0training, container,false);
 
         frame = viewLayout.findViewById(R.id.frame);
 
