@@ -97,34 +97,34 @@ public class TestController extends AppCompatActivity {
     }
 
 
-    void renderingFRG6_Versus(){
-        FRG6_Versus frg6_versus = new FRG6_Versus();
-        frg6_versus.requester = new FRG6_Versus.Requester() {
-            @Override
-            public FRG6_Versus.SimProfile reuqestYouProfile() {
-                return null; //당신의 프로파일
-            }
-
-            @Override
-            public List<FRG6_Versus.SimProfile> requestRivalesProfiles() {
-                return null; //라이벌의 프로파일 리스트
-            }
-
-            @Override
-            public void reuqestClose() {
-                // 다끝났으니 화면을 닫아줄것을 요청
-            }
-
-            @Override
-            public void whoWinner(FRG6_Versus.SimProfile you, FRG6_Versus.SimProfile rival) {
-                //누가 있겼는지 판단해줄것을 요청
-            }
-        };
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(containerID, frg6_versus,"frg6_versus");
-        fragmentTransaction.addToBackStack(null);
-        fragmentTransaction.commit();
-    }
+//    void renderingFRG6_Versus(){
+//        FRG6_Versus frg6_versus = new FRG6_Versus();
+//        frg6_versus.requester = new FRG6_Versus.Requester() {
+//            @Override
+//            public FRG6_Versus.SimProfile reuqestYouProfile() {
+//                return null; //당신의 프로파일
+//            }
+//
+//            @Override
+//            public List<FRG6_Versus.SimProfile> requestRivalesProfiles() {
+//                return null; //라이벌의 프로파일 리스트
+//            }
+//
+//            @Override
+//            public void reuqestClose() {
+//                // 다끝났으니 화면을 닫아줄것을 요청
+//            }
+//
+//            @Override
+//            public void whoWinner(FRG6_Versus.SimProfile you, FRG6_Versus.SimProfile rival) {
+//                //누가 있겼는지 판단해줄것을 요청
+//            }
+//        };
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.add(containerID, frg6_versus,"frg6_versus");
+//        fragmentTransaction.addToBackStack(null);
+//        fragmentTransaction.commit();
+//    }
 
     void renderingFRG7_aBody(){
         FRG7_aBody act7_aBody = new FRG7_aBody();

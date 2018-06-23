@@ -119,6 +119,8 @@ public class FRG5_Measure extends Fragment implements View.OnClickListener {
         recyclerView.setLayoutManager(recLayoutMgr);
         recyclerView.setAdapter(recAdapter);
 
+        requester.requestMeasureItemBeans();
+
         return viewLayout;
     }
 

@@ -41,7 +41,7 @@ public class UserPublicInfoDAO {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, UserPublicInfoBean> userPublicInfoBeanMap
-                        = dataSnapshot.getValue(new GenericTypeIndicator<Map<String, UserPublicInfoBean>>());
+                        = dataSnapshot.getValue(new GenericTypeIndicator<Map<String, UserPublicInfoBean>>() {});
                 onSelectedLisnter.onSelected(true,userPublicInfoBeanMap,null);
             }
 

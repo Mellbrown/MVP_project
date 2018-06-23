@@ -9,7 +9,9 @@ import com.google.firebase.database.ValueEventListener;
 import com.techwork.kjc.mvp_project.g2uSubmarineModel.beanse.MeasureBean;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MeasureDAO {
     public static final String REMOTE_PATH = "g2u-submarine/measure";
@@ -18,7 +20,10 @@ public class MeasureDAO {
         FirebaseDatabase.getInstance().getReference(REMOTE_PATH).child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                List<MeasureBean> measureBeans = dataSnapshot.getValue(new GenericTypeIndicator<List<MeasureBean>>());
+                Map<String,MeasureBean> measureBeanMap = dataSnapshot.getValue(new GenericTypeIndicator<Map<String,MeasureBean>>(){});
+                if(measureBeanMap == null) measureBeanMap = new HashMap<>();
+                List<MeasureBean> measureBeans = new ArrayList<>();
+                measureBeans.addAll(measureBeanMap.values());
                 if (measureBeans == null) measureBeans = new ArrayList<>();
                 onSelectedMeasureBeans.onSelectedMeasureBeans(true, measureBeans, null);
             }

@@ -5,6 +5,7 @@ import android.support.annotation.NonNull;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.UploadTask;
 import com.techwork.kjc.mvp_project.util.EventChain;
@@ -42,10 +43,10 @@ public class UserPhotoDAO {
         }else{
             Uri thumnail = LocalPhotoCache.getCacheFileUri("thumnail", photoID);
             FirebaseStorage.getInstance().getReference(REMOTE_PATH).child(photoID)
-                    .putFile(thumnail).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
+                .getFile(thumnail).addOnCompleteListener(new OnCompleteListener<FileDownloadTask.TaskSnapshot>() {
                 @Override
-                public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
-                    onDownloadComplete.OnDownloadComplete(true,thumnail,task.getException());
+                public void onComplete(@NonNull Task<FileDownloadTask.TaskSnapshot> task) {
+                    onDownloadComplete.OnDownloadComplete(task.isSuccessful(),thumnail,task.getException());
                 }
             });
         }
@@ -79,7 +80,7 @@ public class UserPhotoDAO {
         }, new ArrayList<>(photoIDes));
     }
 
-    interface OnMultiDownloadComplete{
+    public interface OnMultiDownloadComplete{
         void OnMultiDownloadComplete(HashMap<String,Uri> photoResourceMap);
     }
 }
