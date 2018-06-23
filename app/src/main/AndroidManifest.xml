@@ -33,6 +33,7 @@
         <activity android:name=".controller.Third_VersusController" />
         <activity android:name=".controller.Third_FocusController" />
 
+        <activity android:name=".controller.Fourth_TrackController"/>
 
         <!--유틸 액티비티-->
         <activity android:name=".util.PhotoProcess" />
