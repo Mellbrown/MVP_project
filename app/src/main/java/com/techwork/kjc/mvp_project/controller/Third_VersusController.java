@@ -10,13 +10,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseError;
 import com.techwork.kjc.mvp_project.R;
 import com.techwork.kjc.mvp_project.dialog.ProgressDialog;
 import com.techwork.kjc.mvp_project.fragment.FRG6_Versus;
+import com.techwork.kjc.mvp_project.g2uSubmarineModel.UserPhotoDAO;
+import com.techwork.kjc.mvp_project.g2uSubmarineModel.UserPublicInfoDAO;
+import com.techwork.kjc.mvp_project.g2uSubmarineModel.VersusDAO;
+import com.techwork.kjc.mvp_project.g2uSubmarineModel.beanse.UserPublicInfoBean;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Third_VersusController extends AppCompatActivity implements FRG6_Versus.Requester {
 
@@ -25,8 +33,8 @@ public class Third_VersusController extends AppCompatActivity implements FRG6_Ve
     FrameLayout frameLayout;
     int containerID;
 
-    private FRG6_Versus.SimProfile readyForyouProfile;
-    private ArrayList<FRG6_Versus.SimProfile> readyForRirvalProfiles;
+    private Map<String, UserPublicInfoBean> userPublicInfoBeanMap;
+    private UserPublicInfoBean userPublicInfoBean;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -43,20 +51,22 @@ public class Third_VersusController extends AppCompatActivity implements FRG6_Ve
         setContentView(frameLayout);
         fragmentManager = getSupportFragmentManager();
 
-        ProgressDialog progressDialog = new ProgressDialog(this).setTitle("로딩");
+        String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+        UserPublicInfoDAO.selectAllUser(new UserPublicInfoDAO.OnSelectedLisnter() {
+            @Override
+            public void onSelected(boolean success, Map<String, UserPublicInfoBean> userPublicInfoBeanMap, DatabaseError databaseError) {
+                if(success){
+                    Third_VersusController.this.userPublicInfoBean = userPublicInfoBeanMap.remove(uid);
+                    Third_VersusController.this.userPublicInfoBeanMap = userPublicInfoBeanMap;
+                    renderingFRG6_Versus();
+                } else {
+                    Toast.makeText(Third_VersusController.this, "친구 목록을 불러올수 없습니다.", Toast.LENGTH_SHORT).show();
+                    Log.e("Third_VersusController", databaseError.getMessage());
+                    finish();
+                }
+            }
+        });
 
-        Bitmap youPhoto = BitmapFactory.decodeResource(getResources(),R.drawable.nuburi);
-        readyForyouProfile = new FRG6_Versus.SimProfile(youPhoto, "지찬군");
-
-
-        Bitmap rivalPhoto = BitmapFactory.decodeResource(getResources(), R.drawable.bonobono);
-        readyForRirvalProfiles = new ArrayList<>();
-        for(int i = 0 ; 30 > i ; i++){
-            readyForRirvalProfiles.add(new FRG6_Versus.SimProfile(rivalPhoto,"덕구 센세(" + i + ")" ));
-        }
-
-        //데이터 준비되면 그때 렌더링 돌려 주세여
-        renderingFRG6_Versus();
     }
 
     void renderingFRG6_Versus(){
@@ -70,17 +80,20 @@ public class Third_VersusController extends AppCompatActivity implements FRG6_Ve
     @Override //화면에서 초기화하면서 바로 부를껍니다. 데이터가 바로 준비되어 있어야해여
     public FRG6_Versus.SimProfile reuqestYouProfile() {
         //onCreate에서 분명히 값이 다 준비되어 있을거라고 가정하고 넘기닌까 여기서 null이면 안되여
-        if(readyForyouProfile == null)
+        if(userPublicInfoBean == null){
+        }
             Log.e("Third_VersusController", "저기요? 아직 readyForyouProfile 준비 안되었여");
-        return readyForyouProfile;
+        return null;
     }
 
     @Override // 이것도 초기화 타이밍에 바로 부릅니다. 데이터가 미리 준비되어 있어야 해여
     public List<FRG6_Versus.SimProfile> requestRivalesProfiles() {
         //onCreate에서 분명히 값이 다 준비되어 있을거라고 가정하고 넘기닌까 여기서 null이면 안되여
-        if(readyForRirvalProfiles == null)
+        if(this.userPublicInfoBeanMap == null){
+
+        }
             Log.e("Third_VersusController", "저기요? 아직 readyForRirvalProfiles 준비 안되었여");
-        return readyForRirvalProfiles;
+        return null;
     }
 
     @Override //누가 이겼는지 물어보군여
