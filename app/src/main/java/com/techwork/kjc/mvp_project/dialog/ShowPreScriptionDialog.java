@@ -29,7 +29,7 @@ public class ShowPreScriptionDialog extends Dialog{
         txtArm = findViewById(R.id.txtArm);
         txtLeg = findViewById(R.id.txtLeg);
         txtBack = findViewById(R.id.txtBack);
-        txtBody = findViewById(R.id.txtBody);
+        txtBody = findViewById(R.id.txtFourth);
 
         lblArm = findViewById(R.id.lblArm);
         lblLeg = findViewById(R.id.lblLeg);

@@ -155,7 +155,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/txtBack" />
 
                 <TextView
-                    android:id="@+id/txtBody"
+                    android:id="@+id/txtFourth"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="8dp"
