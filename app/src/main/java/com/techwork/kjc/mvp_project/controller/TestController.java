@@ -310,14 +310,4 @@ public class TestController extends AppCompatActivity {
         super.onBackPressed();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if(requestCode == 0 && resultCode == 0){
-            String imagePath = data.getStringExtra(PhotoProcess.RES_IMAGE_PATH);
-            FRG2_Register frg2_register = ((FRG2_Register) fragmentManager.findFragmentByTag("frg2_register"));
-            Log.i("암히어", imagePath.toString());
-            frg2_register.responseImagePath(imagePath);
-
-        }
-    }
 }

@@ -103,8 +103,7 @@ public class FRG2_Register extends Fragment{
         void requestImagePath();
     }
 
-    public void responseImagePath(String imagePath){
-        File f = new File(imagePath);
-        act2_image.setImageURI(Uri.fromFile(f));
+    public void responseImagePath(Uri imageUri){
+        act2_image.setImageURI(imageUri);
     }
 }

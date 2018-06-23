@@ -31,7 +31,7 @@ public class UserPhotoDAO {
         });
     }
 
-    interface OnUploadComplete{
+    public interface OnUploadComplete{
         void onUploadComplete(boolean success, String photoID, Exception exception);
     }
 

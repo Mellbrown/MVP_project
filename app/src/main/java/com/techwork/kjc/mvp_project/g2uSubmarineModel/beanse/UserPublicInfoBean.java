@@ -1,4 +1,4 @@
-package com.techwork.kjc.mvp_project.g2uSubmarineModel;
+package com.techwork.kjc.mvp_project.g2uSubmarineModel.beanse;
 
 public class UserPublicInfoBean {
 

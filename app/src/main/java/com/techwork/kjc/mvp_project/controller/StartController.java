@@ -1,11 +1,19 @@
 package com.techwork.kjc.mvp_project.controller;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ViewGroup;
@@ -47,6 +55,8 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
         );
         setContentView(frameLayout);
         fragmentManager = getSupportFragmentManager();
+
+        checkPermission();
     }
 
     @Override
@@ -118,7 +128,7 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
 
     @Override // 냥 냥 나중에 수정된 내용!
     public void Logout() {
-
+        FirebaseAuth.getInstance().signOut();
     }
 
     @Override //메뉴중하나는 다이얼로그 띄워서 세부 메뉴를 씁니다.
@@ -140,5 +150,78 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
             }
         });
         practiceMenuDialog[0].show();
+    }
+
+    /************************여긴 권한 처리하는 코드가 담겨 있어오***************************/
+    private static final int PERMISSION_REQ_CAMERA = 189;
+
+    private void ShowNoticeRejectPermissionDialog(){
+        new AlertDialog.Builder(this)
+                .setTitle("알림")
+                .setMessage("저장소 권한이 거부되었습니다. 사용을 원하시면 설정에서 해당 권한을 직접 허용하셔야 합니다.")
+                .setNeutralButton("설정", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        intent.setData(Uri.parse("package:" + getPackageName()));
+                        startActivity(intent);
+                    }
+                })
+                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                })
+                .setCancelable(false)
+                .create()
+                .show();
+    }
+    private void checkPermission(){
+        if ( // 필요한 권한 있는지 검사를 해오
+                ContextCompat.checkSelfPermission(this, // 이 어플이
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE) //외부 저장소 권한을 가지고 있는지 물어봐요
+                        != PackageManager.PERMISSION_GRANTED ||// 승인이 안되어 있오요??
+                        ContextCompat.checkSelfPermission(this, // 이 어플이
+                                Manifest.permission.CAMERA) //외부 저장소 권한을 가지고 있는지 물어봐요
+                                != PackageManager.PERMISSION_GRANTED // 승인이 안되어 있오요??
+                ) {
+            // 오 외부 저장소 승인이 안되어 있다네오
+            if ( // 저번에 주인이 절대 안주겠다고 했던가요?
+                    (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) || //외부 저장소 접근 권한하고
+
+                            (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                                    android.Manifest.permission.CAMERA)) // 카메라 사용 접근 권한하고
+                    ) {
+                // 오맨, 그랬데요!!, 그러면 쓸꺼면 알아서 설정가서 세팅하라고 합시다.
+                ShowNoticeRejectPermissionDialog();
+            } else {
+                // 그런적은 없다고 하네요. 그럼 지금 달라고 합시다.
+                ActivityCompat.requestPermissions(this,
+                        new String[]{
+                                android.Manifest.permission.WRITE_EXTERNAL_STORAGE, // 외부 저장소 접근과
+                                android.Manifest.permission.CAMERA // 카메라 사용 접근 권한을
+                        },
+                        PERMISSION_REQ_CAMERA // 그리고 여기로 대답해줘요(신호코드)!! 위에 있어요!!
+                );
+            }
+        }//필요한 권한 다 있다네오!
+    }
+
+    //여기다 사용자에게 권한 요청 응답이 여기서 처리를 해요
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            // 우리가 이쪽으로 응답해달라 신호가 왔군요!!
+            case PERMISSION_REQ_CAMERA:
+                for (int i = 0; i < grantResults.length; i++) {
+                    if (grantResults[i] < 0) {
+                        Toast.makeText(this, "해당 권한을 활성화 하셔야 합니다.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                break;
+        }
     }
 }
