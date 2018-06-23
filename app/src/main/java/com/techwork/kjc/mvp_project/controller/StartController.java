@@ -31,6 +31,7 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
     FragmentManager fragmentManager;
     FrameLayout frameLayout;
     int containerID;
+    StartController scMe;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -50,16 +51,17 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
         //Start----------------------------------------로그인 여부에 따라
         //renderingFRG1_Slpash() 할지
         //rendingFRG4_MainMenu()할지
+        Second_RegisterController.sct = StartController.this;
         new Fire_Auth().checkLogin(this); // 이코드로 초기화 화면은 정해진다.
 
         //로그인 이벤트 발생하면, rendingFRG4_MainMenu해주고
         //로그아웃 이벤트 발생하면 rendringFRG1_Splash해주고
-        FirebaseAuth.getInstance().addAuthStateListener(new FirebaseAuth.AuthStateListener() {
-            @Override // 히힝 잠시 로그인 이벤트 쓰려고 잠시 썻어영. 로그인 아웃되거나 인되면, 화면 바까줍니당
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                new Fire_Auth().checkLogin(StartController.this);
-            }
-        });
+//        FirebaseAuth.getInstance().addAuthStateListener(new FirebaseAuth.AuthStateListener() {
+//            @Override // 히힝 잠시 로그인 이벤트 쓰려고 잠시 썻어영. 로그인 아웃되거나 인되면, 화면 바까줍니당
+//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+//                new Fire_Auth().checkLogin(StartController.this);
+//            }
+//        });
     }
 
     static final int splash = 1;
@@ -90,6 +92,7 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
     public void requestLinkTo(FRG1_Splash.REQUEST_LINK request_link) {
         switch (request_link){
             case SIGNIN:{
+                Second_RegisterController.sct = StartController.this;
                 startActivity(new Intent(StartController.this, Second_LoginController.class));
             } break;
             case SIGNUP:{
@@ -120,7 +123,7 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
 
     @Override // 냥 냥 나중에 수정된 내용!
     public void Logout() {
-
+        new Fire_Auth().aLogout(StartController.this);
     }
 
     @Override //메뉴중하나는 다이얼로그 띄워서 세부 메뉴를 씁니다.

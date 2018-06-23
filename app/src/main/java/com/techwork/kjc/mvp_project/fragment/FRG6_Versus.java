@@ -1,7 +1,6 @@
 package com.techwork.kjc.mvp_project.fragment;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,13 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.techwork.kjc.mvp_project.R;
+import com.techwork.kjc.mvp_project.controller.Third_VersusController;
 import com.techwork.kjc.mvp_project.subview.SubFRG6_SelectRival;
 import com.techwork.kjc.mvp_project.subview.SubFRG6_ShowVersus;
-import com.techwork.kjc.mvp_project.util.g2u;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,10 +53,7 @@ public class FRG6_Versus extends Fragment {
             @Override
             public List<SubFRG6_SelectRival.RirvalItem> requestItems() {
                 ArrayList<SubFRG6_SelectRival.RirvalItem> rirvalItems = new ArrayList<>();
-                List<SimProfile> simProfiles = requester.requestRivalesProfiles();
-                for( SimProfile profile : simProfiles){
-                    rirvalItems.add(new SubFRG6_SelectRival.RirvalItem(profile.photo, profile.name));
-                }
+                rirvalItems.addAll(requester.requestRivalesProfiles());
                 return rirvalItems;
             }
 
@@ -86,7 +80,7 @@ public class FRG6_Versus extends Fragment {
 
             @Override
             public void requestConfirm() {
-                requester.whoWinner(youProfile,new SimProfile(rirvalItem.photo, rirvalItem.name));
+                requester.whoWinner(youProfile, ((SimProfile) rirvalItem));
             }
 
             @Override
@@ -100,17 +94,17 @@ public class FRG6_Versus extends Fragment {
 
     public interface Requester{
         SimProfile reuqestYouProfile();
-        List<SimProfile> requestRivalesProfiles();
+        ArrayList<SimProfile> requestRivalesProfiles();
         void reuqestClose();
         void whoWinner(SimProfile you, SimProfile rival);
     }
 
-    public static class SimProfile{
+    public static class SimProfile extends SubFRG6_SelectRival.RirvalItem {
         public Bitmap photo;
         public String name;
 
-
         public SimProfile(Bitmap photo, String name){
+            super(photo,name);
             this.photo = photo;
             this.name = name;
         }

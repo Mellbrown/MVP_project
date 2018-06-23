@@ -50,9 +50,11 @@ public class FRG8_Track extends Fragment{
         viewLayout = inflater.inflate(R.layout.act8_focus_track, container,false);
 
         txtTitle = viewLayout.findViewById(R.id.txtTitle);
+
         act8_track = viewLayout.findViewById(R.id.act8_track);
         act8_history = viewLayout.findViewById(R.id.act8_history);
         act8_graph = viewLayout.findViewById(R.id.act8_graph);
+
         act8_level = viewLayout.findViewById(R.id.act8_level);
         act8_reps = viewLayout.findViewById(R.id.act8_reps);
         act8_regist = viewLayout.findViewById(R.id.act8_regist);
@@ -125,10 +127,4 @@ public class FRG8_Track extends Fragment{
         // 파이어베이스 등록 화이팅
 
     }
-    public void requesterFocus_clear(){
-
-        // 0으로 리셋! 화이팅
-
-    }
-
 }
