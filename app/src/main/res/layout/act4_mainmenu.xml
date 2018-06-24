@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:weightSum="1"
     android:orientation="vertical"
+    android:background="@color/colorWhite"
     android:gravity="center"
     >
     <com.techwork.kjc.mvp_project.layoutModel.RingView
