@@ -131,21 +131,27 @@ public class Third_VersusController extends AppCompatActivity implements FRG6_Ve
         return simProfiles;
     }
 
-    @Override //누가 이겼는지 물어보군여
-    public void whoWinner(FRG6_Versus.SimProfile you, FRG6_Versus.SimProfile rival) {
-        // 일단 구분 기준을 딱히 알려 드리진 않아여 제공 받은 객체만 도로 넘겨 줄뿐이져
-        // 그래서 뭐 가능하면 돌려드리는 기본 클래스에서 구분이 가능하면 그냥 그래 써도 될것 같지만
-        // 여기서 구분을 위해 클래스 상속해서 구분할 기준 확장해도 충분히 구분할 방법 있어여 그쵸?
 
-        // 글고 이제 보닌까 승패 판정할때 빠베 접근 안하고 스탠다드로 판정내릴수 있을 것 같긴한데
-        // 일단 비동기로 대답 해줄 수 있어여 아래는 비동기 대답 코드
-        ((FRG6_Versus) fragmentManager.findFragmentByTag("frg6_versus"))
-                .responseWhoWinner(true); // 당신이 이겻다 코드
-    }
 
     @Override // 닫아 달라는 뤼퀘
     public void reuqestClose() {
         finish(); // ㅇㅇ 닫아줘야지 닫아 달라면 근데 보닌까 잘 필요 없지 않을까 예상도 됨
+    }
+
+    @Override
+    public void whoWinner(FRG6_Versus.SimProfile you, FRG6_Versus.SimProfile rival, int youTime, int youLevel, int rivalTime, int rivalLevel) {
+
+        if(!(you instanceof AttachID)) Log.e("Third_VersusController", "you 캐스팅 불가");
+        if(!(rival instanceof AttachID)) Log.e("Third_VersusController", "rival 캐스팅 불가");
+
+        AttachID castYou = (AttachID) you;
+        AttachID castRival = (AttachID) rival;
+
+        double youWeight = youTime * 0.4 + youLevel * 0.6;
+        double rivalWeight = rivalTime * 0.4 + rivalLevel * 0.6;
+
+        ((FRG6_Versus) fragmentManager.findFragmentByTag("frg6_versus"))
+                .responseWhoWinner(youWeight > rivalWeight); // 당신이 이겻다 코드
     }
 
     public static class AttachID extends FRG6_Versus.SimProfile{

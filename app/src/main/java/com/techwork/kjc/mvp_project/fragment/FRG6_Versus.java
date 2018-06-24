@@ -79,9 +79,10 @@ public class FRG6_Versus extends Fragment {
             }
 
             @Override
-            public void requestConfirm() {
-                requester.whoWinner(youProfile, ((SimProfile) rirvalItem));
+            public void requestConfirm(int youTime, int youLevel, int rivalTime, int rivalLevel) {
+                requester.whoWinner(youProfile, ((SimProfile) rirvalItem),youTime, youLevel, rivalTime, rivalLevel );
             }
+
 
             @Override
             public void requestEndup() {
@@ -96,7 +97,7 @@ public class FRG6_Versus extends Fragment {
         SimProfile reuqestYouProfile();
         ArrayList<SimProfile> requestRivalesProfiles();
         void reuqestClose();
-        void whoWinner(SimProfile you, SimProfile rival);
+        void whoWinner(SimProfile you, SimProfile rival, int youTime, int youLevel, int rivalTime, int rivalLevel);
     }
 
     public static class SimProfile extends SubFRG6_SelectRival.RirvalItem {

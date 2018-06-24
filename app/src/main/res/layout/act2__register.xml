@@ -276,7 +276,7 @@
                 android:id="@+id/act2_image"
                 android:layout_width="match_parent"
                 android:layout_height="227dp"
-                app:srcCompat="@drawable/default" />
+                app:srcCompat="@drawable/default_profile_image" />
         </LinearLayout>
 
     </LinearLayout>
