@@ -122,7 +122,7 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
     @Override
     public void RecordActivityStart() {
         // 앙 아직 만들어졌다 띄
-        Toast.makeText(StartController.this, "앙 아직 안들어졌다 띄 앙앙!", Toast.LENGTH_SHORT).show();
+        Toast.makeText(StartController.this, "데이터 베이스 조정중입니다...", Toast.LENGTH_SHORT).show();
     }
 
 
