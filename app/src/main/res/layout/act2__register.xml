@@ -275,11 +275,7 @@
                 android:id="@+id/act2_image"
                 android:layout_width="match_parent"
                 android:layout_height="227dp"
-<<<<<<< HEAD
                 app:srcCompat="@drawable/dimage" />
-=======
-                app:srcCompat="@drawable/default_profile_image" />
->>>>>>> 9d9133988eaa464d4228103bd8f6d476d0ee61a5
         </LinearLayout>
 
     </LinearLayout>

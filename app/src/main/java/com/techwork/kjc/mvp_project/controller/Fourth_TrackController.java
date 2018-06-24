@@ -275,7 +275,6 @@ public class Fourth_TrackController extends AppCompatActivity implements FRG8_0T
         ArrayList<SubFRG8_Graph.Item> items = new ArrayList<>();
         int i = 1;
         for(FocusBean focusBean : focusBeans){
-
             Calendar ical = Calendar.getInstance();
             ical.setTime(new Date(focusBean.timestamp));
 
