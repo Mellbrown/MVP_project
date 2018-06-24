@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.ArrayMap;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
@@ -23,17 +24,24 @@ import com.techwork.kjc.mvp_project.fireSource.Fire_GOS;
 import com.techwork.kjc.mvp_project.fragment.FRG5_Measure;
 import com.techwork.kjc.mvp_project.g2uSubmarineModel.MeasureDAO;
 import com.techwork.kjc.mvp_project.g2uSubmarineModel.UserPhotoDAO;
+import com.techwork.kjc.mvp_project.g2uSubmarineModel.UserPublicInfoDAO;
 import com.techwork.kjc.mvp_project.g2uSubmarineModel.beanse.MeasureBean;
+import com.techwork.kjc.mvp_project.g2uSubmarineModel.beanse.UserPublicInfoBean;
 import com.techwork.kjc.mvp_project.util.EventChain;
+import com.techwork.kjc.mvp_project.util.Standard;
+import com.techwork.kjc.mvp_project.util.Strandard2;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Third_MeauserController extends AppCompatActivity implements FRG5_Measure.Requester {
 
     FragmentManager fragmentManager;
     FrameLayout frameLayout;
     int containerID;
+
+    UserPublicInfoBean userPublicInfoBean = null;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -118,16 +126,62 @@ public class Third_MeauserController extends AppCompatActivity implements FRG5_M
 
     @Override //  화면에서 사용자가 이 아이템 대해서 처방전 보여 달랬어여!
     public void requestShowPrescription(FRG5_Measure.MeasureItemBean measureItemBean) {
-        // 역시 여기도 이벤트 발생외엔 아무것도 안하기에 여기서 다이어로그 알아서
-        // 띄워 줘야해서 아래 프리 스크립션 띄워 주는 코드
-        // 적당한 내용 구해서 띄우면 되겠져?
-        new ShowPreScriptionDialog(Third_MeauserController.this,new ShowPreScriptionDialog.Prescription(
-                measureItemBean.allBodyWeight + "라? 초 돼지임 ㅇㅇ. 한강물 체크하고 오셈",
-                new ShowPreScriptionDialog.EachPrescription(ShowPreScriptionDialog.EachPrescription.BOTTOM_CLASS, "하타치야!!" ),
-                new ShowPreScriptionDialog.EachPrescription(ShowPreScriptionDialog.EachPrescription.MIDDLE_CLASS, "중타치야!!!"),
-                new ShowPreScriptionDialog.EachPrescription(ShowPreScriptionDialog.EachPrescription.TOP_CLASS, "상타치야!!!"),
-                new ShowPreScriptionDialog.EachPrescription(ShowPreScriptionDialog.EachPrescription.BOTTOM_CLASS, "결국엔 넌 하타치였어. \n  하타치야!!")
-        )).show();
+
+        EventChain eventChain = new EventChain();
+        eventChain.ready("사용자 데이터");
+        if(userPublicInfoBean == null){
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            UserPublicInfoDAO.selectUserByUID(new ArrayList<String>() {{
+                add(uid);
+            }}, new UserPublicInfoDAO.OnSelectedLisnter() {
+                @Override
+                public void onSelected(boolean success, Map<String, UserPublicInfoBean> userPublicInfoBeanMap, DatabaseError databaseError) {
+                    if(success && userPublicInfoBeanMap.size() == 1){
+                        Third_MeauserController.this.userPublicInfoBean = userPublicInfoBeanMap.get(0);
+                        eventChain.complete("사용자 데이터");
+                    } else {
+                        Toast.makeText(Third_MeauserController.this, "데이터를 조회하는데 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                        Log.e("Third_MeauserController", databaseError.getMessage());
+                    }
+                }
+            });
+        } else eventChain.complete("사용자 데이터");
+
+        eventChain.andthen(()->{
+            int grade = Integer.valueOf(userPublicInfoBean.grade + "");
+            String gener = userPublicInfoBean.gener;
+
+            String evalArm = Strandard2.evaluation(new Strandard2.EvaluePart(grade, gener, Strandard2.ARM), measureItemBean.armWeight);
+            String evalLeg = Strandard2.evaluation(new Strandard2.EvaluePart(grade, gener, Strandard2.LEG), measureItemBean.legWeight);
+            String evalBack = Strandard2.evaluation(new Strandard2.EvaluePart(grade, gener, Strandard2.BACK), measureItemBean.backWeight);
+            String evalBody = Strandard2.evaluation(new Strandard2.EvaluePart(grade, gener, Strandard2.BODY), measureItemBean.allBodyWeight);
+
+            ArrayList<String> allEval = new ArrayList<String>(){{add(evalArm); add(evalLeg); add(evalBack); add(evalBody);}};
+
+            int topcount = 0; for(String s : allEval) if(s.equals(Strandard2.TOP)) topcount ++;
+            int botcount = 0; for (String s : allEval) if(s.equals(Strandard2.BOT)) botcount ++;
+
+
+            new ShowPreScriptionDialog(Third_MeauserController.this,
+                    new ShowPreScriptionDialog.Prescription(
+                        topcount>3? Strandard2.TOP3 : botcount>3 ? Strandard2.BOT3 : Strandard2.ELSE3,
+                        generate(evalArm), generate(evalLeg),generate(evalBack), generate(evalBody)
+                    )
+            ).show();
+
+        },"사용자 데이터");
+    }
+
+    private ShowPreScriptionDialog.EachPrescription generate(String eachEval){
+        return new ShowPreScriptionDialog.EachPrescription(
+                eachEval.equals(Strandard2.TOP)? ShowPreScriptionDialog.EachPrescription.TOP_CLASS :
+                        eachEval.equals(Strandard2.MID)? ShowPreScriptionDialog.EachPrescription.BOTTOM_CLASS :
+                                ShowPreScriptionDialog.EachPrescription.BOTTOM_CLASS,
+
+                eachEval.equals(Strandard2.TOP)? Strandard2.EachGood :
+                        eachEval.equals(Strandard2.MID)? Strandard2.EachNormal:
+                                Strandard2.EachBad
+        );
     }
 
     @Override // 화면에서 사용자가 이 아이템 대해서 지워달라고 요청 했어요!

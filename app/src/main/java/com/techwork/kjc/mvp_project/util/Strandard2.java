@@ -77,7 +77,7 @@ public class Strandard2 {
     };
 
 
-    public static String evaluation(EvaluePart evaluePart, int val){
+    public static String evaluation(EvaluePart evaluePart, double val){
         EvalueClass evalueClass = standardMap.get(evaluePart);
         if(evalueClass == null) return None;
         if( val > evalueClass.top){
