@@ -276,6 +276,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="227dp"
                 app:srcCompat="@drawable/dimage" />
+
         </LinearLayout>
 
     </LinearLayout>

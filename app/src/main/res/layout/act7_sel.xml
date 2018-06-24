@@ -118,6 +118,7 @@
         android:layout_marginTop="120dp"
         android:weightSum="1"
         android:orientation="vertical"
+        android:background="@color/colorWhite"
         >
 
         <LinearLayout
