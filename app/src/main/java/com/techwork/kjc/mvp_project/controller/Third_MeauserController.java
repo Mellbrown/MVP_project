@@ -127,6 +127,10 @@ public class Third_MeauserController extends AppCompatActivity implements FRG5_M
     @Override //  화면에서 사용자가 이 아이템 대해서 처방전 보여 달랬어여!
     public void requestShowPrescription(FRG5_Measure.MeasureItemBean measureItemBean) {
 
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("평가중...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
         EventChain eventChain = new EventChain();
         eventChain.ready("사용자 데이터");
         if(userPublicInfoBean == null){
@@ -137,11 +141,12 @@ public class Third_MeauserController extends AppCompatActivity implements FRG5_M
                 @Override
                 public void onSelected(boolean success, Map<String, UserPublicInfoBean> userPublicInfoBeanMap, DatabaseError databaseError) {
                     if(success && userPublicInfoBeanMap.size() == 1){
-                        Third_MeauserController.this.userPublicInfoBean = userPublicInfoBeanMap.get(0);
+                        Third_MeauserController.this.userPublicInfoBean = userPublicInfoBeanMap.get(uid);
                         eventChain.complete("사용자 데이터");
                     } else {
                         Toast.makeText(Third_MeauserController.this, "데이터를 조회하는데 실패하였습니다.", Toast.LENGTH_SHORT).show();
                         Log.e("Third_MeauserController", databaseError.getMessage());
+                        progressDialog.dismiss();
                     }
                 }
             });
@@ -161,7 +166,7 @@ public class Third_MeauserController extends AppCompatActivity implements FRG5_M
             int topcount = 0; for(String s : allEval) if(s.equals(Strandard2.TOP)) topcount ++;
             int botcount = 0; for (String s : allEval) if(s.equals(Strandard2.BOT)) botcount ++;
 
-
+            progressDialog.dismiss();
             new ShowPreScriptionDialog(Third_MeauserController.this,
                     new ShowPreScriptionDialog.Prescription(
                         topcount>3? Strandard2.TOP3 : botcount>3 ? Strandard2.BOT3 : Strandard2.ELSE3,
