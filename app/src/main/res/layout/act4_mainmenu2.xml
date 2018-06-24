@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@android:color/background_light">
+    android:layout_height="match_parent">
 
     <com.techwork.kjc.mvp_project.layoutModel.RingView
         android:id="@+id/act4_menu"
@@ -41,7 +40,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="로그아웃"
-        android:textColor="@android:color/background_dark"
         app:layout_constraintEnd_toEndOf="@+id/act4_logout"
         app:layout_constraintStart_toStartOf="@+id/act4_logout"
         app:layout_constraintTop_toBottomOf="@+id/act4_logout" />

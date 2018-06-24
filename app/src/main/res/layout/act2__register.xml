@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light"
     android:orientation="vertical"
     android:weightSum="1"
     tools:context=".activity.ACT2_Register">
@@ -47,7 +46,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center"
                         android:text="아이디"
-                        android:textColor="#000000" />
+                         />
                 </LinearLayout>
 
                 <LinearLayout
@@ -60,7 +59,7 @@
                         android:layout_height="45dp"
                         android:gravity="center"
                         android:text="비밀번호"
-                        android:textColor="#000000" />
+                         />
                 </LinearLayout>
 
                 <LinearLayout
@@ -73,7 +72,7 @@
                         android:layout_height="45dp"
                         android:gravity="center"
                         android:text="이름"
-                        android:textColor="#000000" />
+                         />
                 </LinearLayout>
 
                 <LinearLayout
@@ -86,7 +85,7 @@
                         android:layout_height="45dp"
                         android:gravity="center"
                         android:text="성별"
-                        android:textColor="#000000" />
+                         />
                 </LinearLayout>
 
                 <LinearLayout
@@ -99,7 +98,7 @@
                         android:layout_height="45dp"
                         android:gravity="center"
                         android:text="학교"
-                        android:textColor="#000000" />
+                         />
                 </LinearLayout>
 
                 <LinearLayout
@@ -112,7 +111,7 @@
                         android:layout_height="45dp"
                         android:gravity="center"
                         android:text="학년"
-                        android:textColor="#000000" />
+                         />
                 </LinearLayout>
 
                 <LinearLayout
@@ -125,7 +124,7 @@
                         android:layout_height="45dp"
                         android:gravity="center"
                         android:text="반"
-                        android:textColor="#000000" />
+                         />
                 </LinearLayout>
 
                 <LinearLayout
@@ -138,7 +137,7 @@
                         android:layout_height="45dp"
                         android:gravity="center"
                         android:text="번호"
-                        android:textColor="#000000" />
+                         />
                 </LinearLayout>
 
                 <LinearLayout
@@ -151,7 +150,7 @@
                         android:layout_height="45dp"
                         android:gravity="center"
                         android:text="키"
-                        android:textColor="#000000" />
+                         />
                 </LinearLayout>
 
                 <LinearLayout
@@ -164,7 +163,7 @@
                         android:layout_height="45dp"
                         android:gravity="center"
                         android:text="몸무게"
-                        android:textColor="#000000" />
+                         />
                 </LinearLayout>
             </LinearLayout>
 
@@ -181,7 +180,7 @@
                     android:ems="10"
                     android:hint="이메일"
                     android:inputType="textWebEmailAddress"
-                    android:textColor="@android:color/black" />
+                     />
 
                 <EditText
                     android:id="@+id/act2_pw"
@@ -190,7 +189,7 @@
                     android:ems="10"
                     android:hint="6자리 이상"
                     android:inputType="textPassword"
-                    android:textColor="@android:color/black" />
+                     />
 
                 <EditText
                     android:id="@+id/act2_name"
@@ -199,7 +198,7 @@
                     android:ems="10"
                     android:hint="이름"
                     android:inputType="textPersonName"
-                    android:textColor="@android:color/black" />
+                     />
 
                 <EditText
                     android:id="@+id/act2_sex"
@@ -208,7 +207,7 @@
                     android:ems="10"
                     android:hint="남 or 여"
                     android:inputType="textPersonName"
-                    android:textColor="@android:color/black" />
+                     />
 
                 <EditText
                     android:id="@+id/act2_school"
@@ -217,7 +216,7 @@
                     android:ems="10"
                     android:hint="학교"
                     android:inputType="textPersonName"
-                    android:textColor="@android:color/black" />
+                     />
 
                 <EditText
                     android:id="@+id/act2_grade"
@@ -226,7 +225,7 @@
                     android:ems="10"
                     android:hint="4~6 학년"
                     android:inputType="number"
-                    android:textColor="@android:color/black" />
+                     />
 
                 <EditText
                     android:id="@+id/act2_cls"
@@ -235,7 +234,7 @@
                     android:ems="10"
                     android:hint="반"
                     android:inputType="textPersonName|number"
-                    android:textColor="@android:color/black" />
+                     />
 
                 <EditText
                     android:id="@+id/act2_num"
@@ -244,7 +243,7 @@
                     android:ems="10"
                     android:hint="번호"
                     android:inputType="number"
-                    android:textColor="@android:color/black" />
+                     />
 
                 <EditText
                     android:id="@+id/act2_tall"
@@ -253,7 +252,7 @@
                     android:ems="10"
                     android:hint="키"
                     android:inputType="numberDecimal"
-                    android:textColor="@android:color/black" />
+                     />
 
                 <EditText
                     android:id="@+id/act2_weight"
@@ -262,7 +261,7 @@
                     android:ems="10"
                     android:hint="몸무게"
                     android:inputType="numberDecimal"
-                    android:textColor="@android:color/black" />
+                     />
             </LinearLayout>
         </LinearLayout>
 
@@ -276,7 +275,11 @@
                 android:id="@+id/act2_image"
                 android:layout_width="match_parent"
                 android:layout_height="227dp"
+<<<<<<< HEAD
+                app:srcCompat="@drawable/dimage" />
+=======
                 app:srcCompat="@drawable/default_profile_image" />
+>>>>>>> 9d9133988eaa464d4228103bd8f6d476d0ee61a5
         </LinearLayout>
 
     </LinearLayout>
