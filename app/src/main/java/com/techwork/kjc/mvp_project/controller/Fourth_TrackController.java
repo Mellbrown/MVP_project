@@ -25,7 +25,9 @@ import com.techwork.kjc.mvp_project.subview.SubFRG8_Histrory;
 import com.techwork.kjc.mvp_project.subview.SubFRG8_Track;
 import com.techwork.kjc.mvp_project.util.EventChain;
 
+import java.time.Year;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -98,6 +100,18 @@ public class Fourth_TrackController extends AppCompatActivity implements FRG8_0T
         // 구해서 아래 메서드로 집어 넣어주면됨
         int i = 1;
         for(FocusBean focusBean : focusBeans){
+            Calendar ical = Calendar.getInstance();
+            ical.setTime(new Date(focusBean.timestamp));
+
+            Calendar ncal = Calendar.getInstance();
+            ncal.setTime(new Date());
+
+            if(
+                ical.get(Calendar.YEAR) == ncal.get(Calendar.YEAR)
+                        && ical.get(Calendar.MONTH) == ncal.get(Calendar.MONTH)
+                        && ical.get(Calendar.DAY_OF_MONTH) == ncal.get(Calendar.DAY_OF_MONTH)
+                ){} else continue;
+
             SubFRG8_Track.Item item = new SubFRG8_Track.Item();
             item.number = i++;
             item.level = Integer.valueOf(focusBean.level+"");
@@ -113,6 +127,16 @@ public class Fourth_TrackController extends AppCompatActivity implements FRG8_0T
 
         int i = 1;
         for(FocusBean focusBean : focusBeans){
+
+            Calendar ical = Calendar.getInstance();
+            ical.setTime(new Date(focusBean.timestamp));
+
+            if(
+                    ical.get(Calendar.YEAR) == requestDate.year
+                            && ical.get(Calendar.MONTH) == requestDate.month -1
+                            && ical.get(Calendar.DAY_OF_MONTH) == requestDate.date
+                    ){} else continue;
+
             SubFRG8_Histrory.Item item = new SubFRG8_Histrory.Item();
             item.number = i++;
             item.level = Integer.valueOf(focusBean.level+"");
@@ -127,6 +151,16 @@ public class Fourth_TrackController extends AppCompatActivity implements FRG8_0T
         ArrayList<SubFRG8_Graph.Item> items = new ArrayList<>();
         int i = 1;
         for(FocusBean focusBean : focusBeans){
+
+            Calendar ical = Calendar.getInstance();
+            ical.setTime(new Date(focusBean.timestamp));
+
+            if(
+                    ical.get(Calendar.YEAR) == requestDate.year
+                            && ical.get(Calendar.MONTH) == requestDate.month -1
+                            && ical.get(Calendar.DAY_OF_MONTH) == requestDate.date
+                    ){} else continue;
+
             SubFRG8_Graph.Item item = new SubFRG8_Graph.Item();
             item.number = i++;
             item.level = Integer.valueOf(focusBean.level+"");
@@ -188,6 +222,19 @@ public class Fourth_TrackController extends AppCompatActivity implements FRG8_0T
             ArrayList<SubFRG8_Track.Item> items = new ArrayList<>();
             int i = 1;
             for(FocusBean focusBean : focusBeans){
+
+                Calendar ical = Calendar.getInstance();
+                ical.setTime(new Date(focusBean.timestamp));
+
+                Calendar ncal = Calendar.getInstance();
+                ncal.setTime(new Date());
+
+                if(
+                        ical.get(Calendar.YEAR) == ncal.get(Calendar.YEAR)
+                                && ical.get(Calendar.MONTH) == ncal.get(Calendar.MONTH)
+                                && ical.get(Calendar.DAY_OF_MONTH) == ncal.get(Calendar.DAY_OF_MONTH)
+                        ){} else continue;
+
                 SubFRG8_Track.Item item = new SubFRG8_Track.Item();
                 item.number = i++;
                 item.level = Integer.valueOf(focusBean.level+"");
@@ -204,6 +251,16 @@ public class Fourth_TrackController extends AppCompatActivity implements FRG8_0T
 
         int i = 1;
         for(FocusBean focusBean : focusBeans){
+
+            Calendar ical = Calendar.getInstance();
+            ical.setTime(new Date(focusBean.timestamp));
+
+            if(
+                    ical.get(Calendar.YEAR) == requestDate.year
+                            && ical.get(Calendar.MONTH) == requestDate.month -1
+                            && ical.get(Calendar.DAY_OF_MONTH) == requestDate.date
+                    ){} else continue;
+
             SubFRG8_Histrory.Item item = new SubFRG8_Histrory.Item();
             item.number = i++;
             item.level = Integer.valueOf(focusBean.level+"");
@@ -218,6 +275,16 @@ public class Fourth_TrackController extends AppCompatActivity implements FRG8_0T
         ArrayList<SubFRG8_Graph.Item> items = new ArrayList<>();
         int i = 1;
         for(FocusBean focusBean : focusBeans){
+
+            Calendar ical = Calendar.getInstance();
+            ical.setTime(new Date(focusBean.timestamp));
+
+            if(
+                    ical.get(Calendar.YEAR) == requestDate.year
+                            && ical.get(Calendar.MONTH) == requestDate.month -1
+                            && ical.get(Calendar.DAY_OF_MONTH) == requestDate.date
+                    ){} else continue;
+
             SubFRG8_Graph.Item item = new SubFRG8_Graph.Item();
             item.number = i++;
             item.level = Integer.valueOf(focusBean.level+"");
