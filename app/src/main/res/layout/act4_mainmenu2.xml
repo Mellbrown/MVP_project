@@ -41,6 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="로그아웃"
+        android:textColor="@android:color/background_dark"
         app:layout_constraintEnd_toEndOf="@+id/act4_logout"
         app:layout_constraintStart_toStartOf="@+id/act4_logout"
         app:layout_constraintTop_toBottomOf="@+id/act4_logout" />

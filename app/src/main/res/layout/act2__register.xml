@@ -179,8 +179,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="ID"
+                    android:hint="이메일"
+                    android:inputType="textWebEmailAddress"
                     android:textColor="@android:color/black" />
 
                 <EditText
@@ -188,8 +188,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="PW"
+                    android:hint="6자리 이상"
+                    android:inputType="textPassword"
                     android:textColor="@android:color/black" />
 
                 <EditText
@@ -197,6 +197,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:ems="10"
+                    android:hint="이름"
                     android:inputType="textPersonName"
                     android:textColor="@android:color/black" />
 
@@ -205,8 +206,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:ems="10"
+                    android:hint="남 or 여"
                     android:inputType="textPersonName"
-                    android:text="Name"
                     android:textColor="@android:color/black" />
 
                 <EditText
@@ -214,8 +215,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:ems="10"
+                    android:hint="학교"
                     android:inputType="textPersonName"
-                    android:text="Name"
                     android:textColor="@android:color/black" />
 
                 <EditText
@@ -223,8 +224,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Name"
+                    android:hint="4~6 학년"
+                    android:inputType="number"
                     android:textColor="@android:color/black" />
 
                 <EditText
@@ -232,8 +233,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Name"
+                    android:hint="반"
+                    android:inputType="textPersonName|number"
                     android:textColor="@android:color/black" />
 
                 <EditText
@@ -241,8 +242,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Name"
+                    android:hint="번호"
+                    android:inputType="number"
                     android:textColor="@android:color/black" />
 
                 <EditText
@@ -250,8 +251,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Name"
+                    android:hint="키"
+                    android:inputType="numberDecimal"
                     android:textColor="@android:color/black" />
 
                 <EditText
@@ -259,8 +260,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Name"
+                    android:hint="몸무게"
+                    android:inputType="numberDecimal"
                     android:textColor="@android:color/black" />
             </LinearLayout>
         </LinearLayout>
@@ -275,7 +276,7 @@
                 android:id="@+id/act2_image"
                 android:layout_width="match_parent"
                 android:layout_height="227dp"
-                app:srcCompat="@color/colorAccent" />
+                app:srcCompat="@drawable/default" />
         </LinearLayout>
 
     </LinearLayout>
