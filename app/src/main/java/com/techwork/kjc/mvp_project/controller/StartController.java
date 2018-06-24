@@ -80,7 +80,7 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
         FRG1_Splash frg1_splash = new FRG1_Splash();
         frg1_splash.requester = this;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(containerID, frg1_splash);
+        fragmentTransaction.replace(containerID, frg1_splash);
         fragmentTransaction.commitAllowingStateLoss();
     }
 
@@ -90,7 +90,7 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
         FRG4_MenuMain frg4_mainmenu = new FRG4_MenuMain();
         frg4_mainmenu.requester = this;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(containerID, frg4_mainmenu);
+        fragmentTransaction.replace(containerID, frg4_mainmenu);
         fragmentTransaction.commitAllowingStateLoss();
     }
 
