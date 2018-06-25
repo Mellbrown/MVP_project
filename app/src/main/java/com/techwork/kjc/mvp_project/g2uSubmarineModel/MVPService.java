@@ -16,23 +16,6 @@ import java.util.Map;
 
 public class MVPService {
 
-    public static void selectM_TopRecord30(){
-        UserPublicInfoDAO.selectAllUser(new UserPublicInfoDAO.OnSelectedLisnter() {
-            @Override
-            public void onSelected(boolean success, Map<String, UserPublicInfoBean> userPublicInfoBeanMap, DatabaseError databaseError) {
-
-            }
-        });
-    }
-
-    public static void selectV_TopRecord30(){
-
-    }
-
-    public static void selectP_TopRecord30(){
-
-    }
-
     public static void selsetMVP_Record(String uid,OnCompleteMVP_Record onCompleteMVP_record){
 
         EventChain eventChain = new EventChain();
