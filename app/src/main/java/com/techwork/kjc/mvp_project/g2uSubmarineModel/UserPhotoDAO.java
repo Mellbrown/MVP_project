@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Set;
 
 public class UserPhotoDAO {
-    public static final String REMOTE_PATH = "g2u-submarine/user-photo";
+    public static final String REMOTE_PATH = "user-photo";
 
     public static void uploadUserPhoto(Uri localPhotoResource, OnUploadComplete onUploadComplete){
         String extend = localPhotoResource.getPath().substring(localPhotoResource.getPath().lastIndexOf('.') + 1);

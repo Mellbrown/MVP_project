@@ -15,7 +15,7 @@ import java.util.Map;
 
 public class FocusDAO {
 
-    public static final String REMOTE_PATH = "g2u-submarine/focus";
+    public static final String REMOTE_PATH = "focus";
 
     public static Task<Void> addFocusBean(String uid, String part, FocusBean focusBean){
         return FirebaseDatabase.getInstance().getReference(REMOTE_PATH)

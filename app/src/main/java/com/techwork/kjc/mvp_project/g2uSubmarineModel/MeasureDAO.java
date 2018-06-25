@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MeasureDAO {
-    public static final String REMOTE_PATH = "g2u-submarine/measure";
+    public static final String REMOTE_PATH = "measure";
 
     public static void selectMeasureBeanseByUID(String uid, OnSelectedMeasureBeans onSelectedMeasureBeans){
         FirebaseDatabase.getInstance().getReference(REMOTE_PATH).child(uid).addListenerForSingleValueEvent(new ValueEventListener() {

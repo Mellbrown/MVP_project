@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class UserPublicInfoDAO {
 
-    public static final String REMOTE_PATH = "g2u-submarine/user-public-info";
+    public static final String REMOTE_PATH = "user-public-info";
 
 
     public static void selectUserByUID(List<String> uides, OnSelectedLisnter onSelectedLisnter){

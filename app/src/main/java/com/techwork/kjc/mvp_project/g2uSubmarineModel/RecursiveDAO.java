@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class RecursiveDAO {
-    public static final String REMOTE_PATH = "g2u-submarine/recursive";
+    public static final String REMOTE_PATH = "recursive";
 
     public static void selectRecursiveMap(String uid,OnSelectedRecursiveMap onSelectedRecursiveMap){
         FirebaseDatabase.getInstance().getReference(REMOTE_PATH).child(uid).addListenerForSingleValueEvent(new ValueEventListener() {

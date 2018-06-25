@@ -14,7 +14,7 @@ import java.util.List;
 
 public class VersusDAO {
 
-    public static final String REMOTE_PATH = "g2u-submarine/versus";
+    public static final String REMOTE_PATH = "versus";
 
     public static Task<Void> addVersusBean(String you_uid, String rival_uid, VesusBean vesusBean){
         return FirebaseDatabase.getInstance().getReference(REMOTE_PATH)
