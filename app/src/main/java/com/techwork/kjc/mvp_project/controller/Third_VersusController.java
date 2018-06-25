@@ -32,7 +32,6 @@ import java.util.Set;
 
 public class Third_VersusController extends AppCompatActivity implements FRG6_Versus.Requester {
 
-
     FragmentManager fragmentManager;
     FrameLayout frameLayout;
     int containerID;
