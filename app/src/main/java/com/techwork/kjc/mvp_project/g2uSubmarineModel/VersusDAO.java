@@ -1,5 +1,8 @@
 package com.techwork.kjc.mvp_project.g2uSubmarineModel;
 
+import android.support.annotation.NonNull;
+
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -16,50 +19,53 @@ public class VersusDAO {
 
     public static final String REMOTE_PATH = "versus";
 
-    public static Task<Void> addVersusBean(String you_uid, String rival_uid, VesusBean vesusBean){
-        return FirebaseDatabase.getInstance().getReference(REMOTE_PATH)
-                .child(you_uid+"&"+rival_uid).child(vesusBean.timestamp + "").setValue(vesusBean);
+    public static void addVersusBean(String you_uid, String rival_uid, VesusBean vesusBean, OnComplete onComplete){
+
+        EventChain eventChain = new EventChain();
+        eventChain.ready(you_uid);
+        eventChain.ready(rival_uid);
+        FirebaseDatabase.getInstance().getReference(REMOTE_PATH)
+                .child(you_uid).child(vesusBean.timestamp + "").setValue(vesusBean)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        eventChain.complete(you_uid);
+                    }
+                });
+
+        FirebaseDatabase.getInstance().getReference(REMOTE_PATH)
+                .child(rival_uid).child(vesusBean.timestamp + "").setValue(vesusBean)
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        eventChain.complete(rival_uid);
+                    }
+                });
+
+        eventChain.andthen(()->{
+            onComplete.onComlete();
+        },you_uid,rival_uid);
     }
 
-    public static void selectVersusBeans(String you_uid, String rival_uid, OnSelectedBersusBeans onSelectedBersusBeans){
-        final EventChain eventChain = new EventChain();
-        eventChain.ready(you_uid+"&"+rival_uid);
-        eventChain.ready(rival_uid+"&"+you_uid);
-        final List<VesusBean> vesusBeans = new ArrayList<>();
-        FirebaseDatabase.getInstance().getReference(REMOTE_PATH).child(you_uid+"&"+rival_uid)
+    interface OnComplete{
+        void onComlete();
+    }
+
+    public static void selectVersusBeans(String you_uid, OnSelectedBersusBeans onSelectedBersusBeans){
+        FirebaseDatabase.getInstance().getReference(REMOTE_PATH).child(you_uid)
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         List<VesusBean> vesusBeanList = dataSnapshot.getValue(new GenericTypeIndicator<List<VesusBean>>());
-                        vesusBeans.addAll(vesusBeanList);
-                        eventChain.complete(you_uid+"&"+rival_uid);
+                        if(vesusBeanList == null) vesusBeanList = new ArrayList<>();
+                        onSelectedBersusBeans.OnSelectedBersusBeans(vesusBeanList);
                     }
 
                     @Override
                     public void onCancelled(DatabaseError databaseError) {
-                        eventChain.complete(you_uid+"&"+rival_uid);
+                        onSelectedBersusBeans.OnSelectedBersusBeans(new ArrayList<>());
                     }
                 });
-        FirebaseDatabase.getInstance().getReference(REMOTE_PATH).child(rival_uid+"&"+you_uid)
-                .addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        List<VesusBean> vesusBeanList = dataSnapshot.getValue(new GenericTypeIndicator<List<VesusBean>>());
-                        vesusBeans.addAll(vesusBeanList);
-                        eventChain.complete(rival_uid+"&"+you_uid);
-                    }
-
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        eventChain.complete(rival_uid+"&"+you_uid);
-                    }
-                });
-        eventChain.andthen(new EventChain.CallBack() {
-            @Override
-            public void run() {
-                onSelectedBersusBeans.OnSelectedBersusBeans(vesusBeans);
-            }
-        }, you_uid+"&"+rival_uid, rival_uid+"&"+you_uid);
     }
 
     interface OnSelectedBersusBeans{
