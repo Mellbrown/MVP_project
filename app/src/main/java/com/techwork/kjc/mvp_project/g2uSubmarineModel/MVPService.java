@@ -5,6 +5,7 @@ import com.techwork.kjc.mvp_project.g2uSubmarineModel.beanse.FocusBean;
 import com.techwork.kjc.mvp_project.g2uSubmarineModel.beanse.MVP_RecordAccBean;
 import com.techwork.kjc.mvp_project.g2uSubmarineModel.beanse.MeasureBean;
 import com.techwork.kjc.mvp_project.g2uSubmarineModel.beanse.RecursiveBean;
+import com.techwork.kjc.mvp_project.g2uSubmarineModel.beanse.UserPublicInfoBean;
 import com.techwork.kjc.mvp_project.g2uSubmarineModel.beanse.VesusBean;
 import com.techwork.kjc.mvp_project.util.DateKey;
 import com.techwork.kjc.mvp_project.util.EventChain;
@@ -16,7 +17,12 @@ import java.util.Map;
 public class MVPService {
 
     public static void selectM_TopRecord30(){
+        UserPublicInfoDAO.selectAllUser(new UserPublicInfoDAO.OnSelectedLisnter() {
+            @Override
+            public void onSelected(boolean success, Map<String, UserPublicInfoBean> userPublicInfoBeanMap, DatabaseError databaseError) {
 
+            }
+        });
     }
 
     public static void selectV_TopRecord30(){
@@ -28,7 +34,6 @@ public class MVPService {
     }
 
     public static void selsetMVP_Record(String uid,OnCompleteMVP_Record onCompleteMVP_record){
-
 
         EventChain eventChain = new EventChain();
         eventChain.ready("M 준비");

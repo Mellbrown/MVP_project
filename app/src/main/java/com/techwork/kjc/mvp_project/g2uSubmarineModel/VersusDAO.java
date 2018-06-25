@@ -10,14 +10,48 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.techwork.kjc.mvp_project.g2uSubmarineModel.beanse.VesusBean;
+import com.techwork.kjc.mvp_project.util.DateKey;
 import com.techwork.kjc.mvp_project.util.EventChain;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class VersusDAO {
 
     public static final String REMOTE_PATH = "versus";
+
+    public static void selectTop30(DateKey monthKey,OnSelelctedTop30 OnSelelctedTop30){
+        FirebaseDatabase.getInstance().getReference(REMOTE_PATH).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Map<String, Integer> all = new HashMap<>();
+                for(DataSnapshot data : dataSnapshot.getChildren()){
+                    List<VesusBean> vesusBeanList = data.getValue(new GenericTypeIndicator<List<VesusBean>>());
+                    if(vesusBeanList == null) vesusBeanList = new ArrayList<>();
+                    int cnt = 0;
+                    for(VesusBean bean : vesusBeanList){
+                        DateKey dateKey = new DateKey(bean.timestamp);
+                        if(dateKey.year != monthKey.year || dateKey.month != monthKey.month) continue;
+                        if(!bean.winner.equals(data.getKey()))continue;
+                        cnt += 1;
+                    }
+                    all.put(data.getKey(),cnt);
+                }
+                OnSelelctedTop30.onSelctecteTop30(all);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                OnSelelctedTop30.onSelctecteTop30(new HashMap<>());
+            }
+        });
+    }
+
+    public interface OnSelelctedTop30{
+        void onSelctecteTop30(Map<String, Integer> map);
+    }
 
     public static void addVersusBean(String you_uid, String rival_uid, VesusBean vesusBean, OnComplete onComplete){
 

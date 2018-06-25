@@ -7,6 +7,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.techwork.kjc.mvp_project.g2uSubmarineModel.beanse.FocusBean;
+import com.techwork.kjc.mvp_project.util.DateKey;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,6 +17,35 @@ import java.util.Map;
 public class FocusDAO {
 
     public static final String REMOTE_PATH = "focus";
+
+    public static void selectTop30(DateKey monthKey,OnSelelctedTop30 OnSelelctedTop30){
+        FirebaseDatabase.getInstance().getReference(REMOTE_PATH).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Map<String, Long> all = new HashMap<>();
+                for(DataSnapshot data : dataSnapshot.getChildren()){
+                    Map<String, FocusBean> focusBeanMap = data.getValue(new GenericTypeIndicator<Map<String, FocusBean>>() {});
+                    if (focusBeanMap == null) focusBeanMap = new HashMap<>();
+                    int cnt = 0;
+                    for(FocusBean bean : focusBeanMap.values()){
+                        DateKey dateKey = new DateKey(bean.timestamp);
+                        if(dateKey.year != monthKey.year || dateKey.month != monthKey.month) continue;
+                        cnt += bean.reps;
+                    }
+                }
+                OnSelelctedTop30.onSelctecteTop30(all);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                OnSelelctedTop30.onSelctecteTop30(new HashMap<>());
+            }
+        });
+    }
+    public interface OnSelelctedTop30{
+        void onSelctecteTop30(Map<String, Long> map);
+    }
+
 
     public static Task<Void> addFocusBean(String uid, String part, FocusBean focusBean){
         return FirebaseDatabase.getInstance().getReference(REMOTE_PATH)
