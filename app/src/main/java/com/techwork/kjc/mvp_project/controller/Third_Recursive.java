@@ -17,7 +17,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
 import com.techwork.kjc.mvp_project.dialog.ProgressDialog;
 import com.techwork.kjc.mvp_project.fragment.FRG9_Recursive;
-import com.techwork.kjc.mvp_project.g2uSubmarineModel.RecordDAO;
 import com.techwork.kjc.mvp_project.g2uSubmarineModel.RecursiveDAO;
 import com.techwork.kjc.mvp_project.g2uSubmarineModel.beanse.RecursiveBean;
 import com.techwork.kjc.mvp_project.subview.CusCalView;

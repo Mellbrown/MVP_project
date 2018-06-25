@@ -14,6 +14,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.techwork.kjc.mvp_project.R;
+import com.techwork.kjc.mvp_project.util.g2u;
 
 import java.io.File;
 
@@ -58,6 +59,23 @@ public class FRG2_Register extends Fragment{
         act2_weight = viewLayout.findViewById(R.id.act2_weight);
         act2_image = viewLayout.findViewById(R.id.act2_image);
         act2_Rbtn = viewLayout.findViewById(R.id.act2_Rbtn);
+
+        act2_Rbtn.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                act2_id.setText("g2ux@gmail.com");
+                act2_pw.setText("77akwrls@");
+                act2_name.setText(" 시바");
+                act2_sex.setText((int)g2u.rand(0,2) == 0 ? "남" : "여");
+                act2_school.setText("시박교");
+                act2_grade.setText((int)g2u.rand(4,7) + "");
+                act2_cls.setText((int)g2u.rand(1,9) + "");
+                act2_num.setText((int)g2u.rand(1,40) + "");
+                act2_tall.setText(String.format("%.2f",g2u.rand(150, 190)));
+                act2_weight.setText(String.format("%.2f",g2u.rand(35,120)));
+                return true;
+            }
+        });
 
         act2_image.setOnClickListener(new View.OnClickListener() {
             @Override

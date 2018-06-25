@@ -1,6 +1,7 @@
 package com.techwork.kjc.mvp_project.controller;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -65,8 +66,8 @@ public class Third_RecordController extends AppCompatActivity implements View.On
         frg10_record.dataMap =dataMap;
         frg10_record.onClickListener = this;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(containerID, frg10_record,"frg10_record");
-        fragmentTransaction.commitAllowingStateLoss();
+        fragmentTransaction.add(containerID, frg10_record);
+        fragmentTransaction.commitNow();
     }
 
     @Override

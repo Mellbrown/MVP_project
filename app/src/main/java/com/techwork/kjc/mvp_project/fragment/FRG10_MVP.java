@@ -34,7 +34,7 @@ public class FRG10_MVP extends Fragment implements View.OnClickListener {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        viewLayout = inflater.inflate(R.layout.act10_record, container, false);
+        viewLayout = inflater.inflate(R.layout.act10_mvp, container, false);
 
         btnM = viewLayout.findViewById(R.id.btnM);
         btnV = viewLayout.findViewById(R.id.btnV);

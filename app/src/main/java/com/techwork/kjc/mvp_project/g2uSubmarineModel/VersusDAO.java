@@ -90,7 +90,7 @@ public class VersusDAO {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        List<VesusBean> vesusBeanList = dataSnapshot.getValue(new GenericTypeIndicator<List<VesusBean>>());
+                        List<VesusBean> vesusBeanList = dataSnapshot.getValue(new GenericTypeIndicator<List<VesusBean>>(){});
                         if(vesusBeanList == null) vesusBeanList = new ArrayList<>();
                         onSelectedBersusBeans.OnSelectedBersusBeans(vesusBeanList);
                     }

@@ -7,6 +7,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import android.widget.TextView;
 import com.techwork.kjc.mvp_project.R;
 import com.techwork.kjc.mvp_project.adapter.BaseRecyclerAdapter;
 import com.techwork.kjc.mvp_project.subview.CusCalView;
+import com.techwork.kjc.mvp_project.util.g2u;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -57,7 +59,7 @@ public class FRG10_Record extends Fragment implements CusCalView.OnUpdateMonth {
         cusCalView.setOnUpdateMonth(this);
         frame.addView(cusCalView,-1,-1);
 
-        recyclerView = viewLayout.findViewById(R.id.recyclerView);
+        recyclerView = viewLayout.findViewById(R.id.recylerView);
         layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         baseRecyclerAdapter = new BaseRecyclerAdapter<Item, RecViewHolder>(
                 R.layout.item_record, RecViewHolder.class
@@ -72,6 +74,7 @@ public class FRG10_Record extends Fragment implements CusCalView.OnUpdateMonth {
 
         cusCalView.dataMap.putAll(dataMap);
         cusCalView.notifyChangedDataSet();
+
 
         return viewLayout;
     }
@@ -141,6 +144,10 @@ public class FRG10_Record extends Fragment implements CusCalView.OnUpdateMonth {
         public RecViewHolder(View itemView) {
             super(itemView);
             viewLayout = itemView;
+            viewLayout.setLayoutParams(new ViewGroup.LayoutParams(
+                    g2u.convertPixelsToDp(60f,viewLayout.getContext()),
+                    g2u.convertPixelsToDp(80f,viewLayout.getContext())
+            ));
 
             txtTitle = itemView.findViewById(R.id.txtTitle);
             txtTitle.setVisibility(View.VISIBLE);
@@ -151,9 +158,9 @@ public class FRG10_Record extends Fragment implements CusCalView.OnUpdateMonth {
 
         public void dataBind(String title, Item item) {
             txtTitle.setText(title);
-            txtM.setText(item.mVal + "");
-            txtV.setText(item.vVal + "");
-            txtP.setText(item.pVal + "");
+            txtM.setText(String.format("M %.0fKG", item.mVal));
+            txtV.setText(String.format("V %d승", item.vVal));
+            txtP.setText(String.format("P %d회", item.pVal));
         }
     }
 //-------------------------------------------------------------------------------------------------
@@ -182,9 +189,14 @@ public class FRG10_Record extends Fragment implements CusCalView.OnUpdateMonth {
 
         @Override
         public void onDataBind(Item data) {
-            txtM.setText(String.format("M %.0fKG", data.mVal));
-            txtV.setText(String.format("V %d승", data.vVal));
-            txtP.setText(String.format("P %d회", data.pVal));
+            if(data == null)
+                viewLayout.setVisibility(INVISIBLE);
+            else{
+                viewLayout.setVisibility(VISIBLE);
+                txtM.setText(String.format("M %.0fKG", data.mVal));
+                txtV.setText(String.format("V %d승", data.vVal));
+                txtP.setText(String.format("P %d회", data.pVal));
+            }
         }
     }
 }

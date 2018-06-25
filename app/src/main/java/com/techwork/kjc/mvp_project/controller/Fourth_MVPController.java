@@ -81,7 +81,7 @@ public class Fourth_MVPController extends AppCompatActivity implements FRG10_MVP
         FRG10_MVP frg10_mvp = new FRG10_MVP();
         frg10_mvp.requester = this;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(containerID, frg10_mvp,"frg10_mvp");
+        fragmentTransaction.add(containerID, frg10_mvp,"frg10_mvp");
         fragmentTransaction.commitAllowingStateLoss();
     }
 
