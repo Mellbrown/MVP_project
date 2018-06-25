@@ -8,6 +8,7 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 import com.techwork.kjc.mvp_project.g2uSubmarineModel.beanse.RecursiveBean;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -42,6 +43,7 @@ public class RecursiveDAO {
     }
 
     public static Task<Void> addRecursivBean(String uid, Long timstamp, RecursiveBean recursiveBean){
+        recursiveBean.timestamp = new Date().getTime();
         return FirebaseDatabase.getInstance().getReference(REMOTE_PATH).child(uid).child(timstamp+"").setValue(recursiveBean);
     }
 }

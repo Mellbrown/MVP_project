@@ -1,6 +1,9 @@
 package com.techwork.kjc.mvp_project.g2uSubmarineModel.beanse;
 
 public class RecursiveBean {
+
+    public Long timestamp = 0l;
+
     public String first = "";
     public String second = "";
     public String thrid = "";
