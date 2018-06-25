@@ -20,6 +20,14 @@ public class DateKey implements Comparable<DateKey> {
         this.date = calendar.get(Calendar.DAY_OF_MONTH);
     }
 
+    public DateKey(long timestamp){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date(timestamp));
+        this.year = calendar.get(Calendar.YEAR);
+        this.month = calendar.get(Calendar.MONTH) + 1;
+        this.date = calendar.get(Calendar.DAY_OF_MONTH);
+    }
+
     public DateKey(int year, int month, int date){
         Calendar calendar = Calendar.getInstance();
         calendar.set(year,month - 1,date);
@@ -27,6 +35,7 @@ public class DateKey implements Comparable<DateKey> {
         this.month = calendar.get(Calendar.MONTH) + 1;
         this.date = calendar.get(Calendar.DAY_OF_MONTH);
     }
+
 
     public DateKey(CusCalView.SimpleDate simpleDate){
         this(simpleDate.year, simpleDate.month, simpleDate.date);
