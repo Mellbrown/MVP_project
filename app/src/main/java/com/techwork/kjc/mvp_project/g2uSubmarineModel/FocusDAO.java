@@ -41,6 +41,27 @@ public class FocusDAO {
         });
     }
 
+    public static void selectAllFocusBeans(String uid, OnSelectedFocusBeans onSelectedFocusBeans){
+        FirebaseDatabase.getInstance().getReference(REMOTE_PATH)
+                .child(uid).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<FocusBean> focusBeans = new ArrayList<>();
+                for(DataSnapshot o : dataSnapshot.getChildren()){
+                    Map<String, FocusBean> focusBeanMap = o.getValue(new GenericTypeIndicator<Map<String, FocusBean>>() {});
+                    if (focusBeanMap == null) focusBeanMap = new HashMap<>();
+                    focusBeans.addAll(focusBeanMap.values());
+                }
+                onSelectedFocusBeans.OnSelectedFocusBeans(true, focusBeans, null);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                onSelectedFocusBeans.OnSelectedFocusBeans(false, null, databaseError);
+            }
+        });
+    }
+
     public interface OnSelectedFocusBeans{
         void OnSelectedFocusBeans(boolean success, List<FocusBean> focusBeans,DatabaseError databaseError );
     }
