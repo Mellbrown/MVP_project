@@ -28,8 +28,9 @@ public class VersusDAO {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, Integer> all = new HashMap<>();
                 for(DataSnapshot data : dataSnapshot.getChildren()){
-                    List<VesusBean> vesusBeanList = data.getValue(new GenericTypeIndicator<List<VesusBean>>());
-                    if(vesusBeanList == null) vesusBeanList = new ArrayList<>();
+                    Map<String, VesusBean> beanMap = dataSnapshot.getValue(new GenericTypeIndicator<Map<String, VesusBean>>() {});
+                    if(beanMap == null) beanMap = new HashMap<>();
+                    List<VesusBean> vesusBeanList = new ArrayList<>(beanMap.values());
                     int cnt = 0;
                     for(VesusBean bean : vesusBeanList){
                         DateKey dateKey = new DateKey(bean.timestamp);
