@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.techwork.kjc.mvp_project.R;
@@ -87,15 +88,19 @@ public class FRG10_Record extends Fragment implements CusCalView.OnUpdateMonth {
         Calendar cal = Calendar.getInstance();
         cal.set(year,month,1);
 
+
+
         Item iMonth = new Item("월간",0,0,0);
         List<Item> iWeek = new ArrayList<>();
+        int actualMaximum = cal.getActualMaximum(Calendar.WEEK_OF_MONTH);
+        for(int i = 0 ;  actualMaximum > i; i++)
+            iWeek.add(new Item(i+"주",0,0,0));
+
         int prev = cal.get(Calendar.WEEK_OF_MONTH);
         while (cal.get(Calendar.MONTH) != month){
-            if(iWeek.size() < cal.get(Calendar.WEEK_OF_MONTH))
-                iWeek.add(new Item(cal.get(Calendar.WEEK_OF_MONTH)+"주",0,0,0));
             Item item = dataMap.get(new CusCalView.SimpleDate(year, month, cal.get(Calendar.DAY_OF_MONTH)));
             if(item != null){
-                Item acc = iWeek.get(cal.get(Calendar.WEEK_OF_MONTH));
+                Item acc = iWeek.remove(cal.get(Calendar.WEEK_OF_MONTH));
                 acc.mVal += item.mVal;
                 acc.vVal += item.vVal;
                 acc.pVal += item.pVal;
@@ -103,6 +108,7 @@ public class FRG10_Record extends Fragment implements CusCalView.OnUpdateMonth {
                 iMonth.mVal += item.mVal;
                 iMonth.vVal += item.vVal;
                 iMonth.pVal += item.pVal;
+                iWeek.add(cal.get(Calendar.WEEK_OF_MONTH), acc);
             }
             cal.add(Calendar.DAY_OF_MONTH, 1);
         }
@@ -144,10 +150,17 @@ public class FRG10_Record extends Fragment implements CusCalView.OnUpdateMonth {
         public RecViewHolder(View itemView) {
             super(itemView);
             viewLayout = itemView;
-            viewLayout.setLayoutParams(new ViewGroup.LayoutParams(
-                    g2u.convertPixelsToDp(60f,viewLayout.getContext()),
-                    g2u.convertPixelsToDp(70f,viewLayout.getContext())
-            ));
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    g2u.convertPixelsToDp(60f, viewLayout.getContext()),
+                    g2u.convertPixelsToDp(70f, viewLayout.getContext())
+            );
+            layoutParams.setMargins(
+                    g2u.convertPixelsToDp(8f, viewLayout.getContext()),
+                    g2u.convertPixelsToDp(8f, viewLayout.getContext()),
+                    g2u.convertPixelsToDp(8f, viewLayout.getContext()),
+                    g2u.convertPixelsToDp(8f, viewLayout.getContext())
+            );
+            viewLayout.setLayoutParams(layoutParams);
 
             txtTitle = itemView.findViewById(R.id.txtTitle);
             txtTitle.setVisibility(View.VISIBLE);

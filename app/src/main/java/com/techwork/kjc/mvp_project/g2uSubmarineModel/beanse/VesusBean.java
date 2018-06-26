@@ -16,4 +16,9 @@ public class VesusBean {
     public String winner = "";
 
     public VesusBean(){}
+
+    @Override
+    public String toString() {
+        return timestamp + "-" + (you_uid.equals(winner) ? "승" : "패");
+    }
 }

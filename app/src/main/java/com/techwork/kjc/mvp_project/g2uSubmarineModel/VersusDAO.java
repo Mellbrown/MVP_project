@@ -1,6 +1,7 @@
 package com.techwork.kjc.mvp_project.g2uSubmarineModel;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -33,6 +34,7 @@ public class VersusDAO {
                     List<VesusBean> vesusBeanList = new ArrayList<>(beanMap.values());
                     int cnt = 0;
                     for(VesusBean bean : vesusBeanList){
+                        Log.i("VersusDAO top 30", bean.toString());
                         DateKey dateKey = new DateKey(bean.timestamp);
                         if(dateKey.year != monthKey.year || dateKey.month != monthKey.month) continue;
                         if(!bean.winner.equals(data.getKey()))continue;
@@ -40,6 +42,7 @@ public class VersusDAO {
                     }
                     all.put(data.getKey(),cnt);
                 }
+                Log.i("VersusDAO top 30", all.toString());
                 OnSelelctedTop30.onSelctecteTop30(all);
             }
 

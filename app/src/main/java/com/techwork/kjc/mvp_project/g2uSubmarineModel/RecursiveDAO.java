@@ -1,5 +1,7 @@
 package com.techwork.kjc.mvp_project.g2uSubmarineModel;
 
+import android.util.Log;
+
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -26,17 +28,19 @@ public class RecursiveDAO {
                     if (focusBeanMap == null) focusBeanMap = new HashMap<>();
                     int cnt = 0;
                     for(RecursiveBean bean : focusBeanMap.values()){
+
                         DateKey dateKey = new DateKey(bean.timestamp);
                         if(dateKey.year != monthKey.year || dateKey.month != monthKey.month) continue;
                         cnt += bean.reps;
                     }
+                    all.put(data.getKey(), (long)cnt);
                 }
                 OnSelelctedTop30.onSelctecteTop30(all);
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-
+                OnSelelctedTop30.onSelctecteTop30(new HashMap<>());
             }
         });
     }
