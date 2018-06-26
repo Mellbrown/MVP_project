@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:weightSum="1"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        >
 
         <LinearLayout
             android:layout_width="0dp"
@@ -23,7 +24,8 @@
             android:layout_height="match_parent"
             android:layout_weight="0.35"
             android:weightSum="1"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -37,7 +39,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.8">
+                android:layout_weight="0.8"
+                android:background="@color/main1"
+                >
 
 
                 <ImageView
@@ -45,7 +49,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/focus" />
+                    app:srcCompat="@drawable/focus2" />
             </LinearLayout>
 
             <LinearLayout
@@ -82,7 +86,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.8"
-                android:background="@color/colorWhite">
+                android:background="@color/main1"
+                >
 
 
                 <ImageView
@@ -90,7 +95,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    app:srcCompat="@drawable/cycle" />
+                    app:srcCompat="@drawable/cycle2" />
             </LinearLayout>
 
             <LinearLayout

@@ -20,4 +20,12 @@
     <color name="arc21">#fc843b</color>
     <color name="arc22">#37d547</color>
     <color name="arc23">#079df9</color>
+
+    <color name="main1">#A7E3CB</color>
+    <color name="main1_1">#9dceba</color>
+    <color name="main1_2">#909c97</color>
+    <color name="main2">#EBED9F</color>
+    <color name="main3">#FED3B6</color>
+    <color name="main4">#FDA8A5</color>
+
 </resources>

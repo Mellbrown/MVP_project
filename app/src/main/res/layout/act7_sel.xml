@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/main1"
     android:layout_height="match_parent">
 
     <ImageView
@@ -33,6 +34,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
             android:text="집중"
+            android:background="@color/main1"
             android:textAlignment="center"
             android:textSize="24sp" />
 
@@ -53,6 +55,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="전신"
+            android:background="@color/main1_1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/tabBack"
             app:layout_constraintTop_toTopOf="parent" />
@@ -62,6 +65,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="다리"
+            android:background="@color/main1_1"
             app:layout_constraintEnd_toStartOf="@+id/tabBack"
             app:layout_constraintStart_toEndOf="@+id/tabArm"
             app:layout_constraintTop_toTopOf="parent" />
@@ -71,6 +75,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="등(배)"
+            android:background="@color/main1_1"
             app:layout_constraintEnd_toStartOf="@+id/tabAllBody"
             app:layout_constraintStart_toEndOf="@+id/tabLeg"
             app:layout_constraintTop_toTopOf="parent" />
@@ -94,6 +99,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="팔"
+            android:background="@color/main1_1"
             app:layout_constraintEnd_toStartOf="@+id/tabLeg"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -118,7 +124,7 @@
         android:layout_marginTop="120dp"
         android:weightSum="1"
         android:orientation="vertical"
-        android:background="@color/colorWhite"
+        android:background="@color/main1"
         >
 
         <LinearLayout
