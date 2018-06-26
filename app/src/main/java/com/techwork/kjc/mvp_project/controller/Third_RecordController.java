@@ -31,6 +31,7 @@ public class Third_RecordController extends AppCompatActivity implements View.On
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        containerID = getResources().getIdentifier("container","id",getPackageName());
         frameLayout = new FrameLayout(this);
         frameLayout.setId(containerID);
         frameLayout.setLayoutParams(
@@ -41,6 +42,7 @@ public class Third_RecordController extends AppCompatActivity implements View.On
         );
         setContentView(frameLayout);
         fragmentManager = getSupportFragmentManager();
+
 
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("데이터 로드중...");
@@ -66,8 +68,8 @@ public class Third_RecordController extends AppCompatActivity implements View.On
         frg10_record.dataMap =dataMap;
         frg10_record.onClickListener = this;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(containerID, frg10_record);
-        fragmentTransaction.commitNow();
+        fragmentTransaction.replace(containerID, frg10_record);
+        fragmentTransaction.commitAllowingStateLoss();
     }
 
     @Override

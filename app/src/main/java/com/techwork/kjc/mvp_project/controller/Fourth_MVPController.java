@@ -36,6 +36,7 @@ public class Fourth_MVPController extends AppCompatActivity implements FRG10_MVP
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        containerID = getResources().getIdentifier("container","id",getPackageName());
         frameLayout = new FrameLayout(this);
         frameLayout.setId(containerID);
         frameLayout.setLayoutParams(
@@ -81,8 +82,8 @@ public class Fourth_MVPController extends AppCompatActivity implements FRG10_MVP
         FRG10_MVP frg10_mvp = new FRG10_MVP();
         frg10_mvp.requester = this;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(containerID, frg10_mvp,"frg10_mvp");
-        fragmentTransaction.commitAllowingStateLoss();
+        fragmentTransaction.replace(containerID, frg10_mvp,"frg10_mvp");
+        fragmentTransaction.commitNow();
     }
 
     @Override

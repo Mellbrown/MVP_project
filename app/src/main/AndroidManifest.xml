@@ -38,7 +38,6 @@
         <activity android:name=".controller.Third_VersusController" />
         <activity android:name=".controller.Third_FocusController" />
         <activity android:name=".controller.Third_RecordController" />
-        <activity android:name=".controller.Third_Record" />
         <activity android:name=".controller.Fourth_TrackController"/>
         <activity android:name=".controller.Fourth_MVPController"/>
         <!--유틸 액티비티-->

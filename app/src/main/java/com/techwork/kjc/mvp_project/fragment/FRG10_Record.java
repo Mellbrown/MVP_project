@@ -146,7 +146,7 @@ public class FRG10_Record extends Fragment implements CusCalView.OnUpdateMonth {
             viewLayout = itemView;
             viewLayout.setLayoutParams(new ViewGroup.LayoutParams(
                     g2u.convertPixelsToDp(60f,viewLayout.getContext()),
-                    g2u.convertPixelsToDp(80f,viewLayout.getContext())
+                    g2u.convertPixelsToDp(70f,viewLayout.getContext())
             ));
 
             txtTitle = itemView.findViewById(R.id.txtTitle);

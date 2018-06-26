@@ -53,8 +53,8 @@ public class FRG10_MVP extends Fragment implements View.OnClickListener {
         ) {
             @Override
             public void dataConvertViewHolder(ViewHodler holder, Item data) {
-                holder.txtNum.setText(data.num);
-                holder.txtName.setText(data.name);
+                holder.txtNum.setText(data.num + "");
+                holder.txtName.setText(data.name + "");
                 switch (curpage){
                     case R.id.btnM : {
                         holder.txtVal.setText(String.format("%.2f", data.mVal));

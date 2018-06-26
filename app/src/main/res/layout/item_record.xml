@@ -29,19 +29,22 @@
                 android:id="@+id/txtM"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="M 20KG" />
+                android:text="M 20KG"
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/txtV"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="V 3승" />
+                android:text="V 3승"
+                android:textSize="10sp" />
 
             <TextView
                 android:id="@+id/txtP"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="P 40회" />
+                android:text="P 40회"
+                android:textSize="10sp" />
         </LinearLayout>
 
     </android.support.v7.widget.CardView>

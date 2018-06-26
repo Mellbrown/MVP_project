@@ -1,5 +1,7 @@
 package com.techwork.kjc.mvp_project.g2uSubmarineModel;
 
+import android.util.Log;
+
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -23,15 +25,20 @@ public class FocusDAO {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, Long> all = new HashMap<>();
-                for(DataSnapshot data : dataSnapshot.getChildren()){
-                    Map<String, FocusBean> focusBeanMap = data.getValue(new GenericTypeIndicator<Map<String, FocusBean>>() {});
-                    if (focusBeanMap == null) focusBeanMap = new HashMap<>();
-                    int cnt = 0;
-                    for(FocusBean bean : focusBeanMap.values()){
-                        DateKey dateKey = new DateKey(bean.timestamp);
-                        if(dateKey.year != monthKey.year || dateKey.month != monthKey.month) continue;
-                        cnt += bean.reps;
+                for(DataSnapshot data1 : dataSnapshot.getChildren()){
+                    long cnt = 0;
+                    for (DataSnapshot data : data1.getChildren()){
+                        Map<String, FocusBean> focusBeanMap = data.getValue(new GenericTypeIndicator<Map<String, FocusBean>>() {});
+                        if (focusBeanMap == null) focusBeanMap = new HashMap<>();
+
+                        for(FocusBean bean : focusBeanMap.values()){
+                            Log.i("FocuseDao", bean.toString());
+                            DateKey dateKey = new DateKey(bean.timestamp);
+                            if(dateKey.year != monthKey.year || dateKey.month != monthKey.month) continue;
+                            cnt += bean.reps;
+                        }
                     }
+                    all.put(data1.getKey(), cnt);
                 }
                 OnSelelctedTop30.onSelctecteTop30(all);
             }

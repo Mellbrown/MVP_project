@@ -122,7 +122,7 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
     @Override
     public void RecordActivityStart() {
         // 앙 아직 만들어졌다 띄
-        startActivity(new Intent(StartController.this,Third_Record.class));
+        startActivity(new Intent(StartController.this,Third_RecordController.class));
     }
 
 
