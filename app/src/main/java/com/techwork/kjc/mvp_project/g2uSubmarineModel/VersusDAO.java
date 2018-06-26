@@ -81,7 +81,7 @@ public class VersusDAO {
         },you_uid,rival_uid);
     }
 
-    interface OnComplete{
+    public interface OnComplete{
         void onComlete();
     }
 
