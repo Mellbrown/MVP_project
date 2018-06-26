@@ -24,7 +24,7 @@
             android:layout_height="match_parent"
             android:layout_weight="0.6"
             app:civ_border_width="2dp"
-            android:src="@drawable/default"
+            android:src="@drawable/default2"
             app:civ_border_color="@color/colorWhite"
             />
     </LinearLayout>
