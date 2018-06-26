@@ -55,6 +55,7 @@
                 android:id="@+id/act3_id"
                 android:background="@color/colorWhite"
                 android:textColorHint="@color/main1"
+                android:textColor="@color/main1"
                 tools:ignore="RtlCompat" />
         </LinearLayout>
         <LinearLayout
@@ -72,10 +73,12 @@
                 android:layout_weight="0.9"
                 android:hint="PW"
                 android:paddingLeft="15dp"
+                android:inputType="textWebPassword"
                 android:gravity="center"
                 android:textAlignment="textStart"
                 android:id="@+id/act3_pw"
                 android:background="@color/colorWhite"
+                android:textColor="@color/main1"
                 android:textColorHint="@color/main1"
                 tools:ignore="RtlCompat" />
         </LinearLayout>

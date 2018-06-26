@@ -22,7 +22,7 @@ public class FRG4_MenuMain extends Fragment implements  RingView.OnClickListner{
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
 
-        viewLayout = inflater.inflate(R.layout.act4_mainmenu2, container,false);
+        viewLayout = inflater.inflate(R.layout.act4_mainmenu, container,false);
         RingView rv = (RingView)viewLayout.findViewById(R.id.act4_menu);
 
         String[] str = {"M", "V", "P","R"};
@@ -35,7 +35,7 @@ public class FRG4_MenuMain extends Fragment implements  RingView.OnClickListner{
 
         rv.setOnClickListener(this);
 
-        FloatingActionButton bt = viewLayout.findViewById(R.id.act4_logout);
+        Button bt = viewLayout.findViewById(R.id.act4_logout);
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
