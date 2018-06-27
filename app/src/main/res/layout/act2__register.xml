@@ -4,292 +4,280 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@android:color/background_light"
     android:orientation="vertical"
     android:weightSum="1"
+    android:background="@color/main1"
     tools:context=".activity.ACT2_Register">
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.1"
-        android:orientation="vertical">
+        android:layout_weight="0.3"
+        android:orientation="horizontal"
+        android:weightSum="1"
+        android:gravity="center"
+        >
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/act2_image"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
+            app:civ_border_width="2dp"
+            android:src="@drawable/default"
+            app:civ_border_color="@color/colorWhite"
+            />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.8"
+        android:layout_weight="0.65"
         android:orientation="horizontal"
+        android:gravity="center"
         android:weightSum="1">
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.5"
-            android:orientation="horizontal"
-            android:weightSum="1">
+            android:layout_weight="0.3"
+            android:weightSum="1"
+            android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:gravity="center"
+                android:layout_weight="0.1"
+                android:text="아이디"
+                android:textSize="15dp"
+                android:textStyle="bold"
+            />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:gravity="center_horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:text="비 밀 번 호" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:gravity="center"
-                        android:text="아이디"
-                        android:textColor="#000000" />
-                </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:text="이름" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:gravity="center_horizontal">
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:gravity="center"
-                        android:text="비밀번호"
-                        android:textColor="#000000" />
-                </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:text="성별" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:gravity="center_horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:text="학교" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:gravity="center"
-                        android:text="이름"
-                        android:textColor="#000000" />
-                </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:gravity="center_horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                android:text="학년" />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:gravity="center"
-                        android:text="성별"
-                        android:textColor="#000000" />
-                </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:gravity="center_horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:gravity="center"
+                android:text="반"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                 />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:gravity="center"
-                        android:text="학교"
-                        android:textColor="#000000" />
-                </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:gravity="center_horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:gravity="center"
+                android:text="번호"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                 />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:gravity="center"
-                        android:text="학년"
-                        android:textColor="#000000" />
-                </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:gravity="center_horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:gravity="center"
+                android:text="키"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                 />
 
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:gravity="center"
-                        android:text="반"
-                        android:textColor="#000000" />
-                </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:gravity="center_horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:gravity="center"
-                        android:text="번호"
-                        android:textColor="#000000" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:gravity="center_horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:gravity="center"
-                        android:text="키"
-                        android:textColor="#000000" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:gravity="center_horizontal">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp"
-                        android:gravity="center"
-                        android:text="몸무게"
-                        android:textColor="#000000" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.5"
-                android:orientation="vertical">
-
-                <EditText
-                    android:id="@+id/act2_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="ID"
-                    android:textColor="@android:color/black" />
-
-                <EditText
-                    android:id="@+id/act2_pw"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="PW"
-                    android:textColor="@android:color/black" />
-
-                <EditText
-                    android:id="@+id/act2_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:textColor="@android:color/black" />
-
-                <EditText
-                    android:id="@+id/act2_sex"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Name"
-                    android:textColor="@android:color/black" />
-
-                <EditText
-                    android:id="@+id/act2_school"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Name"
-                    android:textColor="@android:color/black" />
-
-                <EditText
-                    android:id="@+id/act2_grade"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Name"
-                    android:textColor="@android:color/black" />
-
-                <EditText
-                    android:id="@+id/act2_cls"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Name"
-                    android:textColor="@android:color/black" />
-
-                <EditText
-                    android:id="@+id/act2_num"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Name"
-                    android:textColor="@android:color/black" />
-
-                <EditText
-                    android:id="@+id/act2_tall"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Name"
-                    android:textColor="@android:color/black" />
-
-                <EditText
-                    android:id="@+id/act2_weight"
-                    android:layout_width="match_parent"
-                    android:layout_height="45dp"
-                    android:ems="10"
-                    android:inputType="textPersonName"
-                    android:text="Name"
-                    android:textColor="@android:color/black" />
-            </LinearLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:gravity="center"
+                android:text="몸무게"
+                android:textStyle="bold"
+                android:textSize="15dp"
+                 />
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.5"
+            android:layout_weight="0.4"
             android:orientation="vertical">
 
-            <ImageView
-                android:id="@+id/act2_image"
+            <EditText
+                android:id="@+id/act2_id"
                 android:layout_width="match_parent"
-                android:layout_height="227dp"
-                app:srcCompat="@color/colorAccent" />
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="ID"
+                android:textSize="15dp"
+                 />
+
+            <EditText
+                android:id="@+id/act2_pw"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="PW"
+                android:textSize="15dp"
+                 />
+
+            <EditText
+                android:id="@+id/act2_name"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="NAME"
+                android:textSize="15dp"
+                 />
+
+            <EditText
+                android:id="@+id/act2_sex"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="성별"
+                android:textSize="15dp"
+                 />
+
+            <EditText
+                android:id="@+id/act2_school"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="SCHOOL"
+                 />
+
+            <EditText
+                android:id="@+id/act2_grade"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="GRADE"
+                android:textSize="15dp"
+                 />
+
+            <EditText
+                android:id="@+id/act2_cls"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="CLASS"
+                android:textSize="15dp"
+                 />
+
+            <EditText
+                android:id="@+id/act2_num"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="NUM"
+                android:textSize="15dp"
+                 />
+
+            <EditText
+                android:id="@+id/act2_tall"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="LENGTH"
+                android:textSize="15dp"
+                 />
+
+            <EditText
+                android:id="@+id/act2_weight"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.1"
+                android:textSize="15dp"
+                android:ems="10"
+                android:inputType="textPersonName"
+                android:hint="WEIGHT"
+                 />
         </LinearLayout>
-
     </LinearLayout>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="0.1">
+        android:layout_weight="0.05"
+        android:weightSum="1"
+        android:orientation="horizontal"
+        android:gravity="center"
 
+        >
         <Button
             android:id="@+id/act2_Rbtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:background="@drawable/my_button_bg"
+            android:layout_height="match_parent"
+            android:layout_weight="0.6"
+            android:textSize="18dp"
+            android:textStyle="bold"
             android:text="완  료" />
     </LinearLayout>
-
 </LinearLayout>

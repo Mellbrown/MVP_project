@@ -1,25 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.techwork.kjc.mvp_project">
-
+    <!--Permission-->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
+        android:icon="@drawable/app"
+        android:label="MVP"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
-        <activity android:name=".controller.TestController">
+        <!--테스트를 위한 컨트롤러-->
+        <activity android:name=".controller.TestController" />
+
+        <!--릴리즈용 스타트 컨트롤러-->
+        <activity android:name=".controller.StartController">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.ACT1_Splash" />
-        <activity android:name=".activity.ACT2_Register" />
-        <activity android:name=".activity.ACT3_Login" />
-        <activity android:name=".activity.ACT5_Measure" />
+        <!--나머지 릴리즈용 컨트롤러-->
+        <activity android:name=".controller.Second_RegisterController"/>
+        <activity android:name=".controller.Second_LoginController" />
+
+        <activity android:name=".controller.Third_Recursive" />
+        <activity android:name=".controller.Third_MeauserController" />
+        <activity android:name=".controller.Third_VersusController" />
+        <activity android:name=".controller.Third_FocusController" />
+
+        <activity android:name=".controller.Fourth_TrackController"/>
+
+        <!--유틸 액티비티-->
         <activity android:name=".util.PhotoProcess" />
     </application>
 

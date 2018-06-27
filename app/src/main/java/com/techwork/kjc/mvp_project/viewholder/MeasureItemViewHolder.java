@@ -6,7 +6,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.techwork.kjc.mvp_project.R;
-import com.techwork.kjc.mvp_project.bean.MeasureItemBean;
+import com.techwork.kjc.mvp_project.fragment.FRG5_Measure;
 
 /**
  * Created by mlyg2 on 2018-06-11.
@@ -33,7 +33,7 @@ public class MeasureItemViewHolder extends RecyclerView.ViewHolder{
         btnShowPrescribe = itemView.findViewById(R.id.btnShowPrescribe);
     }
 
-    public void dataBind(MeasureItemBean data){
+    public void dataBind(FRG5_Measure.MeasureItemBean data){
         txtDate.setText(data.getStringMdDate());
         txtArmWeight.setText(String.format("%.2fKG", data.armWeight));
         txtLegWeight.setText(String.format("%.2fKG", data.legWeight));

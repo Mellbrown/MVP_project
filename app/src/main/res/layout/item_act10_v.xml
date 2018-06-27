@@ -1,0 +1,81 @@
+
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="60dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="1"
+        android:orientation="horizontal">
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2">
+            <TextView
+                android:id="@+id/act8_item_num"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="num"
+                android:textSize="20dp"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2">
+            <TextView
+                android:id="@+id/act8_item_level"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="level"
+                android:textSize="20dp"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Level"
+                android:textSize="20dp"
+                android:gravity="center"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2">
+            <TextView
+                android:id="@+id/act8_item_reps"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="reps"
+                android:textSize="20dp"
+                android:gravity="center"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Reps"
+                android:textSize="20dp"
+                android:gravity="center"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</android.support.constraint.ConstraintLayout>

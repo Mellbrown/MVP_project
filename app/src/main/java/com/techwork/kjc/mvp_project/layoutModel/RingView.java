@@ -15,12 +15,14 @@ import android.graphics.Shader;
 import android.graphics.Typeface;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.animation.DecelerateInterpolator;
 
 import com.techwork.kjc.mvp_project.R;
+import com.techwork.kjc.mvp_project.dialog.PracticeMenuDialog;
 
 
 /**
@@ -29,7 +31,7 @@ import com.techwork.kjc.mvp_project.R;
 
 public class RingView extends View {
 
-    public static final int BORDER = 42;
+    public static final int BORDER = 200;
     public static final int TOTAL_ANGLE = 360;
 
     private Paint mArcPaint;
@@ -59,6 +61,16 @@ public class RingView extends View {
     private boolean isAnim;
     private OnDashItemClickListener itemClickListener;
 
+    public PracticeMenuDialog.Requester requester;
+
+    OnClickListner onClickListner;
+    public interface OnClickListner{
+        void onClick(int i);
+    }
+
+    public void setOnClickListener(OnClickListner onClickListner){
+        this.onClickListner = onClickListner;
+    }
 
     public RingView(Context context) {
         super(context);
@@ -76,25 +88,24 @@ public class RingView extends View {
         initAttr(attrs);
         initView();
     }
-
     private void initAttr(AttributeSet attrs) {
         final int[] RingView={
                 0x7f030029, 0x7f03002b, 0x7f03002c, 0x7f03002d,
                 0x7f03002e, 0x7f03002f, 0x7f030119
         };
         final int RingView_arc_select_color=5;
-        final int RingView_arcSelectTextColor=1;
+        final int RingView_arcSelectTextColor=10;
         final int RingView_arc_bg_color=4;
         final int RingView_arcTextColor=2;
         final int RingView_arcBorder=0;
-        final int RingView_arcTextSize=3;
+        final int RingView_arcTextSize=60;
         TypedArray a = getContext().obtainStyledAttributes(attrs, RingView);
         defaultColor = a.getColor(RingView_arc_select_color, ContextCompat.getColor(getContext(), R.color.selectColor));
-        selectTextColor = a.getColor(RingView_arcSelectTextColor, Color.WHITE);
+        selectTextColor = a.getColor(RingView_arcSelectTextColor, ContextCompat.getColor(getContext(), R.color.colorWhite));
         bgColor = a.getColor(RingView_arc_bg_color, ContextCompat.getColor(getContext(), R.color.arc_bg));
         unSelectTextColor = a.getColor(RingView_arcTextColor, ContextCompat.getColor(getContext(), R.color.arc_text));
         circleBorder = a.getDimensionPixelSize(RingView_arcBorder, BORDER);
-        centerTextSize = a.getDimension(RingView_arcTextSize, 25);
+        centerTextSize = a.getDimension(RingView_arcTextSize, 100);
         touchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
 
         a.recycle();
@@ -119,7 +130,7 @@ public class RingView extends View {
         mCenterCirclePaint.setColor(bgColor);
         mCenterCirclePaint.setStyle(Style.STROKE);
         mTextHeight = (int) mIntervalsPaint.measureText("NN");
-        mShadowPaint= new Paint(Paint.ANTI_ALIAS_FLAG); //初始化画笔，为后面阴影效果使用。
+        mShadowPaint= new Paint(Paint.ANTI_ALIAS_FLAG);
         //mShadowPaint.setStyle(Style.STROKE);
         // mShadowPaint.setStrokeWidth(5);
         //mShadowPaint.setShadowLayer(10f, 5.0f, 5.0f, Color.parseColor("#f2f2f2")); //设置阴影层，这是关键。
@@ -139,6 +150,9 @@ public class RingView extends View {
                 mDownY = event.getY();
                 break;
             case MotionEvent.ACTION_UP:
+                //selectPosition
+                if(onClickListner != null) onClickListner.onClick(selectPosition);
+                break;
             case MotionEvent.ACTION_MOVE:
               /*  int  disX = (int) (event.getX() - mDownX);
                 int  disY = (int) (event.getY() - mDownY);
@@ -312,5 +326,6 @@ public class RingView extends View {
 
         void onItemClick(RingView dashView, int position);
     }
+
 }
 

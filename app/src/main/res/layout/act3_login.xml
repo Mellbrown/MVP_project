@@ -5,23 +5,23 @@
     android:layout_height="match_parent"
     android:weightSum="1"
     android:orientation="vertical"
-    android:background="@color/colorWhite"
+    android:background="@color/main1"
     >
     <LinearLayout
         android:layout_height="0dp"
         android:layout_width="match_parent"
         android:layout_weight="0.15"
         android:weightSum="1"
+        android:layout_marginTop="15dp"
         android:orientation="horizontal"
         android:gravity="center"
         >
-        <TextView
+        <ImageView
             android:layout_height="match_parent"
             android:layout_width="0dp"
             android:layout_weight="0.6"
-            android:textColor="@color/colorBlack"
             android:textSize="30dp"
-            android:text="MVP_Project"
+            android:src="@drawable/title"
             android:textAlignment="center"
             android:layout_gravity="center"
             />
@@ -32,64 +32,70 @@
         android:layout_weight="0.2"
         android:weightSum="1"
         android:orientation="vertical"
+        android:layout_marginTop="15dp"
         >
         <LinearLayout
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:gravity="center"
             android:layout_gravity="center"
             android:layout_weight="0.5"
             android:weightSum="1"
             android:orientation="horizontal"
-            android:background="@color/colorTest"
+
             >
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.9"
+                android:paddingLeft="15dp"
                 android:hint="ID"
                 android:gravity="center"
                 android:textAlignment="textStart"
                 android:id="@+id/act3_id"
+                android:background="@color/colorWhite"
+                android:textColorHint="@color/main1"
                 tools:ignore="RtlCompat" />
         </LinearLayout>
         <LinearLayout
-            android:layout_width="300dp"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:gravity="center"
             android:layout_gravity="center"
             android:layout_weight="0.5"
             android:weightSum="1"
             android:orientation="horizontal"
-            android:background="@color/colorTest"
             >
             <EditText
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.9"
                 android:hint="PW"
+                android:paddingLeft="15dp"
                 android:gravity="center"
                 android:textAlignment="textStart"
                 android:id="@+id/act3_pw"
+                android:background="@color/colorWhite"
+                android:textColorHint="@color/main1"
                 tools:ignore="RtlCompat" />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout
         android:layout_height="0dp"
         android:layout_width="match_parent"
-        android:layout_weight="0.12"
+        android:layout_weight="0.08"
         android:weightSum="1"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="15dp"
         android:gravity="center"
+
         android:orientation="horizontal"
         >
-
         <Button
             android:id="@+id/act3_login"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.6"
-            android:background="@android:color/darker_gray"
+            android:background="@drawable/my_button_bg"
             android:text="L o g i n" />
     </LinearLayout>
 </LinearLayout>

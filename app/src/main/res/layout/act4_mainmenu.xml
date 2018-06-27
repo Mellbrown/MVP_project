@@ -2,16 +2,49 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorWhite"
     android:weightSum="1"
     android:orientation="vertical"
-    android:gravity="center"
+    android:background="@color/main1"
     >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:weightSum="1"
+        android:orientation="horizontal"
+        android:gravity="right"
+        >
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:id="@+id/act4_logout"
+            android:background="@color/main1"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:text="로그아웃"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
+        android:weightSum="1"
+        android:orientation="vertical"
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/title"
+            />
+    </LinearLayout>
     <com.techwork.kjc.mvp_project.layoutModel.RingView
         android:id="@+id/act4_menu"
         android:layout_height="0dp"
-        android:layout_width="match_parent"
-        android:layout_weight="0.6"
+        android:layout_width="wrap_content"
+        android:layout_weight="0.75"
+
         />
 
 </LinearLayout>
