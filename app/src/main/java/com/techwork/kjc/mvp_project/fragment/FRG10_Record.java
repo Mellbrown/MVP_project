@@ -89,17 +89,19 @@ public class FRG10_Record extends Fragment implements CusCalView.OnUpdateMonth {
         Calendar cal = Calendar.getInstance();
         cal.set(year,month,1);
 
+        // 아이템 준비
         Item iMonth = new Item("월간",0,0,0);
         List<Item> iWeek = new ArrayList<>();
         int actualMaximum = cal.getActualMaximum(Calendar.WEEK_OF_MONTH);
         for(int i = 0 ;  actualMaximum > i; i++)
             iWeek.add(new Item(i+"주",0,0,0));
 
-        int prev = cal.get(Calendar.WEEK_OF_MONTH);
-        while (cal.get(Calendar.MONTH) != month){
-            Item item = dataMap.get(new CusCalView.SimpleDate(year, month, cal.get(Calendar.DAY_OF_MONTH)));
+
+        while (cal.get(Calendar.MONTH) == month){
+            Log.i("Record redraw", cal.get(Calendar.DAY_OF_MONTH) + "일");
+            Item item = dataMap.get(new CusCalView.SimpleDate(year, month+1, cal.get(Calendar.DAY_OF_MONTH)));
             if(item != null){
-                Item acc = iWeek.remove(cal.get(Calendar.WEEK_OF_MONTH));
+                Item acc = iWeek.remove(cal.get(Calendar.WEEK_OF_MONTH) - 1);
                 acc.mVal += item.mVal;
                 acc.vVal += item.vVal;
                 acc.pVal += item.pVal;
@@ -107,7 +109,7 @@ public class FRG10_Record extends Fragment implements CusCalView.OnUpdateMonth {
                 iMonth.mVal += item.mVal;
                 iMonth.vVal += item.vVal;
                 iMonth.pVal += item.pVal;
-                iWeek.add(cal.get(Calendar.WEEK_OF_MONTH), acc);
+                iWeek.add(cal.get(Calendar.WEEK_OF_MONTH) - 1, acc);
             }
             cal.add(Calendar.DAY_OF_MONTH, 1);
         }
