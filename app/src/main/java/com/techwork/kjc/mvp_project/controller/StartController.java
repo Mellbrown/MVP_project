@@ -63,7 +63,9 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
 //            }
 //        });
     }
+    public void launcherStart(){
 
+    }
     static final int splash = 1;
     static final int main = 2;
     private int curpage = -1;
