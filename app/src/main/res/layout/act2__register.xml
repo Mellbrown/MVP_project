@@ -184,14 +184,15 @@
                 android:textSize="15dp"
                  />
 
-            <EditText
+            <Spinner
                 android:id="@+id/act2_sex"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:hint="성별"
+
+
                 android:textSize="15dp"
                  />
 
@@ -205,36 +206,35 @@
                 android:hint="SCHOOL"
                  />
 
-            <EditText
+            <Spinner
                 android:id="@+id/act2_grade"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:hint="GRADE"
+
                 android:textSize="15dp"
                  />
 
-            <EditText
+            <Spinner
                 android:id="@+id/act2_cls"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:hint="CLASS"
                 android:textSize="15dp"
                  />
 
-            <EditText
+            <Spinner
                 android:id="@+id/act2_num"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.1"
                 android:ems="10"
                 android:inputType="textPersonName"
-                android:hint="NUM"
+
                 android:textSize="15dp"
                  />
 

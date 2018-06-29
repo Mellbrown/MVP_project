@@ -4,7 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite">
 
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
@@ -22,6 +23,7 @@
 
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
+            android:background="@color/colorWhite"
             android:layout_height="match_parent">
 
             <ImageView
@@ -62,6 +64,7 @@
                 android:textSize="12sp"
                 app:layout_constraintBottom_toBottomOf="@+id/txtDate"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:textColor="@color/colorBlack"
                 app:layout_constraintStart_toEndOf="@+id/txtDate" />
 
             <TextView
@@ -72,6 +75,7 @@
                 android:layout_marginStart="2dp"
                 android:layout_marginTop="2dp"
                 android:text="12"
+                android:textColor="@color/colorBlack"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
