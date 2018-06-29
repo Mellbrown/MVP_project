@@ -1,5 +1,6 @@
 package com.techwork.kjc.mvp_project.controller;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -8,13 +9,17 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseError;
+import com.techwork.kjc.mvp_project.dialog.MvpPrintDialog;
 import com.techwork.kjc.mvp_project.dialog.ProgressDialog;
 import com.techwork.kjc.mvp_project.fragment.FRG10_MVP;
 import com.techwork.kjc.mvp_project.g2uSubmarineModel.FocusDAO;
+import com.techwork.kjc.mvp_project.g2uSubmarineModel.MVPService;
 import com.techwork.kjc.mvp_project.g2uSubmarineModel.MeasureDAO;
 import com.techwork.kjc.mvp_project.g2uSubmarineModel.RecursiveDAO;
+import com.techwork.kjc.mvp_project.g2uSubmarineModel.UserPhotoDAO;
 import com.techwork.kjc.mvp_project.g2uSubmarineModel.UserPublicInfoDAO;
 import com.techwork.kjc.mvp_project.g2uSubmarineModel.VersusDAO;
 import com.techwork.kjc.mvp_project.g2uSubmarineModel.beanse.UserPublicInfoBean;
@@ -25,8 +30,10 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class Fourth_MVPController extends AppCompatActivity implements FRG10_MVP.Requester {
 
@@ -55,30 +62,14 @@ public class Fourth_MVPController extends AppCompatActivity implements FRG10_MVP
         progressDialog.setTitle("로딩중...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        MeasureDAO.selectTop30(new DateKey(), new MeasureDAO.OnSelelctedTop30() {
+        MVPService.ToolM_Top100(new DateKey(), new MVPService.OnCompleteTop100() {
             @Override
-            public void onSelctecteTop30(Map<String, Double> map) {
-                UserPublicInfoDAO.selectUserByUID(new ArrayList<>(map.keySet()), new UserPublicInfoDAO.OnSelectedLisnter() {
-                    @Override
-                    public void onSelected(boolean success, Map<String, UserPublicInfoBean> userMap, DatabaseError databaseError) {
-                        progressDialog.dismiss();
-                        items = new ArrayList<>();
-                        for(String uid : map.keySet()){
-                            items.add(new FRG10_MVP.Item(0, userMap.get(uid).name, map.get(uid)));
-                        }
-                        Collections.sort(items, new Comparator<FRG10_MVP.Item>() {
-                            @Override
-                            public int compare(FRG10_MVP.Item o1, FRG10_MVP.Item o2) {
-                                return (int)(o2.mVal * 100 - o1.mVal * 100);
-                            }
-                        });
-                        for(int i = 0 ; items.size() > i; i++) items.get(i).num = i +1;
-                        rendering();
-                    }
-                });
+            public void onCompleteTop100(List<FRG10_MVP.Item> items) {
+                progressDialog.dismiss();
+                Fourth_MVPController.this.items = items;
+                rendering();
             }
         });
-
     }
 
     private void rendering(){
@@ -100,27 +91,11 @@ public class Fourth_MVPController extends AppCompatActivity implements FRG10_MVP
         progressDialog.setTitle("로딩중...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        MeasureDAO.selectTop30(new DateKey(), new MeasureDAO.OnSelelctedTop30() {
+        MVPService.ToolM_Top100(new DateKey(), new MVPService.OnCompleteTop100() {
             @Override
-            public void onSelctecteTop30(Map<String, Double> map) {
-                UserPublicInfoDAO.selectUserByUID(new ArrayList<>(map.keySet()), new UserPublicInfoDAO.OnSelectedLisnter() {
-                    @Override
-                    public void onSelected(boolean success, Map<String, UserPublicInfoBean> userMap, DatabaseError databaseError) {
-                        progressDialog.dismiss();
-                        items = new ArrayList<>();
-                        for(String uid : map.keySet()){
-                            items.add(new FRG10_MVP.Item(0, userMap.get(uid).name, map.get(uid)));
-                        }
-                        Collections.sort(items, new Comparator<FRG10_MVP.Item>() {
-                            @Override
-                            public int compare(FRG10_MVP.Item o1, FRG10_MVP.Item o2) {
-                                return (int)(o2.mVal * 100 - o1.mVal * 100);
-                            }
-                        });
-                        for(int i = 0 ; items.size() > i; i++) items.get(i).num = i +1;
-                        getinstance().responseDataset(items);
-                    }
-                });
+            public void onCompleteTop100(List<FRG10_MVP.Item> items) {
+                progressDialog.dismiss();
+                getinstance().responseDataset(items);
             }
         });
     }
@@ -131,27 +106,11 @@ public class Fourth_MVPController extends AppCompatActivity implements FRG10_MVP
         progressDialog.setTitle("로딩중...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        VersusDAO.selectTop30(new DateKey(), new VersusDAO.OnSelelctedTop30() {
+        MVPService.ToolV_Top100(new DateKey(), new MVPService.OnCompleteTop100() {
             @Override
-            public void onSelctecteTop30(Map<String, Integer[]> map) {
-                UserPublicInfoDAO.selectUserByUID(new ArrayList<>(map.keySet()), new UserPublicInfoDAO.OnSelectedLisnter() {
-                    @Override
-                    public void onSelected(boolean success, Map<String, UserPublicInfoBean> userPublicInfoBeanMap, DatabaseError databaseError) {
-                        progressDialog.dismiss();
-                        items = new ArrayList<>();
-                        for(String uid : map.keySet()){
-                            items.add(new FRG10_MVP.Item(0, userPublicInfoBeanMap.get(uid).name, map.get(uid)[0], map.get(uid)[1]));
-                        }
-                        Collections.sort(items, new Comparator<FRG10_MVP.Item>() {
-                            @Override
-                            public int compare(FRG10_MVP.Item o1, FRG10_MVP.Item o2) {
-                                return o2.vWin - o1.vWin;
-                            }
-                        });
-                        for(int i = 0 ; items.size() > i; i++) items.get(i).num = i +1;
-                        getinstance().responseDataset(items);
-                    }
-                });
+            public void onCompleteTop100(List<FRG10_MVP.Item> items) {
+                progressDialog.dismiss();
+                getinstance().responseDataset(items);
             }
         });
     }
@@ -162,65 +121,55 @@ public class Fourth_MVPController extends AppCompatActivity implements FRG10_MVP
         progressDialog.setTitle("로딩중...");
         progressDialog.setCancelable(false);
         progressDialog.show();
-        EventChain eventChain = new EventChain();
-
-        eventChain.ready("포커즈");
-        Map<String, Long> focusMap = new HashMap<>();
-        FocusDAO.selectTop30(new DateKey(), new FocusDAO.OnSelelctedTop30() {
+        MVPService.ToolP_Top100(new DateKey(), new MVPService.OnCompleteTop100() {
             @Override
-            public void onSelctecteTop30(Map<String, Long> map) {
-                focusMap.putAll(map);
-                eventChain.complete("포커즈");
+            public void onCompleteTop100(List<FRG10_MVP.Item> items) {
+                progressDialog.dismiss();
+                getinstance().responseDataset(items);
             }
         });
-
-        eventChain.ready("리커시브");
-        Map<String, Long> recursiveMap = new HashMap<>();
-        RecursiveDAO.selectTop30(new DateKey(), new RecursiveDAO.OnSelelctedTop30() {
-            @Override
-            public void onSelctecteTop30(Map<String, Long> map) {
-                recursiveMap.putAll(map);
-                eventChain.complete("리커시브");
-            }
-        });
-
-        eventChain.andthen(()->{
-            // 데이터 병합하기
-            Map<String, Long> map = new HashMap<>(focusMap);
-            for(String key : recursiveMap.keySet()){
-                if(map.containsKey(key)){
-                    map.put(key, map.get(key) + recursiveMap.get(key));
-                } else map.put(key, recursiveMap.get(key));
-            }
-
-            UserPublicInfoDAO.selectUserByUID(new ArrayList<>(map.keySet()), new UserPublicInfoDAO.OnSelectedLisnter() {
-                @Override
-                public void onSelected(boolean success, Map<String, UserPublicInfoBean> userPublicInfoBeanMap, DatabaseError databaseError) {
-                    progressDialog.dismiss();
-                    items = new ArrayList<>();
-                    for(String uid: map.keySet()){
-                        items.add(new FRG10_MVP.Item(0, userPublicInfoBeanMap.get(uid).name, (int)(0 + map.get(uid)) ));
-                    }
-                    Collections.sort(items, new Comparator<FRG10_MVP.Item>() {
-                        @Override
-                        public int compare(FRG10_MVP.Item o1, FRG10_MVP.Item o2) {
-                            return o2.pVal - o1.pVal;
-                        }
-                    });
-                    for(int i = 0 ; items.size() > i; i++) items.get(i).num = i +1;
-                    getinstance().responseDataset(items);
-                }
-            });
-        },"포커즈","리커시브");
     }
 
     @Override
     public void reqestShowMVP() {
-
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("이달의 MVP...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        MVPService.selectTopMVP(new DateKey(), uid -> {
+            if(uid == null){
+                progressDialog.dismiss();
+                Toast.makeText(this, "아직 이달의 MVP가 없음.", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            UserPublicInfoDAO.selectUserByUID(new ArrayList<String>() {{ add(uid); }}, new UserPublicInfoDAO.OnSelectedLisnter() {
+                @Override
+                public void onSelected(boolean success, Map<String, UserPublicInfoBean> userPublicInfoBeanMap, DatabaseError databaseError) {
+                    if(success && userPublicInfoBeanMap.containsKey(uid)){
+                        String photoID = userPublicInfoBeanMap.get(uid).photoID;
+                        UserPhotoDAO.selectPhotoByPhotoID(photoID, new UserPhotoDAO.OnDownloadComplete() {
+                            @Override
+                            public void OnDownloadComplete(boolean success, Uri photoResource, Exception e) {
+                                progressDialog.dismiss();
+                                if(success){
+                                    new MvpPrintDialog(Fourth_MVPController.this, photoResource).show();
+                                } else {
+                                    Toast.makeText(Fourth_MVPController.this, "프로필을 불러올 수 없습니다.", Toast.LENGTH_SHORT).show();
+                                    Log.e("Fourth_MVPController", e.getMessage());
+                                }
+                            }
+                        });
+                    } else {
+                        progressDialog.dismiss();
+                        Toast.makeText(Fourth_MVPController.this, "사용자를 불러올수 없습니다.", Toast.LENGTH_SHORT).show();
+                        Log.e("Fourth_MVPController", databaseError.getMessage());
+                    }
+                }
+            });
+        });
     }
 
     private FRG10_MVP getinstance(){
         return ((FRG10_MVP) fragmentManager.findFragmentByTag("frg10_mvp"));
-
     }
 }

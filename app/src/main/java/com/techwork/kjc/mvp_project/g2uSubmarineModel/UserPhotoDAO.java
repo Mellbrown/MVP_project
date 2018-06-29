@@ -52,7 +52,7 @@ public class UserPhotoDAO {
         }
     }
 
-    interface OnDownloadComplete{
+    public interface OnDownloadComplete{
         void OnDownloadComplete(boolean success, Uri photoResource,Exception e);
     }
 
