@@ -1,0 +1,9 @@
+<application>
+  <component name="ParameterNameHintsSettings">
+    <blacklists>
+      <blacklist language="Java">
+        <added pattern="android.widget.ArrayAdapter.createFromResource(context,textArrayResId,textViewResId)" />
+      </blacklist>
+    </blacklists>
+  </component>
+</application>
