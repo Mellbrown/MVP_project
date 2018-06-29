@@ -18,7 +18,9 @@ public class MVPService {
 
     public static void selsetMVP_Record(String uid,OnCompleteMVP_Record onCompleteMVP_record){
 
-        EventChain eventChain = new EventChain();
+        EventChain eventChain = new EventChain(); // 이벤트 체인 준비
+
+        // mesure 데이터 일별로 최고 값 합 준비
         eventChain.ready("M 준비");
         Map<DateKey, Double> M = new HashMap<>();
         MeasureDAO.selectMeasureBeanseByUID(uid, new MeasureDAO.OnSelectedMeasureBeans() {
@@ -45,6 +47,7 @@ public class MVPService {
             }
         });
 
+        // versus 데이터 일별로 누적 값 준비
         eventChain.ready("V 준비");
         Map<DateKey, Integer[]> V = new HashMap<>();
         VersusDAO.selectVersusBeans(uid, new VersusDAO.OnSelectedBersusBeans() {
@@ -56,12 +59,15 @@ public class MVPService {
                     DateKey dateKey = new DateKey(bean.timestamp);
                     if(!V.containsKey(dateKey))
                         V.put(dateKey,new Integer[]{0});
-                    V.get(dateKey)[0] += 1;
+                    Integer[] o = V.get(dateKey);
+                    o[0] += 1;
+                    V.put(dateKey, o);
                 }
                 eventChain.complete("V 준비");
             }
         });
 
+        // Foucs 데이터 일별로 누적값 준비
         eventChain.ready("P Part1 준비");
         Map<DateKey, Long[]> P1 = new HashMap<>();
         FocusDAO.selectAllFocusBeans(uid, new FocusDAO.OnSelectedFocusBeans() {
@@ -73,13 +79,16 @@ public class MVPService {
                     DateKey dateKey = new DateKey(bean.timestamp);
                     if(!P1.containsKey(dateKey))
                         P1.put(dateKey, new Long[]{0l});
-                    P1.get(dateKey)[0] += bean.reps;
+                    Long[] o = P1.get(dateKey);
+                    o[0] += bean.reps;
+                    P1.put(dateKey, o);
                 }
 
                 eventChain.complete("P Part1 준비");
             }
         });
 
+        // Recursive 데이터 일별로 누적값 준비
         eventChain.ready("P Part2 준비");
         Map<DateKey, Long[]> P2 = new HashMap<>();
         RecursiveDAO.selectRecursiveMap(uid, new RecursiveDAO.OnSelectedRecursiveMap() {
@@ -91,34 +100,45 @@ public class MVPService {
                     DateKey dateKey = new DateKey(bean.timestamp);
                     if(!P2.containsKey(dateKey))
                         P2.put(dateKey, new Long[]{0l});
-                    P2.get(dateKey)[0] += bean.reps;
+                    Long[] o = P2.get(dateKey);
+                    o[0] += bean.reps;
+                    P2.put(dateKey, o);
                 }
 
                 eventChain.complete("P Part2 준비");
             }
         });
 
-        eventChain.andthen(()->{
+        eventChain.andthen(()->{ // 개별적인 위치에서 가져온 데이터를 병합합니다.
             Map<DateKey, MVP_RecordAccBean> mvpRecordAccBeanMap = new HashMap<>();
-            for(DateKey dateKey : M.keySet()){
+
+            for(DateKey dateKey : M.keySet()){ // Mesuare 병합
                 if(!mvpRecordAccBeanMap.containsKey(dateKey))
                     mvpRecordAccBeanMap.put(dateKey, new MVP_RecordAccBean(0,0,0));
-                mvpRecordAccBeanMap.get(dateKey).mVal = M.get(dateKey);
+                MVP_RecordAccBean o = mvpRecordAccBeanMap.get(dateKey);
+                o.mVal = M.get(dateKey);
+                mvpRecordAccBeanMap.put(dateKey,o);
             }
             for(DateKey dateKey : V.keySet()){
                 if(!mvpRecordAccBeanMap.containsKey(dateKey))
                     mvpRecordAccBeanMap.put(dateKey, new MVP_RecordAccBean(0,0,0));
-                mvpRecordAccBeanMap.get(dateKey).mVal = V.get(dateKey)[0];
+                MVP_RecordAccBean o = mvpRecordAccBeanMap.get(dateKey);
+                o.vVal = V.get(dateKey)[0];
+                mvpRecordAccBeanMap.put(dateKey,o);
             }
             for(DateKey dateKey : P1.keySet()){
                 if(!mvpRecordAccBeanMap.containsKey(dateKey))
                     mvpRecordAccBeanMap.put(dateKey, new MVP_RecordAccBean(0,0,0));
-                mvpRecordAccBeanMap.get(dateKey).mVal = P1.get(dateKey)[0];
+                MVP_RecordAccBean o = mvpRecordAccBeanMap.get(dateKey);
+                o.pVal += P1.get(dateKey)[0];
+                mvpRecordAccBeanMap.put(dateKey,o);
             }
             for(DateKey dateKey : P2.keySet()){
                 if(!mvpRecordAccBeanMap.containsKey(dateKey))
                     mvpRecordAccBeanMap.put(dateKey, new MVP_RecordAccBean(0,0,0));
-                mvpRecordAccBeanMap.get(dateKey).mVal = P2.get(dateKey)[0];
+                MVP_RecordAccBean o = mvpRecordAccBeanMap.get(dateKey);
+                o.pVal += P2.get(dateKey)[0];
+                mvpRecordAccBeanMap.put(dateKey,o);
             }
 
             onCompleteMVP_record.onCompleteMVP_Record(mvpRecordAccBeanMap);

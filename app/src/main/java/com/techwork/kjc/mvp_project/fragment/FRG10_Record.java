@@ -60,6 +60,7 @@ public class FRG10_Record extends Fragment implements CusCalView.OnUpdateMonth {
         cusCalView.setOnUpdateMonth(this);
         frame.addView(cusCalView,-1,-1);
 
+        // 아래 주간 통계 월간 통계 표시하기 위한 리사클러를 준비합니다.
         recyclerView = viewLayout.findViewById(R.id.recylerView);
         layoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         baseRecyclerAdapter = new BaseRecyclerAdapter<Item, RecViewHolder>(
@@ -73,22 +74,20 @@ public class FRG10_Record extends Fragment implements CusCalView.OnUpdateMonth {
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(baseRecyclerAdapter);
 
+        // 달력을 준비합니다.
         cusCalView.dataMap.putAll(dataMap);
         cusCalView.notifyChangedDataSet();
-
 
         return viewLayout;
     }
 
-    @Override
+    @Override // 이 뷰의 꽃 주간 월간 짜내는 코드
     public void onUpdateMonth(Calendar selectedDate) {
         int year = selectedDate.get(Calendar.YEAR);
         int month = selectedDate.get(Calendar.MONTH);
 
         Calendar cal = Calendar.getInstance();
         cal.set(year,month,1);
-
-
 
         Item iMonth = new Item("월간",0,0,0);
         List<Item> iWeek = new ArrayList<>();
@@ -116,6 +115,7 @@ public class FRG10_Record extends Fragment implements CusCalView.OnUpdateMonth {
         iWeek.add(iMonth);
         baseRecyclerAdapter.dataList.clear();
         baseRecyclerAdapter.dataList.addAll(iWeek);
+        baseRecyclerAdapter.notifyDataSetChanged();
     }
 
     public static class Item {
@@ -138,6 +138,7 @@ public class FRG10_Record extends Fragment implements CusCalView.OnUpdateMonth {
         }
     }
 
+    // 통계를 위한 뷰홀더
     public static class RecViewHolder extends RecyclerView.ViewHolder {
 
         public View viewLayout;
@@ -176,7 +177,8 @@ public class FRG10_Record extends Fragment implements CusCalView.OnUpdateMonth {
             txtP.setText(String.format("P %d회", item.pVal));
         }
     }
-//-------------------------------------------------------------------------------------------------
+
+    // 달력을 위한 뷰홀더
     public static class CalViewHolder extends CusCalView.CusCalViewHolder<Item> {
 
         public View viewLayout;
