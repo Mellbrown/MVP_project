@@ -76,7 +76,7 @@ public class RecursiveDAO {
     }
 
     public static Task<Void> addRecursivBean(String uid, Long timstamp, RecursiveBean recursiveBean){
-        recursiveBean.timestamp = new Date().getTime();
+        recursiveBean.timestamp = timstamp;
         return FirebaseDatabase.getInstance().getReference(REMOTE_PATH).child(uid).child(timstamp+"").setValue(recursiveBean);
     }
 }
