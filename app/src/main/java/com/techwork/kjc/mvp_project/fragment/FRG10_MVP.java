@@ -57,7 +57,7 @@ public class FRG10_MVP extends Fragment implements View.OnClickListener {
                 holder.txtName.setText(data.name + "");
                 switch (curpage){
                     case R.id.btnM : {
-                        holder.txtVal.setText(String.format("%.2f", data.mVal));
+                        holder.txtVal.setText(String.format("%.2fKG", data.mVal));
                     }break;
                     case R.id.btnV : {
                         holder.txtVal.setText(String.format("%d승 %d패",data.vWin, data.vLoose));

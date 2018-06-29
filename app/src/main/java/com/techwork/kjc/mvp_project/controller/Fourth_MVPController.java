@@ -67,7 +67,7 @@ public class Fourth_MVPController extends AppCompatActivity implements FRG10_MVP
                         Collections.sort(items, new Comparator<FRG10_MVP.Item>() {
                             @Override
                             public int compare(FRG10_MVP.Item o1, FRG10_MVP.Item o2) {
-                                return (int)(o1.mVal * 100 - o2.mVal * 100);
+                                return (int)(o2.mVal * 100 - o1.mVal * 100);
                             }
                         });
                         for(int i = 0 ; items.size() > i; i++) items.get(i).num = i +1;
@@ -112,7 +112,7 @@ public class Fourth_MVPController extends AppCompatActivity implements FRG10_MVP
                         Collections.sort(items, new Comparator<FRG10_MVP.Item>() {
                             @Override
                             public int compare(FRG10_MVP.Item o1, FRG10_MVP.Item o2) {
-                                return (int)(o1.mVal * 100 - o2.mVal * 100);
+                                return (int)(o2.mVal * 100 - o1.mVal * 100);
                             }
                         });
                         for(int i = 0 ; items.size() > i; i++) items.get(i).num = i +1;
@@ -143,10 +143,9 @@ public class Fourth_MVPController extends AppCompatActivity implements FRG10_MVP
                         Collections.sort(items, new Comparator<FRG10_MVP.Item>() {
                             @Override
                             public int compare(FRG10_MVP.Item o1, FRG10_MVP.Item o2) {
-                                return o1.vWin - o1.vWin;
+                                return o2.vWin - o1.vWin;
                             }
                         });
-                        Log.i("ffjjfjf", items.toString());
                         for(int i = 0 ; items.size() > i; i++) items.get(i).num = i +1;
                         getinstance().responseDataset(items);
                     }
