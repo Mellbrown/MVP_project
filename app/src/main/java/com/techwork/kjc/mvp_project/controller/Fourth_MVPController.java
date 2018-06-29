@@ -147,12 +147,13 @@ public class Fourth_MVPController extends AppCompatActivity implements FRG10_MVP
                 public void onSelected(boolean success, Map<String, UserPublicInfoBean> userPublicInfoBeanMap, DatabaseError databaseError) {
                     if(success && userPublicInfoBeanMap.containsKey(uid)){
                         String photoID = userPublicInfoBeanMap.get(uid).photoID;
+                        String name = userPublicInfoBeanMap.get(uid).name;
                         UserPhotoDAO.selectPhotoByPhotoID(photoID, new UserPhotoDAO.OnDownloadComplete() {
                             @Override
                             public void OnDownloadComplete(boolean success, Uri photoResource, Exception e) {
                                 progressDialog.dismiss();
                                 if(success){
-                                    new MvpPrintDialog(Fourth_MVPController.this, photoResource).show();
+                                    new MvpPrintDialog(Fourth_MVPController.this, photoResource, name).show();
                                 } else {
                                     Toast.makeText(Fourth_MVPController.this, "프로필을 불러올 수 없습니다.", Toast.LENGTH_SHORT).show();
                                     Log.e("Fourth_MVPController", e.getMessage());
