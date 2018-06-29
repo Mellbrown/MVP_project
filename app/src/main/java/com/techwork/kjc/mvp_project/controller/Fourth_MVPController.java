@@ -131,15 +131,14 @@ public class Fourth_MVPController extends AppCompatActivity implements FRG10_MVP
         progressDialog.show();
         VersusDAO.selectTop30(new DateKey(), new VersusDAO.OnSelelctedTop30() {
             @Override
-            public void onSelctecteTop30(Map<String, Integer> map) {
+            public void onSelctecteTop30(Map<String, Integer[]> map) {
                 UserPublicInfoDAO.selectUserByUID(new ArrayList<>(map.keySet()), new UserPublicInfoDAO.OnSelectedLisnter() {
                     @Override
                     public void onSelected(boolean success, Map<String, UserPublicInfoBean> userPublicInfoBeanMap, DatabaseError databaseError) {
                         progressDialog.dismiss();
-                        Log.i("rncl", map.toString());
                         items = new ArrayList<>();
                         for(String uid : map.keySet()){
-                            items.add(new FRG10_MVP.Item(0, userPublicInfoBeanMap.get(uid).name, map.get(uid), 0));
+                            items.add(new FRG10_MVP.Item(0, userPublicInfoBeanMap.get(uid).name, map.get(uid)[0], map.get(uid)[1]));
                         }
                         Collections.sort(items, new Comparator<FRG10_MVP.Item>() {
                             @Override

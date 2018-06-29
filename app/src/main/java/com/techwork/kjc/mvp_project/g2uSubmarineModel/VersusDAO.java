@@ -27,22 +27,22 @@ public class VersusDAO {
         FirebaseDatabase.getInstance().getReference(REMOTE_PATH).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Map<String, Integer> all = new HashMap<>();
+                Map<String, Integer[]> all = new HashMap<>();
                 for(DataSnapshot data : dataSnapshot.getChildren()){
-                    Map<String, VesusBean> beanMap = dataSnapshot.getValue(new GenericTypeIndicator<Map<String, VesusBean>>() {});
+                    Map<String, VesusBean> beanMap = data.getValue(new GenericTypeIndicator<Map<String, VesusBean>>() {});
                     if(beanMap == null) beanMap = new HashMap<>();
                     List<VesusBean> vesusBeanList = new ArrayList<>(beanMap.values());
-                    int cnt = 0;
+                    int win = 0;
+                    int loose = 0;
                     for(VesusBean bean : vesusBeanList){
-                        Log.i("VersusDAO top 30", bean.toString());
                         DateKey dateKey = new DateKey(bean.timestamp);
                         if(dateKey.year != monthKey.year || dateKey.month != monthKey.month) continue;
-                        if(!bean.winner.equals(data.getKey()))continue;
-                        cnt += 1;
+                        if(bean.winner.equals(data.getKey())) win += 1;
+                        else loose += 1;
                     }
-                    all.put(data.getKey(),cnt);
+                    all.put(data.getKey(),new Integer[]{win, loose});
                 }
-                Log.i("VersusDAO top 30", all.toString());
+
                 OnSelelctedTop30.onSelctecteTop30(all);
             }
 
@@ -54,7 +54,7 @@ public class VersusDAO {
     }
 
     public interface OnSelelctedTop30{
-        void onSelctecteTop30(Map<String, Integer> map);
+        void onSelctecteTop30(Map<String, Integer[]> map);
     }
 
     public static void addVersusBean(String you_uid, String rival_uid, VesusBean vesusBean, OnComplete onComplete){

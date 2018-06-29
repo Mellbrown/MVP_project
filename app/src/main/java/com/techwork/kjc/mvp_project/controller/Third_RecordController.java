@@ -53,7 +53,7 @@ public class Third_RecordController extends AppCompatActivity implements View.On
         MVPService.selsetMVP_Record(uid, new MVPService.OnCompleteMVP_Record() {
             @Override
             public void onCompleteMVP_Record(Map<DateKey, MVP_RecordAccBean> mvpRecordAccBeanMap) {
-                progressDialog.dismiss();
+
                 //MVP Bean 데이터를 Record 아이템으로 변환
                 Map<CusCalView.SimpleDate, FRG10_Record.Item> dataMap = new HashMap<>();
                 for(DateKey dateKey : mvpRecordAccBeanMap.keySet()){
@@ -61,6 +61,7 @@ public class Third_RecordController extends AppCompatActivity implements View.On
                     dataMap.put(dateKey.convert2SimDate(), new FRG10_Record.Item(bean.mVal,bean.vVal,bean.pVal));
                 }
                 // 자료가 준비되면 렌더링
+                progressDialog.dismiss();
                 redering(dataMap);
             }
         });
