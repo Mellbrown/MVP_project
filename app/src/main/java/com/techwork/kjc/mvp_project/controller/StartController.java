@@ -130,13 +130,14 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
 
     @Override // 냥 냥 나중에 수정된 내용!
     public void Logout() {
-        FirebaseAuth.getInstance().signOut();
-        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-        if(currentUser == null){ // 로그인 안되어 있으면
-            rendingFRG1_Splash();
-        } else { // 로그인 되어 있으면
-            rendingFRG4_MainMenu();
-        }
+//        FirebaseAuth.getInstance().signOut();
+//        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+//        if(currentUser == null){ // 로그인 안되어 있으면
+//            rendingFRG1_Splash();
+//        } else { // 로그인 되어 있으면
+//            rendingFRG4_MainMenu();
+//        }
+        startActivity(new Intent(this, StartEditController.class));
     }
 
     @Override //메뉴중하나는 다이얼로그 띄워서 세부 메뉴를 씁니다.

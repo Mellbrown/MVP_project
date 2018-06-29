@@ -33,6 +33,7 @@
             </intent-filter>
         </activity>
         <!--나머지 릴리즈용 컨트롤러-->
+        <activity android:name=".controller.StartEditController" />
         <activity android:name=".controller.Second_RegisterController"/>
         <activity android:name=".controller.Second_LoginController" />
 
