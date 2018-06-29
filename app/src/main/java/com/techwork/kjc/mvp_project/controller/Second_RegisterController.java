@@ -155,8 +155,8 @@ public class Second_RegisterController extends AppCompatActivity implements FRG2
                 grade = Long.valueOf(act2_grade);
                 _class = Long.valueOf(act2_cls);
                 number = Long.valueOf(act2_num);
-                height = Long.valueOf(act2_tall);
-                wegith = Long.valueOf(act2_weight);
+                height = Double.valueOf(act2_tall);
+                wegith = Double.valueOf(act2_weight);
             }
             catch (Exception e){ e.printStackTrace(); }
 

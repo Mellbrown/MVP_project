@@ -30,7 +30,7 @@ public class FRG4_setMenu extends Fragment implements View.OnClickListener {
 
                 while(iter.hasNext()){
                     if(iter.next().getKey()==uid){
-                        iter.next().getValue()
+                        iter.next().getValue();
                     }
                 }
             }
