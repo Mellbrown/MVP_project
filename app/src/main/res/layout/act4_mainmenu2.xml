@@ -1,47 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:background="@color/colorWhite"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:weightSum="1"
+    android:orientation="vertical"
+    android:background="@color/main1"
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.1"
+        android:weightSum="1"
+        android:orientation="horizontal"
+        android:gravity="right"
+        >
+        <Button
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.2"
+            android:id="@+id/act4_logout"
+            android:background="@color/main1"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold"
+            android:text="로그아웃"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="0.15"
+        android:weightSum="1"
+        android:orientation="vertical"
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:src="@drawable/title"
+            />
+    </LinearLayout>
     <com.techwork.kjc.mvp_project.layoutModel.RingView
         android:id="@+id/act4_menu"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.36" />
-
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/act4_logout"
+        android:layout_height="0dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="24dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginTop="8dp"
-        android:clickable="true"
-        app:backgroundTint="@android:color/holo_red_dark"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/ic_call_made_black_24dp" />
+        android:layout_weight="0.75"
 
-    <TextView
-        android:id="@+id/textView26"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="로그아웃"
-        app:layout_constraintEnd_toEndOf="@+id/act4_logout"
-        app:layout_constraintStart_toStartOf="@+id/act4_logout"
-        app:layout_constraintTop_toBottomOf="@+id/act4_logout" />
-</android.support.constraint.ConstraintLayout>
+        />
+
+</LinearLayout>
