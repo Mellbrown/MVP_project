@@ -14,10 +14,12 @@ import com.techwork.kjc.mvp_project.dialog.ProgressDialog;
 import com.techwork.kjc.mvp_project.fragment.FRG10_MVP;
 import com.techwork.kjc.mvp_project.g2uSubmarineModel.FocusDAO;
 import com.techwork.kjc.mvp_project.g2uSubmarineModel.MeasureDAO;
+import com.techwork.kjc.mvp_project.g2uSubmarineModel.RecursiveDAO;
 import com.techwork.kjc.mvp_project.g2uSubmarineModel.UserPublicInfoDAO;
 import com.techwork.kjc.mvp_project.g2uSubmarineModel.VersusDAO;
 import com.techwork.kjc.mvp_project.g2uSubmarineModel.beanse.UserPublicInfoBean;
 import com.techwork.kjc.mvp_project.util.DateKey;
+import com.techwork.kjc.mvp_project.util.EventChain;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -160,29 +162,56 @@ public class Fourth_MVPController extends AppCompatActivity implements FRG10_MVP
         progressDialog.setTitle("로딩중...");
         progressDialog.setCancelable(false);
         progressDialog.show();
+        EventChain eventChain = new EventChain();
+
+        eventChain.ready("포커즈");
+        Map<String, Long> focusMap = new HashMap<>();
         FocusDAO.selectTop30(new DateKey(), new FocusDAO.OnSelelctedTop30() {
             @Override
             public void onSelctecteTop30(Map<String, Long> map) {
-                UserPublicInfoDAO.selectUserByUID(new ArrayList<>(map.keySet()), new UserPublicInfoDAO.OnSelectedLisnter() {
-                    @Override
-                    public void onSelected(boolean success, Map<String, UserPublicInfoBean> userPublicInfoBeanMap, DatabaseError databaseError) {
-                        progressDialog.dismiss();
-                        items = new ArrayList<>();
-                        for(String uid: map.keySet()){
-                            items.add(new FRG10_MVP.Item(0, userPublicInfoBeanMap.get(uid).name, map.get(uid)));
-                        }
-                        Collections.sort(items, new Comparator<FRG10_MVP.Item>() {
-                            @Override
-                            public int compare(FRG10_MVP.Item o1, FRG10_MVP.Item o2) {
-                                return o1.pVal - o2.pVal;
-                            }
-                        });
-                        for(int i = 0 ; items.size() > i; i++) items.get(i).num = i +1;
-                        getinstance().responseDataset(items);
-                    }
-                });
+                focusMap.putAll(map);
+                eventChain.complete("포커즈");
             }
         });
+
+        eventChain.ready("리커시브");
+        Map<String, Long> recursiveMap = new HashMap<>();
+        RecursiveDAO.selectTop30(new DateKey(), new RecursiveDAO.OnSelelctedTop30() {
+            @Override
+            public void onSelctecteTop30(Map<String, Long> map) {
+                recursiveMap.putAll(map);
+                eventChain.complete("리커시브");
+            }
+        });
+
+        eventChain.andthen(()->{
+            // 데이터 병합하기
+            Map<String, Long> map = new HashMap<>(focusMap);
+            for(String key : recursiveMap.keySet()){
+                if(map.containsKey(key)){
+                    map.put(key, map.get(key) + recursiveMap.get(key));
+                } else map.put(key, recursiveMap.get(key));
+            }
+
+            UserPublicInfoDAO.selectUserByUID(new ArrayList<>(map.keySet()), new UserPublicInfoDAO.OnSelectedLisnter() {
+                @Override
+                public void onSelected(boolean success, Map<String, UserPublicInfoBean> userPublicInfoBeanMap, DatabaseError databaseError) {
+                    progressDialog.dismiss();
+                    items = new ArrayList<>();
+                    for(String uid: map.keySet()){
+                        items.add(new FRG10_MVP.Item(0, userPublicInfoBeanMap.get(uid).name, (int)(0 + map.get(uid)) ));
+                    }
+                    Collections.sort(items, new Comparator<FRG10_MVP.Item>() {
+                        @Override
+                        public int compare(FRG10_MVP.Item o1, FRG10_MVP.Item o2) {
+                            return o2.pVal - o1.pVal;
+                        }
+                    });
+                    for(int i = 0 ; items.size() > i; i++) items.get(i).num = i +1;
+                    getinstance().responseDataset(items);
+                }
+            });
+        },"포커즈","리커시브");
     }
 
     @Override
