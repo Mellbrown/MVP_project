@@ -73,10 +73,15 @@ public class Third_MeauserController extends AppCompatActivity implements FRG5_M
 
     @Override //화면에서 전체 목록 달라는 요구 들어왔다 그졍?
     public void requestMeasureItemBeans() {
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("데이터 로드중...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         MeasureDAO.selectMeasureBeanseByUID(uid, new MeasureDAO.OnSelectedMeasureBeans() {
             @Override
             public void onSelectedMeasureBeans(boolean success, List<MeasureBean> measureBeans, DatabaseError databaseError) {
+                progressDialog.dismiss();
                 if(success){
                     ArrayList<FRG5_Measure.MeasureItemBean> measureItemBeans = new ArrayList<>();
                     for (MeasureBean measureBean : measureBeans){

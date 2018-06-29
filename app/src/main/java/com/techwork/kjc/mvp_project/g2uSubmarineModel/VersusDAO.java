@@ -1,6 +1,7 @@
 package com.techwork.kjc.mvp_project.g2uSubmarineModel;
 
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -28,10 +29,12 @@ public class VersusDAO {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, Integer> all = new HashMap<>();
                 for(DataSnapshot data : dataSnapshot.getChildren()){
-                    List<VesusBean> vesusBeanList = data.getValue(new GenericTypeIndicator<List<VesusBean>>());
-                    if(vesusBeanList == null) vesusBeanList = new ArrayList<>();
+                    Map<String, VesusBean> beanMap = dataSnapshot.getValue(new GenericTypeIndicator<Map<String, VesusBean>>() {});
+                    if(beanMap == null) beanMap = new HashMap<>();
+                    List<VesusBean> vesusBeanList = new ArrayList<>(beanMap.values());
                     int cnt = 0;
                     for(VesusBean bean : vesusBeanList){
+                        Log.i("VersusDAO top 30", bean.toString());
                         DateKey dateKey = new DateKey(bean.timestamp);
                         if(dateKey.year != monthKey.year || dateKey.month != monthKey.month) continue;
                         if(!bean.winner.equals(data.getKey()))continue;
@@ -39,6 +42,7 @@ public class VersusDAO {
                     }
                     all.put(data.getKey(),cnt);
                 }
+                Log.i("VersusDAO top 30", all.toString());
                 OnSelelctedTop30.onSelctecteTop30(all);
             }
 
@@ -81,7 +85,7 @@ public class VersusDAO {
         },you_uid,rival_uid);
     }
 
-    interface OnComplete{
+    public interface OnComplete{
         void onComlete();
     }
 
@@ -90,8 +94,9 @@ public class VersusDAO {
                 .addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        List<VesusBean> vesusBeanList = dataSnapshot.getValue(new GenericTypeIndicator<List<VesusBean>>(){});
-                        if(vesusBeanList == null) vesusBeanList = new ArrayList<>();
+                        Map<String, VesusBean> beanMap = dataSnapshot.getValue(new GenericTypeIndicator<Map<String, VesusBean>>() {});
+                        if(beanMap == null) beanMap = new HashMap<>();
+                        List<VesusBean> vesusBeanList = new ArrayList<>(beanMap.values());
                         onSelectedBersusBeans.OnSelectedBersusBeans(vesusBeanList);
                     }
 

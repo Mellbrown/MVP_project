@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
@@ -135,6 +136,7 @@ public class Fourth_MVPController extends AppCompatActivity implements FRG10_MVP
                     @Override
                     public void onSelected(boolean success, Map<String, UserPublicInfoBean> userPublicInfoBeanMap, DatabaseError databaseError) {
                         progressDialog.dismiss();
+                        Log.i("rncl", map.toString());
                         items = new ArrayList<>();
                         for(String uid : map.keySet()){
                             items.add(new FRG10_MVP.Item(0, userPublicInfoBeanMap.get(uid).name, map.get(uid), 0));
@@ -145,6 +147,7 @@ public class Fourth_MVPController extends AppCompatActivity implements FRG10_MVP
                                 return o1.vWin - o1.vWin;
                             }
                         });
+                        Log.i("ffjjfjf", items.toString());
                         for(int i = 0 ; items.size() > i; i++) items.get(i).num = i +1;
                         getinstance().responseDataset(items);
                     }

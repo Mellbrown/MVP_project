@@ -20,11 +20,14 @@ import com.techwork.kjc.mvp_project.dialog.ProgressDialog;
 import com.techwork.kjc.mvp_project.fragment.FRG6_Versus;
 import com.techwork.kjc.mvp_project.g2uSubmarineModel.UserPhotoDAO;
 import com.techwork.kjc.mvp_project.g2uSubmarineModel.UserPublicInfoDAO;
+import com.techwork.kjc.mvp_project.g2uSubmarineModel.VersusDAO;
 import com.techwork.kjc.mvp_project.g2uSubmarineModel.beanse.UserPublicInfoBean;
+import com.techwork.kjc.mvp_project.g2uSubmarineModel.beanse.VesusBean;
 import com.techwork.kjc.mvp_project.util.EventChain;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -143,14 +146,31 @@ public class Third_VersusController extends AppCompatActivity implements FRG6_Ve
         if(!(you instanceof AttachID)) Log.e("Third_VersusController", "you 캐스팅 불가");
         if(!(rival instanceof AttachID)) Log.e("Third_VersusController", "rival 캐스팅 불가");
 
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("판정중....");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
         AttachID castYou = (AttachID) you;
         AttachID castRival = (AttachID) rival;
+        VesusBean vesusBean = new VesusBean();
+        vesusBean.winner = youLevel > rivalLevel ? castYou.uid : castRival.uid;
+        vesusBean.rival_level = (long)rivalLevel;
+        vesusBean.rival_time = (long)rivalTime;
+        vesusBean.you_level = (long)youLevel;
+        vesusBean.you_time = (long)youTime;
+        vesusBean.timestamp = new Date().getTime();
+        vesusBean.you_uid = castYou.uid;
+        vesusBean.rival_uid = castRival.uid;
+        VersusDAO.addVersusBean(castYou.uid, castRival.uid, vesusBean, new VersusDAO.OnComplete() {
+            @Override
+            public void onComlete() {
+                progressDialog.dismiss();
+                ((FRG6_Versus) fragmentManager.findFragmentByTag("frg6_versus"))
+                    .responseWhoWinner(youLevel > rivalLevel); // 당신이 이겻다 코드
+            }
+        });
 
-        double youWeight = youTime * 0.4 + youLevel * 0.6;
-        double rivalWeight = rivalTime * 0.4 + rivalLevel * 0.6;
 
-        ((FRG6_Versus) fragmentManager.findFragmentByTag("frg6_versus"))
-                .responseWhoWinner(youWeight > rivalWeight); // 당신이 이겻다 코드
     }
 
     public static class AttachID extends FRG6_Versus.SimProfile{
