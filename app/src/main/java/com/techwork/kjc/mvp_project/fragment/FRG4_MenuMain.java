@@ -39,9 +39,11 @@ public class FRG4_MenuMain extends Fragment implements  RingView.OnClickListner{
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requester.Logout();
+                requester.mypage();
             }
         });
+
+        viewLayout.findViewById(R.id.chk).setOnClickListener(v -> requester.Logout());
 
         return viewLayout;
     }
@@ -70,6 +72,7 @@ public class FRG4_MenuMain extends Fragment implements  RingView.OnClickListner{
         void VersusActivityStart();
         void PracticeDialogStart();
         void RecordActivityStart();
+        void mypage();
         void Logout();
 
     }
