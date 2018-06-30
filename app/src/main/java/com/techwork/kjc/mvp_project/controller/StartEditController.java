@@ -95,7 +95,9 @@ public class StartEditController extends AppCompatActivity {
 
         act2_Rbtn.setText("수정");
         act2_Rbtn.setOnClickListener(v -> update());
+        act2_image.setOnClickListener(v->ShowTakePhotoDialog());
 
+        findViewById(R.id.logout).setVisibility(View.VISIBLE);
          findViewById(R.id.logout).setOnClickListener(v->{
              FirebaseAuth.getInstance().signOut();
              finish();

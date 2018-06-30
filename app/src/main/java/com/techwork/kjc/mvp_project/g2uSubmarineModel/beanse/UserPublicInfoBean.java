@@ -40,5 +40,7 @@ public class UserPublicInfoBean {
         this.grade = grade;
         this._class = _class;
         this.number = number;
+        this.height = height;
+        this.weight = weight;
     }
 }
