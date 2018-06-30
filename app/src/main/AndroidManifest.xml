@@ -22,7 +22,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <!--테스트를 위한 컨트롤러-->
-        <activity android:name=".controller.TestController" />
 
         <!--릴리즈용 스타트 컨트롤러-->
         <activity android:name=".controller.StartController">

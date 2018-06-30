@@ -20,25 +20,26 @@
             android:orientation="horizontal"
             android:gravity="right"
             >
+
             <Button
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.2"
                 android:id="@+id/chk"
-                android:background="@color/main1"
-                android:textColor="@color/colorWhite"
-                android:textStyle="bold"
-                />
-            <Button
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="0.2"
-                android:id="@+id/act4_logout"
                 android:background="@color/main1"
+                android:text="로그아웃"
                 android:textColor="@color/colorWhite"
-                android:textStyle="bold"
-                android:text="메뉴"
-                />
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/act4_logout"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:background="@color/main1"
+                android:text="마이페이지"
+                android:textColor="@color/colorWhite"
+                android:textStyle="bold" />
         </LinearLayout>
     </RelativeLayout>
     <LinearLayout
