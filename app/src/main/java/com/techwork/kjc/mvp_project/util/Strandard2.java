@@ -64,15 +64,38 @@ public class Strandard2 {
     public static final Map<EvaluePart,EvalueClass> standardMap
             = new HashMap<EvaluePart,EvalueClass>(){
         {
-            put(new EvaluePart(4,MAIL,ARM),new EvalueClass(17,10,5));
-            put(new EvaluePart(4,MAIL,ARM),new EvalueClass(17,10,5));
-            put(new EvaluePart(4,MAIL,ARM),new EvalueClass(17,10,5));
+            int[][] data = {
+                    {17,15, 21,19, 25,23},
+                    {10, 8, 12,10, 14,12},
+                    { 5, 5,  7, 7,  9, 9},
 
-            put(new EvaluePart(4,FEMAIL,ARM),new EvalueClass(17,10,5));
-            put(new EvaluePart(4,FEMAIL,ARM),new EvalueClass(17,10,5));
-            put(new EvaluePart(4,FEMAIL,ARM),new EvalueClass(17,10,5));
+                    {27,25, 31,29, 35,33},
+                    {15,13, 17,15, 19,17},
+                    { 9, 9, 10,10, 11,11},
 
+                    {37,35, 41,39, 45,43},
+                    {25,23, 27,25, 29,27},
+                    {19,19, 20,20, 21,21},
 
+                    {47,45, 51,49, 55,53},
+                    {35,33, 37,35, 39,37},
+                    {29,29, 30,30, 32,32}
+            };
+
+            for(int i = 0; 6 > i ; i++){
+                for(int j = 0 ; 12 > j; j ++){
+                    int p = j / 4;
+                    put(new EvaluePart(
+                            (int)( i / 2) + 4,
+                            i % 2 == 0 ? MAIL : FEMAIL,
+                            p == 0 ? ARM : p == 1 ? LEG : p == 2 ?  BACK : BODY
+                    ),new EvalueClass(
+                            data[p + 0][i],
+                            data[p + 1][i],
+                            data[p + 2][i]
+                    ));
+                }
+            }
         }
     };
 
