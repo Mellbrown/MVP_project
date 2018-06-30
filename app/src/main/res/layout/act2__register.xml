@@ -53,23 +53,24 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/lbID"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:gravity="center"
                 android:layout_weight="0.1"
+                android:gravity="center"
                 android:text="아이디"
                 android:textSize="15dp"
-                android:textStyle="bold"
-            />
+                android:textStyle="bold" />
 
             <TextView
+                android:id="@+id/lbPW"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.1"
                 android:gravity="center"
-                android:textStyle="bold"
+                android:text="비 밀 번 호"
                 android:textSize="15dp"
-                android:text="비 밀 번 호" />
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -157,6 +158,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="0.4"
+            android:weightSum="1"
             android:orientation="vertical">
 
             <EditText

@@ -61,8 +61,12 @@ public class StartEditController extends AppCompatActivity {
 
         act2_id = findViewById(R.id.act2_id);
         act2_id.setVisibility(View.GONE);
+        findViewById(R.id.lbID).setVisibility(View.GONE);
+
         act2_pw = findViewById(R.id.act2_pw);
         act2_pw.setVisibility(View.GONE);
+        findViewById(R.id.lbPW).setVisibility(View.GONE);
+
         act2_name = findViewById(R.id.act2_name);
 
         act2_sex = findViewById(R.id.act2_sex);
