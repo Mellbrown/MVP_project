@@ -49,10 +49,10 @@ public class InputRecursiveDialog extends Dialog implements View.OnClickListener
     List<String> queue = new ArrayList<>();
 
     void notifyDataChanged(){
-        btnArm.setEnabled(!pressed.get(arm));
-        btnLeg.setEnabled(!pressed.get(leg));
-        btnBack.setEnabled(!pressed.get(back));
-        btnBody.setEnabled(!pressed.get(body));
+//        btnArm.setEnabled(!pressed.get(arm));
+//        btnLeg.setEnabled(!pressed.get(leg));
+//        btnBack.setEnabled(!pressed.get(back));
+//        btnBody.setEnabled(!pressed.get(body));
 
         txtFirst.setText(queue.size() >= 1 ? queue.get(0) : "");
         txtSecond.setText(queue.size() >= 2 ? queue.get(1) : "");
@@ -61,20 +61,21 @@ public class InputRecursiveDialog extends Dialog implements View.OnClickListener
     }
 
     void press(String btn){
-        if(pressed.get(btn)) return;
-        pressed.put(btn, true);
+//        if(pressed.get(btn)) return;
+//        pressed.put(btn, true);
+        if(queue.size() >= 4) return;
         queue.add(btn);
 
         notifyDataChanged();
     }
 
     void clear(){
-        pressed = new HashMap<String, Boolean>(){{
-            put(arm,false);
-            put(leg,false);
-            put(back,false);
-            put(body,false);
-        }};
+//        pressed = new HashMap<String, Boolean>(){{
+//            put(arm,false);
+//            put(leg,false);
+//            put(back,false);
+//            put(body,false);
+//        }};
         queue = new ArrayList<>();
 
         notifyDataChanged();
@@ -109,8 +110,9 @@ public class InputRecursiveDialog extends Dialog implements View.OnClickListener
 
         btnClear.setOnClickListener((v -> clear()));
         btnConfirm.setOnClickListener(v->{
-            if(queue.size() < 4) return;
+            if(queue.size() < 1) return;
             if(reps < 1) return;
+            for(int i = queue.size() ; 4 > i; i++) queue.add("");
             dismiss();
             onSave.onSave(new Date().getTime(), queue, reps);
         });
