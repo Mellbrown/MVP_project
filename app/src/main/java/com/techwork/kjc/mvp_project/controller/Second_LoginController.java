@@ -1,6 +1,7 @@
 package com.techwork.kjc.mvp_project.controller;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -8,7 +9,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.techwork.kjc.mvp_project.dialog.ProgressDialog;
 import com.techwork.kjc.mvp_project.fireSource.Fire_Auth;
 import com.techwork.kjc.mvp_project.fragment.FRG3_Login;
 import com.techwork.kjc.mvp_project.util.EventChain;
@@ -52,15 +59,28 @@ public class Second_LoginController extends AppCompatActivity implements FRG3_Lo
     @Override // 화면에서 로그인 요청이 있네요
     public void onRequestLogin(ArrayList<String> info) {
         // 덕구짱이 info에 대강 알아서 로그인 아이디와 패스워드를 넘겼을 겁니다.
+        String id = info.get(0);
+        String pw = info.get(1);
+        if(id.equals("") || pw.equals("")){
+            Toast.makeText(Second_LoginController.this, "로그인 정보를 올바르게 입력해주세요", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        //빠베로 대강 로그인 처리를 해줍시다.
-
-        // 뭥 로그인 실패에 대한 처리는 여기서 대강 토스트로 처리해도 되겠져?
-
-        // 로그인 성공하면 역시 이 컨트롤러는 수명을 다합니다.
-        // 로그인 성공하면 다음
-        EventChain.complete("로그인 되었어여");
-        finish();
-        //코드를 박아 줍시다.
+        final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("로그인 중...");
+        progressDialog.setCancelable(false);
+        progressDialog.show();
+        FirebaseAuth.getInstance().signInWithEmailAndPassword(id,pw).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                progressDialog.dismiss();
+                if(task.isSuccessful()){
+                    Toast.makeText(Second_LoginController.this, "로그인 되었습니다.",Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    Toast.makeText(Second_LoginController.this, "로그인에 실패 하엿습니다.\n" + task.getException().getMessage() , Toast.LENGTH_LONG).show();
+                }
+            }
+        });
     }
 }

@@ -45,26 +45,26 @@ public class FRG7_back extends android.support.v4.app.Fragment {
         act7_first.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requester.TrackActivityStart("body1");
+                requester.TrackActivityStart("등(배)1");
             }
         });
 
         act7_second.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requester.TrackActivityStart("body2");
+                requester.TrackActivityStart("등(배)2");
             }
         });
         act7_third.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requester.TrackActivityStart("body3");
+                requester.TrackActivityStart("등(배)3");
             }
         });
         act7_fource.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requester.TrackActivityStart("body4");
+                requester.TrackActivityStart("등(배)4");
             }
         });
 

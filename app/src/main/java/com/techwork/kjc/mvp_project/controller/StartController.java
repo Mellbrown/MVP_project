@@ -1,11 +1,19 @@
 package com.techwork.kjc.mvp_project.controller;
 
+import android.Manifest;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ViewGroup;
@@ -14,6 +22,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.techwork.kjc.mvp_project.dialog.PracticeMenuDialog;
 import com.techwork.kjc.mvp_project.fireSource.Fire_Auth;
 import com.techwork.kjc.mvp_project.fragment.FRG1_Splash;
@@ -31,7 +40,6 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
     FragmentManager fragmentManager;
     FrameLayout frameLayout;
     int containerID;
-    StartController scMe;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,20 +56,18 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
         setContentView(frameLayout);
         fragmentManager = getSupportFragmentManager();
 
-        //Start----------------------------------------로그인 여부에 따라
-        //renderingFRG1_Slpash() 할지
-        //rendingFRG4_MainMenu()할지
-        Second_RegisterController.sct = StartController.this;
-        new Fire_Auth().checkLogin(this); // 이코드로 초기화 화면은 정해진다.
+        checkPermission();
+    }
 
-        //로그인 이벤트 발생하면, rendingFRG4_MainMenu해주고
-        //로그아웃 이벤트 발생하면 rendringFRG1_Splash해주고
-//        FirebaseAuth.getInstance().addAuthStateListener(new FirebaseAuth.AuthStateListener() {
-//            @Override // 히힝 잠시 로그인 이벤트 쓰려고 잠시 썻어영. 로그인 아웃되거나 인되면, 화면 바까줍니당
-//            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-//                new Fire_Auth().checkLogin(StartController.this);
-//            }
-//        });
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+        if(currentUser == null){ // 로그인 안되어 있으면
+            rendingFRG1_Splash();
+        } else { // 로그인 되어 있으면
+            rendingFRG4_MainMenu();
+        }
     }
     public void launcherStart(){
 
@@ -76,7 +82,7 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
         FRG1_Splash frg1_splash = new FRG1_Splash();
         frg1_splash.requester = this;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(containerID, frg1_splash);
+        fragmentTransaction.replace(containerID, frg1_splash);
         fragmentTransaction.commitAllowingStateLoss();
     }
 
@@ -86,7 +92,7 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
         FRG4_MenuMain frg4_mainmenu = new FRG4_MenuMain();
         frg4_mainmenu.requester = this;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(containerID, frg4_mainmenu);
+        fragmentTransaction.replace(containerID, frg4_mainmenu);
         fragmentTransaction.commitAllowingStateLoss();
     }
 
@@ -94,7 +100,6 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
     public void requestLinkTo(FRG1_Splash.REQUEST_LINK request_link) {
         switch (request_link){
             case SIGNIN:{
-                Second_RegisterController.sct = StartController.this;
                 startActivity(new Intent(StartController.this, Second_LoginController.class));
             } break;
             case SIGNUP:{
@@ -119,13 +124,20 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
     @Override
     public void RecordActivityStart() {
         // 앙 아직 만들어졌다 띄
-        Toast.makeText(StartController.this, "앙 아직 안들어졌다 띄 앙앙!", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(StartController.this,Third_RecordController.class));
     }
 
 
     @Override // 냥 냥 나중에 수정된 내용!
     public void Logout() {
-        new Fire_Auth().aLogout(StartController.this);
+//        FirebaseAuth.getInstance().signOut();
+//        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+//        if(currentUser == null){ // 로그인 안되어 있으면
+//            rendingFRG1_Splash();
+//        } else { // 로그인 되어 있으면
+//            rendingFRG4_MainMenu();
+//        }
+        startActivity(new Intent(this, StartEditController.class));
     }
 
     @Override //메뉴중하나는 다이얼로그 띄워서 세부 메뉴를 씁니다.
@@ -147,5 +159,78 @@ public class StartController extends AppCompatActivity implements FRG1_Splash.Re
             }
         });
         practiceMenuDialog[0].show();
+    }
+
+    /************************여긴 권한 처리하는 코드가 담겨 있어오***************************/
+    private static final int PERMISSION_REQ_CAMERA = 189;
+
+    private void ShowNoticeRejectPermissionDialog(){
+        new AlertDialog.Builder(this)
+                .setTitle("알림")
+                .setMessage("저장소 권한이 거부되었습니다. 사용을 원하시면 설정에서 해당 권한을 직접 허용하셔야 합니다.")
+                .setNeutralButton("설정", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                        intent.setData(Uri.parse("package:" + getPackageName()));
+                        startActivity(intent);
+                    }
+                })
+                .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                })
+                .setCancelable(false)
+                .create()
+                .show();
+    }
+    private void checkPermission(){
+        if ( // 필요한 권한 있는지 검사를 해오
+                ContextCompat.checkSelfPermission(this, // 이 어플이
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE) //외부 저장소 권한을 가지고 있는지 물어봐요
+                        != PackageManager.PERMISSION_GRANTED ||// 승인이 안되어 있오요??
+                        ContextCompat.checkSelfPermission(this, // 이 어플이
+                                Manifest.permission.CAMERA) //외부 저장소 권한을 가지고 있는지 물어봐요
+                                != PackageManager.PERMISSION_GRANTED // 승인이 안되어 있오요??
+                ) {
+            // 오 외부 저장소 승인이 안되어 있다네오
+            if ( // 저번에 주인이 절대 안주겠다고 했던가요?
+                    (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                            android.Manifest.permission.WRITE_EXTERNAL_STORAGE)) || //외부 저장소 접근 권한하고
+
+                            (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                                    android.Manifest.permission.CAMERA)) // 카메라 사용 접근 권한하고
+                    ) {
+                // 오맨, 그랬데요!!, 그러면 쓸꺼면 알아서 설정가서 세팅하라고 합시다.
+                ShowNoticeRejectPermissionDialog();
+            } else {
+                // 그런적은 없다고 하네요. 그럼 지금 달라고 합시다.
+                ActivityCompat.requestPermissions(this,
+                        new String[]{
+                                android.Manifest.permission.WRITE_EXTERNAL_STORAGE, // 외부 저장소 접근과
+                                android.Manifest.permission.CAMERA // 카메라 사용 접근 권한을
+                        },
+                        PERMISSION_REQ_CAMERA // 그리고 여기로 대답해줘요(신호코드)!! 위에 있어요!!
+                );
+            }
+        }//필요한 권한 다 있다네오!
+    }
+
+    //여기다 사용자에게 권한 요청 응답이 여기서 처리를 해요
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            // 우리가 이쪽으로 응답해달라 신호가 왔군요!!
+            case PERMISSION_REQ_CAMERA:
+                for (int i = 0; i < grantResults.length; i++) {
+                    if (grantResults[i] < 0) {
+                        Toast.makeText(this, "해당 권한을 활성화 하셔야 합니다.", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                }
+                break;
+        }
     }
 }

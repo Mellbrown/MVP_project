@@ -169,6 +169,16 @@ abstract public class CusCalView<T, VH extends CusCalView.CusCalViewHolder> exte
                 cusCalViewHolder.setVisibility(INVISIBLE);
             }
         }
+
+        if(onUpdateMonth != null) onUpdateMonth.onUpdateMonth(selectedDate);
+    }
+
+    public void setOnUpdateMonth(OnUpdateMonth onUpdateMonth) {
+        this.onUpdateMonth = onUpdateMonth;
+    }
+    private OnUpdateMonth onUpdateMonth = null;
+    public interface OnUpdateMonth{
+        void onUpdateMonth(Calendar selectedDate);
     }
 
     private VH getViewholderFromDate(SimpleDate simpleDate){

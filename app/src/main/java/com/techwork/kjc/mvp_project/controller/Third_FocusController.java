@@ -1,5 +1,6 @@
 package com.techwork.kjc.mvp_project.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -41,9 +42,11 @@ public class Third_FocusController extends AppCompatActivity implements g2u.Patc
         curPage = arm;
     }
 
-    @Override //화면에서
+    @Override //화면에서 4단계 Track 컨트롤러 가잡니다.
     public void TrackActivityStart(String part) {
-
+        Intent intent = new Intent(this, Fourth_TrackController.class);
+        intent.putExtra(Fourth_TrackController.PART, part); // 구분할 기회를 제공 받습니다.
+        startActivity(intent);
     }
 
     // 팔 페이지 렌더링

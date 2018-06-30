@@ -45,26 +45,26 @@ public class FRG7_Leg extends android.support.v4.app.Fragment {
         act7_first.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requester.TrackActivityStart("leg1");
+                requester.TrackActivityStart("다리1");
             }
         });
 
         act7_second.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requester.TrackActivityStart("leg2");
+                requester.TrackActivityStart("다리2");
             }
         });
         act7_third.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requester.TrackActivityStart("leg3");
+                requester.TrackActivityStart("다리3");
             }
         });
         act7_fource.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requester.TrackActivityStart("leg4");
+                requester.TrackActivityStart("다리4");
             }
         });
 

@@ -30,10 +30,10 @@ public class SubFRG6_ShowVersus extends FrameLayout {
     private ImageView img_you_result;
     private ImageView img_rival_result;
 
-    private int youTime = 0;
-    private int youStren = 0;
-    private int rivalTime = 0;
-    private int rivalStren = 0;
+    public int youTime = 0;
+    public int youStren = 0;
+    public int rivalTime = 0;
+    public int rivalStren = 0;
 
     public int getYouTime() { return youTime; }
     public int getYouStren() { return youStren; }
@@ -73,7 +73,7 @@ public class SubFRG6_ShowVersus extends FrameLayout {
         img_rival_result = viewLayout.findViewById(R.id.img_rival_result);
 
 
-        btnConfirm.setOnClickListener((View v)->requester.requestConfirm());
+        btnConfirm.setOnClickListener((View v)->requester.requestConfirm(youTime, youStren, rivalTime, rivalStren));
         btnCancle.setOnClickListener((View v)->requester.requestCancle());
 
         con_you_up.addView(new CusInputUpdownCounter(context,"시간","분", 0,(int v)->youTime=v));
@@ -126,7 +126,7 @@ public class SubFRG6_ShowVersus extends FrameLayout {
     public interface Requester{
         TwoManInfo requestTwoManInfo();
         void requestCancle();
-        void requestConfirm();
+        void requestConfirm(int youTime, int youLevel, int rivalTime, int rivalLevel);
         void requestEndup();
     }
 }

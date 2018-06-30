@@ -45,26 +45,26 @@ public class FRG7_aBody extends android.support.v4.app.Fragment {
         act7_first.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requester.TrackActivityStart("abody1");
+                requester.TrackActivityStart("전신1");
             }
         });
 
         act7_second.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requester.TrackActivityStart("abody2");
+                requester.TrackActivityStart("전신2");
             }
         });
         act7_third.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requester.TrackActivityStart("abody3");
+                requester.TrackActivityStart("전신3");
             }
         });
         act7_fource.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requester.TrackActivityStart("abody4");
+                requester.TrackActivityStart("전신4");
             }
         });
 

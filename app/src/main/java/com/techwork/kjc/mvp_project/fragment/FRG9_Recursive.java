@@ -14,9 +14,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.techwork.kjc.mvp_project.R;
+import com.techwork.kjc.mvp_project.dialog.InputRecursiveDialog;
+import com.techwork.kjc.mvp_project.dialog.ShowRecursiveDialog;
 import com.techwork.kjc.mvp_project.subview.CusCalView;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 public class FRG9_Recursive extends Fragment {
@@ -45,7 +50,27 @@ public class FRG9_Recursive extends Fragment {
                 viewHolder.viewLayout.setOnClickListener(new OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        requester.onItemClick(viewHolder.getCurBinded());
+                        Item item = dataMap.get(viewHolder.getCurBinded());
+                        if(item == null) item = new Item();
+                        List<ShowRecursiveDialog.Item> itemList = new ArrayList<>();
+                        int i = 1;
+                        for(Record record : item.records){
+                            itemList.add(new ShowRecursiveDialog.Item(i++,
+                                    record.queue.get(0),
+                                    record.queue.get(1),
+                                    record.queue.get(2),
+                                    record.queue.get(3), record.reps));
+                        }
+                        new ShowRecursiveDialog(getContext(), itemList, v1 -> {
+                            new InputRecursiveDialog(getContext(), (long timestamp, List<String> queue, int reps) -> {
+                                SimpleDate curBinded = viewHolder.getCurBinded();
+                                Calendar cal = Calendar.getInstance();
+                                cal.setTime(new Date(timestamp));
+                                Log.i("삽입자", String.format("year %d, month %d, date %d",curBinded.year, curBinded.month,curBinded.date));
+                                cal.set(curBinded.year, curBinded.month - 1,curBinded.date);
+                                requester.requestUpload(cal.getTime().getTime(),queue,reps);
+                            }).show();
+                        }).show();
                     }
                 });
                 return viewHolder;
@@ -53,23 +78,25 @@ public class FRG9_Recursive extends Fragment {
         };
         frame.addView(cusCalView, FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.MATCH_PARENT);
 
+        responseDataSetChange(requester.requestInitData());
         return viewLayout;
     }
 
     public static class Record{
-        public static final int none = -1;
-        public static final int arm = 1;
-        public static final int leg = 2;
-        public static final int back = 3;
-        public static final int body = 4;
+        public long timestamp = 0;
 
-        public final int[] courseOrder =  {none, none, none,none};
-        public final int[] courceLepcount = {0,0,0,0};
+        public static final String arm = "팔";
+        public static final String leg = "다리";
+        public static final String back = "등(배)";
+        public static final String body = "전신";
 
-        public Record put(int idx, int courseType, int courseLeps){
-            courseOrder[idx] = courseType;
-            courceLepcount[idx] = courseLeps;
-            return this;
+        final List<String> queue = new ArrayList<>();
+        private int reps = 0;
+
+        public Record(long timestamp, List<String> queue, int reps){
+            this.timestamp = timestamp;
+            this.queue.addAll(queue);
+            this.reps = reps;
         }
     }
 
@@ -97,10 +124,12 @@ public class FRG9_Recursive extends Fragment {
 
         @Override
         public void onDataBind(Item data) {
-            if(data != null && data.records.size() > 1){
+            if(data != null && data.records.size() > 0){
                 icon.setVisibility(VISIBLE);
                 txtCnt.setVisibility(VISIBLE);
-                txtCnt.setText(data.records.size() + " 회");
+                int sum = 0;
+                for(Record record : data.records) sum += record.reps;
+                txtCnt.setText(sum + " 회");
             }else{
                 icon.setVisibility(INVISIBLE);
                 txtCnt.setVisibility(INVISIBLE);
@@ -129,6 +158,7 @@ public class FRG9_Recursive extends Fragment {
     }
 
     public interface Requester{
-        void onItemClick(CusCalView.SimpleDate date);
+        Map<CusCalView.SimpleDate, Item> requestInitData();
+        void requestUpload(long timestamp, List<String> queue, int reps);
     }
 }

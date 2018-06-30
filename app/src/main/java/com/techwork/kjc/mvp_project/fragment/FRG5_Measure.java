@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.Exclude;
@@ -34,8 +36,8 @@ import java.util.Date;
 
 public class FRG5_Measure extends Fragment implements View.OnClickListener {
 
-    private FloatingActionButton btnAdd;
-    private FloatingActionButton btnRemove;
+    private TextView btnAdd;
+    private TextView btnRemove;
     private FloatingActionButton btnReload;
     private FloatingActionButton btnCancle;
 
@@ -118,6 +120,8 @@ public class FRG5_Measure extends Fragment implements View.OnClickListener {
         };
         recyclerView.setLayoutManager(recLayoutMgr);
         recyclerView.setAdapter(recAdapter);
+
+        requester.requestMeasureItemBeans();
 
         return viewLayout;
     }

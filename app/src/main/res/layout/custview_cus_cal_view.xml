@@ -15,7 +15,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:color/holo_purple" />
+        app:srcCompat="@color/main3" />
 
     <ImageView
         android:id="@+id/imageView7"
@@ -156,6 +156,7 @@
     </LinearLayout>
 
     <TableLayout
+
         android:id="@+id/frame"
         android:layout_width="0dp"
         android:layout_height="0dp"

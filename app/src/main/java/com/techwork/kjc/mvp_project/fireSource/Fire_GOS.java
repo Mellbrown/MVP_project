@@ -195,7 +195,7 @@ public class Fire_GOS {
                 Bitmap cont = Bitmap.createScaledBitmap(bmp, 100,100 , false);
                 res1.put(myInfo,cont);
                 if(uf.size()==res2.size()&&res1.size()==1){
-                    act.renderingFRG6_Versus(res1, res2);
+//                    act.renderingFRG6_Versus(res1, res2);
                 }
             }
         });
@@ -209,7 +209,7 @@ public class Fire_GOS {
                     Log.w("testing",String.valueOf(res2.size()));
                     Log.w("testing",String.valueOf(res1.size()));
                     if(uf.size()==res2.size()&&res1.size()==1){
-                        act.renderingFRG6_Versus(res1, res2);
+//                        act.renderingFRG6_Versus(res1, res2);
                     }
                 }
             }).addOnFailureListener(new OnFailureListener() {

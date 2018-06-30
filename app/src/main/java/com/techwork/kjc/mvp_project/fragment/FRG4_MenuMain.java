@@ -2,6 +2,7 @@ package com.techwork.kjc.mvp_project.fragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,7 +35,7 @@ public class FRG4_MenuMain extends Fragment implements  RingView.OnClickListner{
 
         rv.setOnClickListener(this);
 
-        Button bt = (Button)viewLayout.findViewById(R.id.act4_logout);
+        Button bt = viewLayout.findViewById(R.id.act4_logout);
         bt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

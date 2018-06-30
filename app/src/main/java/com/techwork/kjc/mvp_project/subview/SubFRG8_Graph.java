@@ -52,7 +52,7 @@ public class SubFRG8_Graph extends FrameLayout{
         });
         sel_date.addView(cusSelDateView, -1, -2);
 
-        onRequesterDataOfDate.onRequesterDataOfDate(curDate);
+        setData(onRequesterDataOfDate.requestInitData(curDate));
     }
 
     public static class Item {
@@ -62,6 +62,7 @@ public class SubFRG8_Graph extends FrameLayout{
     }
 
     public void setData(ArrayList<Item> items){
+        if(items.size() == 0) return;
         Collections.sort(items,(Item o1,Item o2)->o1.level - o2.level);
         int graphData[] = new int[items.get(items.size()-1).level + 1];
         Arrays.fill(graphData, 0);
@@ -81,6 +82,7 @@ public class SubFRG8_Graph extends FrameLayout{
     }
 
     public interface OnRequesterDataOfDate{
+        ArrayList<Item> requestInitData(CusSelDateView.SimpleDate requestDate);
         void onRequesterDataOfDate(CusSelDateView.SimpleDate requestDate);
     }
 }

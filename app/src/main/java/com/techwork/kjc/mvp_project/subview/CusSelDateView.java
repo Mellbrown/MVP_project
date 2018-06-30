@@ -48,7 +48,7 @@ public class CusSelDateView extends FrameLayout implements View.OnClickListener 
         btnNextMonth.setOnClickListener(this);
 
         this.curDate = date;
-        iptDate.setText(String.format("%04d.%02d.%02d",curDate.year, curDate.month, curDate.date));
+        txtDate.setText(String.format("%04d.%02d.%02d",curDate.year, curDate.month, curDate.date));
 
         viewLayout.setOnClickListener(new OnClickListener() {
             @Override
