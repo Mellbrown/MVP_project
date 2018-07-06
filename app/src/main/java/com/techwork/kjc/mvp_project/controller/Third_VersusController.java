@@ -125,6 +125,7 @@ public class Third_VersusController extends AppCompatActivity implements FRG6_Ve
             UserPublicInfoBean rival = userPublicInfoBeanMap.get(uid);
             Uri uri = photoResourceMap.get(rival.photoID);
             Bitmap bitmap = null;
+            if(uri != null )
             try { bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri); }
             catch (IOException e) { e.printStackTrace(); }
             simProfiles.add(new AttachID(bitmap, rival.name, uid));
