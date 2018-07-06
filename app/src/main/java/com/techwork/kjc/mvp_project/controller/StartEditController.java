@@ -110,7 +110,7 @@ public class StartEditController extends AppCompatActivity {
         loading();
     }
 
-    String mPhotoID[] =  {"default"};
+    String mPhotoID[] =  {"default.jpg"};
     private void loading(){
 
         final ProgressDialog progressDialog = new ProgressDialog(this);

@@ -125,7 +125,7 @@ public class Second_RegisterController extends AppCompatActivity implements FRG2
             }
         });
 
-        String mPhotoID[] =  {"default"};
+        String mPhotoID[] =  {"default.jpg"};
         eventChain1.andthen(()->{ // 계정 생성되면 업로드
             if(imageUri != null){
                 UserPhotoDAO.uploadUserPhoto(imageUri, new UserPhotoDAO.OnUploadComplete() {
