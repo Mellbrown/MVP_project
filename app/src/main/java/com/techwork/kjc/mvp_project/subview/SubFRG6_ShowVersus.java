@@ -77,9 +77,9 @@ public class SubFRG6_ShowVersus extends FrameLayout {
         btnCancle.setOnClickListener((View v)->requester.requestCancle());
 
         con_you_up.addView(new CusInputUpdownCounter(context,"시간","분", 0,(int v)->youTime=v));
-        con_you_down.addView(new CusInputUpdownCounter(context,"강도","", 0,(int v)->youStren=v));
+        con_you_down.addView(new CusInputUpdownCounter(context,"횟수","", 0,(int v)->youStren=v));
         con_rival_up.addView(new CusInputUpdownCounter(context,"시간","분", 0,(int v)->rivalTime=v));
-        con_rival_down.addView(new CusInputUpdownCounter(context,"강도","", 0, (int v)->rivalStren=v));
+        con_rival_down.addView(new CusInputUpdownCounter(context,"횟수","", 0, (int v)->rivalStren=v));
 
         TwoManInfo twoManInfo = requester.requestTwoManInfo();
         if(twoManInfo.youphoto != null) imgYouPhoto.setImageBitmap(twoManInfo.youphoto);

@@ -5,7 +5,7 @@ public class UserPublicInfoBean {
     public static final String GENDER_MAIL = "남";
     public static final String GENDEE_FEMAIL = "여";
     public static final String GENDER_NONE = "미지정";
-    public static final String DEFAULT_PHOTO_ID = "default";
+    public static final String DEFAULT_PHOTO_ID = "default.jpg";
 
     public String name = "";
     public String gener = GENDER_NONE;
