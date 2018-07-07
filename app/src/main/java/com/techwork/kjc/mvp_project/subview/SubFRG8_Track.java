@@ -14,11 +14,14 @@ import com.techwork.kjc.mvp_project.R;
 import com.techwork.kjc.mvp_project.adapter.BaseRecyclerAdapter;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class SubFRG8_Track extends FrameLayout implements View.OnClickListener {
 
     private View viewLayout;
 
+    private FrameLayout sel_date;
     private FrameLayout level_frame;
     private FrameLayout reps_frame;
     private FloatingActionButton btnUpload;
@@ -27,11 +30,13 @@ public class SubFRG8_Track extends FrameLayout implements View.OnClickListener {
     private RecyclerView.LayoutManager layoutManager;
     private BaseRecyclerAdapter<Item,ViewHolder> recyclerAdapter;
 
+    private CusSelDateView cusSelDateView;
     private CusInputUpdownCounter levelCusInputUpdownCounter;
     private CusInputUpdownCounter repsCusInputUpdownCounter;
 
     private int valueLevel = 0;
     private int valueReps = 0;
+    private CusSelDateView.SimpleDate simpleDate;
 
     private OnRequesterUploadItem onRequesterUploadItem;
 
@@ -43,11 +48,14 @@ public class SubFRG8_Track extends FrameLayout implements View.OnClickListener {
         viewLayout = inflater.inflate(R.layout.subview_act8_track, this, false);
         addView(viewLayout);
         // Ui
+        sel_date = viewLayout.findViewById(R.id.sel_date);
         level_frame = viewLayout.findViewById(R.id.level_frame);
         reps_frame = viewLayout.findViewById(R.id.reps_frame);
         btnUpload = viewLayout.findViewById(R.id.btnUpload);
         recyclerView = viewLayout.findViewById(R.id.recyclerView);
         // UI 프레임에 박기
+        cusSelDateView = new CusSelDateView(getContext(), new CusSelDateView.SimpleDate(), date -> simpleDate = date);
+        sel_date.addView(cusSelDateView);
         levelCusInputUpdownCounter = new CusInputUpdownCounter(getContext(),
                 "강도(Level)", "", 0, (int value)->valueLevel=value);
         level_frame.addView(levelCusInputUpdownCounter, -2, -2);
@@ -74,7 +82,10 @@ public class SubFRG8_Track extends FrameLayout implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if(valueLevel == 0 && valueReps == 0) return;
-        onRequesterUploadItem.onReqeusteUploadItem(valueLevel, valueReps);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(new Date());
+        cal.set(simpleDate.year,simpleDate.month-1, simpleDate.date);
+        onRequesterUploadItem.onReqeusteUploadItem(cal.getTimeInMillis(),valueLevel, valueReps);
     }
 
     public static class Item{
@@ -113,6 +124,6 @@ public class SubFRG8_Track extends FrameLayout implements View.OnClickListener {
 
     public interface OnRequesterUploadItem{
         ArrayList<Item> onRequestInitdata();
-        void onReqeusteUploadItem(int level, int reps);
+        void onReqeusteUploadItem(long timestamp, int level, int reps);
     }
 }

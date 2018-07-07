@@ -75,8 +75,8 @@ public class FRG8_0Traning extends Fragment implements View.OnClickListener {
             }
 
             @Override
-            public void onReqeusteUploadItem(int level, int reps) {
-                requester.onTrackReqeusteUploadItem(level,reps);
+            public void onReqeusteUploadItem(long timestamp, int level, int reps) {
+                requester.onTrackReqeusteUploadItem(timestamp, level,reps);
             }
         });
         frame.removeAllViews();
@@ -154,7 +154,7 @@ public class FRG8_0Traning extends Fragment implements View.OnClickListener {
         ArrayList<SubFRG8_Track.Item> onTrackRequestInitData();
         ArrayList<SubFRG8_Histrory.Item> onHistoryRequesterInitDataOfDate(CusSelDateView.SimpleDate requestDate);
         ArrayList<SubFRG8_Graph.Item> onGraphRequesterInitDataOfDate(CusSelDateView.SimpleDate requestDate);
-        void onTrackReqeusteUploadItem(int level, int reps);
+        void onTrackReqeusteUploadItem(long timstamp, int level, int reps);
         void onHistoryRequesterDataOfDate(CusSelDateView.SimpleDate requestDate);
         void onGraphRequesterDataOfDate(CusSelDateView.SimpleDate requestDate);
     }
