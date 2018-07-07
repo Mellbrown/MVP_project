@@ -153,6 +153,12 @@ public class Third_VersusController extends AppCompatActivity implements FRG6_Ve
         progressDialog.show();
         AttachID castYou = (AttachID) you;
         AttachID castRival = (AttachID) rival;
+        if(youLevel == rivalLevel){
+            progressDialog.dismiss();
+            ((FRG6_Versus) fragmentManager.findFragmentByTag("frg6_versus"))
+                    .responseWhoWinner(null); // 당신이 이겻다 코드
+            return;
+        }
         VesusBean vesusBean = new VesusBean();
         vesusBean.winner = youLevel > rivalLevel ? castYou.uid : castRival.uid;
         vesusBean.rival_level = (long)rivalLevel;
@@ -167,7 +173,7 @@ public class Third_VersusController extends AppCompatActivity implements FRG6_Ve
             public void onComlete() {
                 progressDialog.dismiss();
                 ((FRG6_Versus) fragmentManager.findFragmentByTag("frg6_versus"))
-                    .responseWhoWinner(youLevel > rivalLevel); // 당신이 이겻다 코드
+                    .responseWhoWinner((youLevel > rivalLevel)); // 당신이 이겻다 코드
             }
         });
 
