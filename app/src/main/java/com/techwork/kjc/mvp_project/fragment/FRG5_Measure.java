@@ -186,11 +186,11 @@ public class FRG5_Measure extends Fragment implements View.OnClickListener {
     public static class MeasureItemBean implements Comparable<MeasureItemBean>{
         private static final SimpleDateFormat mDateFormat = new SimpleDateFormat("MM월 dd일");
 
-        public Long timestamp;
-        public double armWeight;
-        public double legWeight;
-        public double backWeight;
-        public double allBodyWeight;
+        public Long timestamp = new Date().getTime();
+        public double armWeight = 0;
+        public double legWeight = 0;
+        public double backWeight = 0;
+        public double allBodyWeight = 0;
 
         public MeasureItemBean(){}
 
