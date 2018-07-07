@@ -7,11 +7,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
 import com.techwork.kjc.mvp_project.R;
 import com.techwork.kjc.mvp_project.adapter.BaseRecyclerAdapter;
+import com.techwork.kjc.mvp_project.dialog.YoutubePlayerDialog;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -25,6 +27,7 @@ public class SubFRG8_Track extends FrameLayout implements View.OnClickListener {
     private FrameLayout level_frame;
     private FrameLayout reps_frame;
     private FloatingActionButton btnUpload;
+    private Button btnVideo;
 
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager layoutManager;
@@ -52,6 +55,7 @@ public class SubFRG8_Track extends FrameLayout implements View.OnClickListener {
         level_frame = viewLayout.findViewById(R.id.level_frame);
         reps_frame = viewLayout.findViewById(R.id.reps_frame);
         btnUpload = viewLayout.findViewById(R.id.btnUpload);
+        btnVideo = viewLayout.findViewById(R.id.btnVideo);
         recyclerView = viewLayout.findViewById(R.id.recyclerView);
         // UI 프레임에 박기
         cusSelDateView = new CusSelDateView(getContext(), new CusSelDateView.SimpleDate(), date -> simpleDate = date);
@@ -75,6 +79,7 @@ public class SubFRG8_Track extends FrameLayout implements View.OnClickListener {
         recyclerView.setAdapter(recyclerAdapter);
 
         btnUpload.setOnClickListener(this);
+        btnVideo.setOnClickListener(v -> new YoutubePlayerDialog(getContext(), "Frs7j21R4Cc").show());
 
         setData(onRequesterUploadItem.onRequestInitdata());
     }
