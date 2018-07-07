@@ -78,6 +78,11 @@ public class FRG8_0Traning extends Fragment implements View.OnClickListener {
             public void onReqeusteUploadItem(long timestamp, int level, int reps) {
                 requester.onTrackReqeusteUploadItem(timestamp, level,reps);
             }
+
+            @Override
+            public String getTitle() {
+                return requester.setTitle();
+            }
         });
         frame.removeAllViews();
         frame.addView(subFRG8_track,-1,-1);

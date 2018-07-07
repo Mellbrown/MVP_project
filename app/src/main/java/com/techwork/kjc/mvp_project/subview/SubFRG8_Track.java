@@ -79,7 +79,8 @@ public class SubFRG8_Track extends FrameLayout implements View.OnClickListener {
         recyclerView.setAdapter(recyclerAdapter);
 
         btnUpload.setOnClickListener(this);
-        btnVideo.setOnClickListener(v -> new YoutubePlayerDialog(getContext(), "Frs7j21R4Cc").show());
+
+        btnVideo.setOnClickListener(v -> new YoutubePlayerDialog(getContext(), onRequesterUploadItem.getTitle()).show());
 
         setData(onRequesterUploadItem.onRequestInitdata());
     }
@@ -130,5 +131,6 @@ public class SubFRG8_Track extends FrameLayout implements View.OnClickListener {
     public interface OnRequesterUploadItem{
         ArrayList<Item> onRequestInitdata();
         void onReqeusteUploadItem(long timestamp, int level, int reps);
+        String getTitle();
     }
 }
