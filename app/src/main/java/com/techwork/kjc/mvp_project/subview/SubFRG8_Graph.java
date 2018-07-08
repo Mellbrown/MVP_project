@@ -61,26 +61,30 @@ public class SubFRG8_Graph extends FrameLayout{
         public int reps;
     }
 
-    public void setData(ArrayList<Item> items){
-        if(items.size() == 0) return;
-        Collections.sort(items,(Item o1,Item o2)->o1.level - o2.level);
-        int graphData[] = new int[items.get(items.size()-1).level + 1];
-        Arrays.fill(graphData, 0);
+    public void setData(ArrayList<Item> items) {
+        if (items.size() == 0) {
+            ArrayList<BarModel> barModels = new ArrayList<>();
+            mBarChart.clearChart();
+            mBarChart.addBarList(barModels);
+        } else {
+            Collections.sort(items, (Item o1, Item o2) -> o1.level - o2.level);
+            int graphData[] = new int[items.get(items.size() - 1).level + 1];
+            Arrays.fill(graphData, 0);
 
-        for(int i = 0; items.size() > i ; i++){
-            Item item = items.get(i);
-            graphData[item.level] += item.reps;
+            for (int i = 0; items.size() > i; i++) {
+                Item item = items.get(i);
+                graphData[item.level] += item.reps;
+            }
+
+            ArrayList<BarModel> barModels = new ArrayList<>();
+            for (int i = 0; graphData.length > i; i++) {
+                barModels.add(new BarModel(i + ".Lv", graphData[i], Color.YELLOW));
+            }
+
+            mBarChart.clearChart();
+            mBarChart.addBarList(barModels);
         }
-
-        ArrayList<BarModel> barModels = new ArrayList<>();
-        for(int i = 0; graphData.length > i; i++){
-            barModels.add(new BarModel(i + ".Lv", graphData[i], Color.YELLOW));
-        }
-
-        mBarChart.clearChart();
-        mBarChart.addBarList(barModels);
     }
-
     public interface OnRequesterDataOfDate{
         ArrayList<Item> requestInitData(CusSelDateView.SimpleDate requestDate);
         void onRequesterDataOfDate(CusSelDateView.SimpleDate requestDate);

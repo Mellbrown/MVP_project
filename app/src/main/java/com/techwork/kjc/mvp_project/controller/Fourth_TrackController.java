@@ -286,9 +286,11 @@ public class Fourth_TrackController extends AppCompatActivity implements FRG8_0T
 
             SubFRG8_Graph.Item item = new SubFRG8_Graph.Item();
             item.number = i++;
+
             item.level = Integer.valueOf(focusBean.level+"");
             item.reps = Integer.valueOf(focusBean.reps+"");
             items.add(item);
+
         }
         getFragmentInstance().setGraphItemes(items);
     }
