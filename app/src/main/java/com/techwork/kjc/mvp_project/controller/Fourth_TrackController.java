@@ -172,7 +172,7 @@ public class Fourth_TrackController extends AppCompatActivity implements FRG8_0T
 
 
     @Override // Track화면에서 해당 아이템을 업로드 해달라고 요청 왔음
-    public void onTrackReqeusteUploadItem(int level, int reps) {
+    public void onTrackReqeusteUploadItem(long timestamp, int level, int reps) {
 
         final ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("데이터 삽입 중...");
@@ -181,7 +181,7 @@ public class Fourth_TrackController extends AppCompatActivity implements FRG8_0T
 
         String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
         FocusBean iptFocusBean = new FocusBean();
-        iptFocusBean.timestamp = new Date().getTime();
+        iptFocusBean.timestamp = timestamp;
         iptFocusBean.level = (long)level;
         iptFocusBean.reps = (long)reps;
         final EventChain eventChain = new EventChain();

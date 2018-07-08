@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.techwork.kjc.mvp_project.dialog.InputMeasureRecordDialog;
+import com.techwork.kjc.mvp_project.dialog.InputMeasureRecordDialog2;
 import com.techwork.kjc.mvp_project.dialog.ProgressDialog;
 import com.techwork.kjc.mvp_project.dialog.ShowPreScriptionDialog;
 import com.techwork.kjc.mvp_project.fireSource.Fire_GOS;
@@ -104,28 +105,25 @@ public class Third_MeauserController extends AppCompatActivity implements FRG5_M
 
     @Override // 화면에서 사용자가 + 버튼 눌럿데여! (저긴 버튼 클릭 이벤트 발생 외엔 아무것도 않함;;
     public void requestAddMeasureItem() {
-        new InputMeasureRecordDialog(Third_MeauserController.this, new InputMeasureRecordDialog.OnSaveListener() {
-            @Override // 다이어로그가 사용자한테 값 받아 왔을때 얘기임
-            public void onSave(FRG5_Measure.MeasureItemBean measureItemBean) {
-                String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-                MeasureBean measureBean = new MeasureBean();
-                measureBean.timestamp = measureItemBean.timestamp;
-                measureBean.arm = measureItemBean.armWeight;
-                measureBean.leg = measureItemBean.legWeight;
-                measureBean.back = measureItemBean.backWeight;
-                measureBean.body = measureItemBean.allBodyWeight;
-                MeasureDAO.addMeasureBeanWithUID(uid,measureBean).addOnCompleteListener(new OnCompleteListener<Void>() {
-                    @Override
-                    public void onComplete(@NonNull Task<Void> task) {
-                        if(task.isSuccessful()){
-                            getFragmentInstance().responseAddMeasureItem(measureItemBean);
-                        } else {
-                            Toast.makeText(Third_MeauserController.this, "서버에 데이터를 전달하지 못하였습니다.", Toast.LENGTH_SHORT).show();
-                            Log.e("Third_MeauserController", task.getException().getMessage());
-                        }
+        new InputMeasureRecordDialog2(Third_MeauserController.this,  measureItemBean -> {
+            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
+            MeasureBean measureBean = new MeasureBean();
+            measureBean.timestamp = measureItemBean.timestamp;
+            measureBean.arm = measureItemBean.armWeight;
+            measureBean.leg = measureItemBean.legWeight;
+            measureBean.back = measureItemBean.backWeight;
+            measureBean.body = measureItemBean.allBodyWeight;
+            MeasureDAO.addMeasureBeanWithUID(uid,measureBean).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        getFragmentInstance().responseAddMeasureItem(measureItemBean);
+                    } else {
+                        Toast.makeText(Third_MeauserController.this, "서버에 데이터를 전달하지 못하였습니다.", Toast.LENGTH_SHORT).show();
+                        Log.e("Third_MeauserController", task.getException().getMessage());
                     }
-                });
-            }
+                }
+            });
         }).show();
     }
 

@@ -111,7 +111,7 @@ public class FRG6_Versus extends Fragment {
         }
     }
 
-    public void responseWhoWinner(boolean isYouWin){
+    public void responseWhoWinner(Boolean isYouWin){
         subFRG6_showVersus.responseResult(isYouWin);
     }
 }

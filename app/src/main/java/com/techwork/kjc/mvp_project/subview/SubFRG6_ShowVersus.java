@@ -102,8 +102,10 @@ public class SubFRG6_ShowVersus extends FrameLayout {
         }
     }
 
-    public void responseResult(boolean isYouWinner){
-        if(isYouWinner){
+    public void responseResult(Boolean isYouWinner){
+        if(isYouWinner == null){
+            viewLayout.findViewById(R.id.imgDraw).setVisibility(VISIBLE);
+        }else if(isYouWinner){
             img_you_result.setImageResource(R.drawable.winner);
             img_rival_result.setImageResource(R.drawable.loser);
         }
@@ -119,6 +121,8 @@ public class SubFRG6_ShowVersus extends FrameLayout {
         });
 
         btnRejection.setVisibility(VISIBLE);
+
+        if(isYouWinner == null) return;
         img_you_result.setVisibility(VISIBLE);
         img_rival_result.setVisibility(VISIBLE);
     }
