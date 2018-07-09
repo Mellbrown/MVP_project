@@ -47,6 +47,11 @@ public class Strandard2 {
             }
             return false;
         }
+
+        @Override
+        public String toString() {
+            return String.format("%d %s %s",grade, gender, part);
+        }
     }
 
     public static class EvalueClass{
@@ -59,46 +64,78 @@ public class Strandard2 {
             this.mid = mid;
             this.bot = bot;
         }
+
+        @Override
+        public String toString() {
+            return String.format("상:%d 중:%d 하:%d",top, mid, bot);
+        }
     }
 
     public static final Map<EvaluePart,EvalueClass> standardMap
             = new HashMap<EvaluePart,EvalueClass>(){
         {
             int[][] data = {
-                    {17,15, 21,19, 25,23},
-                    {10, 8, 12,10, 14,12},
-                    { 5, 5,  7, 7,  9, 9},
+                    {40, 35, 45, 40, 50, 45},
+                    {30, 25, 35, 30, 40, 35},
+                    {20, 15, 25, 20, 30, 25},
 
-                    {27,25, 31,29, 35,33},
-                    {15,13, 17,15, 19,17},
-                    { 9, 9, 10,10, 11,11},
+                    {45, 40, 50, 45, 55, 50},
+                    {35, 30, 40, 35, 45, 40},
+                    {25, 20, 30, 25, 35, 30},
 
-                    {37,35, 41,39, 45,43},
-                    {25,23, 27,25, 29,27},
-                    {19,19, 20,20, 21,21},
+                    {55, 50, 60, 55, 65, 60},
+                    {45, 40, 50, 45, 55, 50},
+                    {35, 30, 40, 35, 45, 40},
 
-                    {47,45, 51,49, 55,53},
-                    {35,33, 37,35, 39,37},
-                    {29,29, 30,30, 32,32}
+                    {65, 60, 70, 65, 75, 70},
+                    {55, 50, 60, 55, 65, 60},
+                    {45, 40, 50, 45, 55, 50}
             };
 
-            for(int i = 0; 6 > i ; i++){
-                for(int j = 0 ; 12 > j; j ++){
-                    int p = j / 4;
-                    put(new EvaluePart(
-                            (int)( i / 2) + 4,
-                            i % 2 == 0 ? MAIL : FEMAIL,
-                            p == 0 ? ARM : p == 1 ? LEG : p == 2 ?  BACK : BODY
-                    ),new EvalueClass(
-                            data[p + 0][i],
-                            data[p + 1][i],
-                            data[p + 2][i]
-                    ));
+            for(int x = 0 ; 2 > x ; x++)
+            for(int y = 0 ; 4 > y ; y ++){
+                int grade = (int)Math.floor(x/2) + 3;
+                String gender = x % 2 == 0 ? MAIL : FEMAIL;
+                String part = null;
+                switch (y){
+                    case 0 : part = ARM; break;
+                    case 1 : part = LEG; break;
+                    case 2 : part = BACK; break;
+                    case 3 : part = BODY; break;
                 }
+                int top = data[y*3 + 0][x];
+                int mid = data[y*3 + 1][x];
+                int bot = data[y*3 + 2][x];
+                put(new EvaluePart(grade,gender,part), new EvalueClass(top,mid,bot));
+            }
+
+            for(int x = 0 ; 6 > x ; x++)
+            for(int y = 0 ; 4 > y ; y ++){
+                int grade = (int)Math.floor(x/2) + 4;
+                String gender = x % 2 == 0 ? MAIL : FEMAIL;
+                String part = null;
+                switch (y){
+                    case 0 : part = ARM; break;
+                    case 1 : part = LEG; break;
+                    case 2 : part = BACK; break;
+                    case 3 : part = BODY; break;
+                }
+                int top = data[y*3 + 0][x];
+                int mid = data[y*3 + 1][x];
+                int bot = data[y*3 + 2][x];
+                put(new EvaluePart(grade,gender,part), new EvalueClass(top,mid,bot));
             }
         }
     };
 
+    public static String standardMap2String(){
+        String r = "";
+        for(EvaluePart evaluePart : standardMap.keySet()){
+            EvalueClass evalueClass = standardMap.get(evaluePart);
+            r += evaluePart.toString() + " -> " + evalueClass.toString().toString() + "\n";
+        }
+        return r;
+    }
 
     public static String evaluation(EvaluePart evaluePart, double val){
         EvalueClass evalueClass = standardMap.get(evaluePart);
