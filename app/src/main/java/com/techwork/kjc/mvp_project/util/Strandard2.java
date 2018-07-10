@@ -155,6 +155,6 @@ public class Strandard2 {
 
     public static final String EachBad = "근력이 부족한 신체 부위로 집중적인 근력 운동이 필요합니다. MVP로 부족한 부위의 근력운동을 꾸준히 해 보세요.";
     public static final String EachNormal = "보통 수준의 근력을 가지고 있습니다. MVP로 꾸준히 근력 운동을 하여 근력왕이 될 수 있도록 노력해 보세요.";
-    public static final String EachGood = "근력이 아주 뒤어난 신체부위입니다. 근력이 유지될 수 있도록 꾸준히 근력운동을 하세요.";
+    public static final String EachGood = "근력이 아주 뛰어난 신체부위입니다. 근력이 유지될 수 있도록 꾸준히 근력운동을 하세요.";
 
 }
