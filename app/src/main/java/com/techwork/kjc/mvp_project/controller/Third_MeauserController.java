@@ -167,12 +167,12 @@ public class Third_MeauserController extends AppCompatActivity implements FRG5_M
             ArrayList<String> allEval = new ArrayList<String>(){{add(evalArm); add(evalLeg); add(evalBack); add(evalBody);}};
 
             int topcount = 0; for(String s : allEval) if(s.equals(Strandard2.TOP)) topcount ++;
-            int botcount = 0; for (String s : allEval) if(s.equals(Strandard2.BOT)) botcount ++;
+            int botcount = 0; for (String s : allEval) if(s.equals(Strandard2.BOT) || s.equals(Strandard2.ELSE)) botcount ++;
 
             progressDialog.dismiss();
             new ShowPreScriptionDialog(Third_MeauserController.this,
                     new ShowPreScriptionDialog.Prescription(
-                        topcount>3? Strandard2.TOP3 : botcount>3 ? Strandard2.BOT3 : Strandard2.ELSE3,
+                        topcount>3 ? Strandard2.TOP3 : (botcount > 3 ? Strandard2.BOT3 : Strandard2.ELSE3),
                         generate(evalArm), generate(evalLeg),generate(evalBack), generate(evalBody)
                     )
             ).show();
@@ -183,12 +183,16 @@ public class Third_MeauserController extends AppCompatActivity implements FRG5_M
     private ShowPreScriptionDialog.EachPrescription generate(String eachEval){
         return new ShowPreScriptionDialog.EachPrescription(
                 eachEval.equals(Strandard2.TOP)? ShowPreScriptionDialog.EachPrescription.TOP_CLASS :
-                        eachEval.equals(Strandard2.MID)? ShowPreScriptionDialog.EachPrescription.BOTTOM_CLASS :
-                                ShowPreScriptionDialog.EachPrescription.BOTTOM_CLASS,
+                        (
+                            eachEval.equals(Strandard2.MID)? ShowPreScriptionDialog.EachPrescription.MIDDLE_CLASS :
+                                    ShowPreScriptionDialog.EachPrescription.BOTTOM_CLASS
+                        ),
 
                 eachEval.equals(Strandard2.TOP)? Strandard2.EachGood :
-                        eachEval.equals(Strandard2.MID)? Strandard2.EachNormal:
-                                Strandard2.EachBad
+                        (
+                            eachEval.equals(Strandard2.MID)? Strandard2.EachNormal:
+                                    Strandard2.EachBad
+                        )
         );
     }
 

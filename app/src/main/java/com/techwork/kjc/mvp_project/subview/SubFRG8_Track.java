@@ -39,7 +39,7 @@ public class SubFRG8_Track extends FrameLayout implements View.OnClickListener {
 
     private int valueLevel = 0;
     private int valueReps = 0;
-    private CusSelDateView.SimpleDate simpleDate;
+    private CusSelDateView.SimpleDate simpleDate = new CusSelDateView.SimpleDate();
 
     private OnRequesterUploadItem onRequesterUploadItem;
 
